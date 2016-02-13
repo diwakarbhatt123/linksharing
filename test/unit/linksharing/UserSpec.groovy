@@ -1,12 +1,13 @@
 package linksharing
 
-import grails.test.mixin.TestFor
+import grails.test.mixin.Mock
 import spock.lang.Specification
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-
+//@TestFor(User)
+@Mock(User)
 class UserSpec extends Specification {
 
     void "test"() {
@@ -34,7 +35,7 @@ class UserSpec extends Specification {
         setup:
         String email = "diwakar.bhatt@tothenew.com"
         String password = 'password'
-        User user = new User(firstName: "Puneet", lastName: "Kaur", email: email, password: password)
+        User user = new User(firstName: "Diwakar", lastName: "Bhatt", email: email, password: password)
 
         when:
         user.save()
@@ -43,7 +44,7 @@ class UserSpec extends Specification {
         user.count() == 1
 
         when:
-        User newEmployee = new User(firstName: "Neha", lastName: "Gupta", email: email, password: password)
+        User newEmployee = new User(firstName: "Ajay", lastName: "Kumar", email: email, password: password)
         newEmployee.save()
 
         then:
@@ -51,14 +52,13 @@ class UserSpec extends Specification {
         newEmployee.errors.allErrors.size() == 1
         newEmployee.errors.getFieldErrorCount('email') == 1
     }
-
     def "Get Fullname"() {
 
         setup:
         User user = new User(firstname: fname, lastname: lname)
 
         expect:
-        user.fullName = full
+        user.fullName == full
 
         where:
         fname     | lname   | full

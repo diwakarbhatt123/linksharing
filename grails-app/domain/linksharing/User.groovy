@@ -9,12 +9,13 @@ class User {
     String password
     String firstname
     String lastname
-    SQLType photo
+    byte[] photo
     boolean admin
     boolean active
     Date dateCreated
     Date lastUpdated
     static transients = ['fullname']
+    static hasMany = [topics:Topic,subcriptions:Subscription,readingItems:ReadingItem,resources:Resource]
     String getFullName()
     {
         "${firstname} ${lastname}"

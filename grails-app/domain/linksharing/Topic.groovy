@@ -6,6 +6,7 @@ class Topic {
     Date dateCreated
     Date lastUpdated
     Visibility visibility
+    static hasMany = [subscriptions:Subscription,resources:Resource]
     static constraints = {
         name(nullable: false, blank: false, unique: true)
         visibility(nullable: false)

@@ -7,7 +7,10 @@ class ReadingItem {
     boolean isRead
     Date dateCreated
     Date lastUpdated
+    static belongsTo = [user:User,resource:Resource]
     static constraints = {
-        user (unique: true)
+        user (unique: true,nullable: false)
+        resource (nullable: false)
+        isRead (nullable:false)
     }
 }

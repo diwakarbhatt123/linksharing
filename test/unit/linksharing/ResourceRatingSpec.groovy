@@ -9,12 +9,23 @@ import spock.lang.Specification
 @TestFor(ResourceRating)
 class ResourceRatingSpec extends Specification {
 
-    def setup() {
+    void "test"() {
+        expect:
+        true
     }
 
-    def cleanup() {
-    }
+    void "resource rating validation"() {
+        setup:
+        ResourceRating resourceRating = new ResourceRating(resource: resource, user: user, score: score)
 
-    void "test something"() {
+        expect:
+        resourceRating.validate() == true
+
+        where:
+        resource               | user       | score
+        null                   | new User() | 3
+        null                   | null       | 2
+        new DocumentResource() | new User() | 7
+        new DocumentResource() | new User() | 2
     }
 }
