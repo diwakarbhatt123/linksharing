@@ -21,6 +21,7 @@ environments {
         dataSource {
             dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3306/linksharing"
+            logSql = true
         }
     }
     test {

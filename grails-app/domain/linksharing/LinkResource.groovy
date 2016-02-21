@@ -5,4 +5,9 @@ class LinkResource extends Resource {
     static constraints = {
         url (url: true)
     }
+
+    @Override
+    String toString() {
+        "Description:${description},Url:${url}"
+    }
 }
