@@ -24,8 +24,9 @@ class BootStrap {
     }
 
     void createUser() {
-        User user = new User(firstname: "User1", lastname: "User1", email: "user1@gmail.com", username: "User1", password: Passwords.defPassword, admin: false);
-        User admin = new User(firstname: "User2", lastname: "User2", email: "user2@gmail.com", username: "User2", password: Passwords.defPassword, admin: true);
+        User user = new User(firstname: "Diwakar", lastname: "Bhatt", email: "diwakarbhatt68@gmail.com", username: "diwakarbhatt68", password: Passwords.defPassword,confirmPassword: Passwords.defPassword,admin: false,active:true,fullname:"Diwakar Bhatt");
+        Log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${user.fullName}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        User admin = new User(firstname: "User2", lastname: "User2", email: "user2@gmail.com", username: "User2", password: Passwords.defPassword,confirmPassword: Passwords.defPassword, admin: true);
         if (User.count() == 0) {
             if (user.validate())
                 user.save(flush: true, failOnError: true)
@@ -43,13 +44,12 @@ class BootStrap {
     }
 
     void createTopics() {
-        User creater = User.findByFirstname("User1")
+        User creater = User.findByFirstname("Diwakar")
+        List topicsList = ["Grails","DevOps","AMC","Java","MeanStack"]
         if (Topic.countByCreatedBy(creater) == 0) {
-            Topic topic1 = new Topic(name: "Grails", createdBy: creater, visibility: Visibility.PUBLIC).save()
-            Topic topic2 = new Topic(name: "DevOps", createdBy: creater, visibility: Visibility.PUBLIC).save()
-            Topic topic3 = new Topic(name: "AMC", createdBy: creater, visibility: Visibility.PUBLIC).save()
-            Topic topic4 = new Topic(name: "Java", createdBy: creater, visibility: Visibility.PUBLIC).save()
-            Topic topic5 = new Topic(name: "MeanStack", createdBy: creater, visibility: Visibility.PUBLIC).save()
+            topicsList.each {
+                Topic topic = new Topic(name: it, createdBy: creater, visibility: Visibility.PUBLIC).save()
+            }
         } else {
             Log.info("User already has 5 topics")
         }
@@ -57,17 +57,18 @@ class BootStrap {
 
     void createResources() {
         List topicList = Topic.getAll();
-
         if (Resource.count() == 0) {
             topicList.each {
                 Resource docResource1 = new DocumentResource(description: it.name, topic: it, createdBy: it.createdBy, filePath: "ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt").save()
                 Resource docResource2 = new DocumentResource(description: it.name, topic: it, createdBy: it.createdBy, filePath: "ftp://ftp.funet.fi/pub/standards/RFC/rfc960.txt").save()
-                Resource linkResource1 = new LinkResource(description: it.name, topic: it, createdBy: it.createdBy, url: "hhttps://en.wikipedia.org/wiki/Main_Page").save()
+                Resource linkResource1 = new LinkResource(description: it.name, topic: it, createdBy: it.createdBy, url: "https://en.wikipedia.org/wiki/Main_Page").save()
                 Resource linkResource2 = new LinkResource(description: it.name, topic: it, createdBy: it.createdBy, url: "http://www.encyclopedia.com/").save()
             }
         } else {
             Log.info("Resource count greater than zero")
         }
+        Log.info("Resource count is"+Resource.count())
+
     }
 
     void subscribeTopic() {

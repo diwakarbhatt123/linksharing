@@ -1,7 +1,6 @@
 package linksharing
 
 import grails.test.spock.IntegrationSpec
-
 class UserIntegrationSpec extends IntegrationSpec {
 
     def setup() {
@@ -11,5 +10,6 @@ class UserIntegrationSpec extends IntegrationSpec {
     }
 
     void "test something"() {
+
     }
 }

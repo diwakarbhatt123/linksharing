@@ -9,17 +9,17 @@ dataSource {
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
-//    cache.region.factory_class = 'org.hibernate.cache.SingletonEhCacheRegionFactory' // Hibernate 3
+//  cache.region.factory_class = 'org.hibernate.cache.SingletonEhCacheRegionFactory' // Hibernate 3
     cache.region.factory_class = 'org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory' // Hibernate 4
-    singleSession = true // configure OSIV singleSession mode
-    flush.mode = 'manual' // OSIV session flush mode outside of transactional context
+    //singleSession = true // configure OSIV singleSession mode
+    //flush.mode = 'manual' // OSIV session flush mode outside of transactional context
 }
 
 // environment specific settings
 environments {
     development {
         dataSource {
-            dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3306/linksharing"
             logSql = true
         }
@@ -27,7 +27,10 @@ environments {
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost:3306/linksharing"
+            url = "jdbc:h2:mem:linksharing_test"
+            driverClassName = "org.h2.Driver"
+            username = "sa"
+            password = ""
         }
     }
     production {

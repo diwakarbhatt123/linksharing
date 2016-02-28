@@ -6,4 +6,9 @@ class DocumentResource extends Resource {
     static constraints = {
 
     }
+
+    @Override
+    String toString() {
+        "Description:${description},filepath:${filePath}"
+    }
 }

@@ -1,5 +1,4 @@
 package linksharing
-import spock.util.mop.Use
 
 class Subscription {
 
@@ -11,4 +10,10 @@ class Subscription {
         seriousness(nullable: false,blank:false)
         topic(nullable: true)
     }
+    static mapping = {
+        seriousness enumType:Seriousness.SERIOUS
+        user lazy:false
+        topic lazy: false
+    }
+
 }
