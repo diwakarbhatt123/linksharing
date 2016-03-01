@@ -39,9 +39,10 @@
 *.iml
 
 
-
+# Unused grails/gradle files
 .classpath
 .slcache/
 .project
 .gradle
+build/
 
