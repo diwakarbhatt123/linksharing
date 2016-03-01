@@ -38,3 +38,10 @@
 .idea/
 *.iml
 
+
+
+.classpath
+.slcache/
+.project
+.gradle
+
