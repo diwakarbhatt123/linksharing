@@ -38,9 +38,14 @@
 .idea/
 *.iml
 
+<<<<<<< HEAD
+=======
+
 # Unused grails/gradle files
 .classpath
 .slcache/
 .project
 .gradle
 build/
+
+>>>>>>> f65ee9b... Ignored build/ folder;
