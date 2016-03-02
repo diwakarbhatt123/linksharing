@@ -8,7 +8,7 @@ class Subscription {
     static belongsTo = [user:User,topic:Topic]
     static constraints = {
         seriousness(nullable: false,blank:false)
-        topic(nullable: true)
+        topic(nullable: false)
     }
     static mapping = {
         seriousness enumType:Seriousness.SERIOUS

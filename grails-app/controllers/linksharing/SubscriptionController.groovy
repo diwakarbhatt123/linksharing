@@ -5,7 +5,7 @@ class SubscriptionController {
     def index() {}
 
     def delete(int id) {
-        Subscription subscription = Subscription.load(id)
+        Subscription subscription = Subscription.read(id)
         if (subscription) {
             subscription.delete(flush:true)
             render("Success")
@@ -16,7 +16,7 @@ class SubscriptionController {
 
     def save(int topicId) {
         User subscriber = session.user
-        Subscription newSubscription = new Subscription(user: subscriber, topic: Topic.get(topicId))
+        Subscription newSubscription = new Subscription(user: subscriber, topic: Topic.get(topicId),seriousness:Seriousness.SERIOUS)
         if (newSubscription.validate()) {
             newSubscription.save()
             render("Success")

@@ -19,6 +19,7 @@ class LoginController {
         }
     def loginHandler(String username,int password)
     {
+
         User user = User.findByUsernameAndPassword(username,password)
         if(user) {
             if (user.active) {
