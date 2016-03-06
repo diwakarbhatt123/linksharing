@@ -9,9 +9,9 @@ class TopicVO {
     Visibility visibility
     int count
     User createdBy
-
+    int subscribers
     @Override
     String toString() {
-       "ID:${id},Name:${name},Visibility:${visibility},Count:${count},Created By:${createdBy.fullName}\n"
+       "ID:${id},Name:${name},Visibility:${visibility},Count:${count},Created By:${createdBy.fullName},Subscribers:${subscribers}\n"
     }
 }

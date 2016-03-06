@@ -1,6 +1,7 @@
 package linksharing
 
 import com.intelligrape.linksharing.ResourceSearchCO
+import com.intelligrape.linksharing.TopicVO
 import jline.internal.Log
 
 class TopicController {
@@ -11,7 +12,9 @@ class TopicController {
 
         Topic topic = Topic.read(id)
         List<User> subscribedUsers = topic.subscribedUsers
-        render(view:"show",model:[subscribedUsers:subscribedUsers])
+        List<Resource> topicResources = Resource.findAllByTopic(topic)
+        TopicVO topicVO = new TopicVO(id:topic.id,name:topic.name,visibility:topic.visibility,count:Resource.countByTopic(topic),createdBy:topic.createdBy,subscribers:Subscription.countByTopic(topic))
+        render(view:"show",model:[subscribedUsers:subscribedUsers,topicResources:topicResources,topic:topicVO])
     }
     def save(String topicName,String visibility)
     {

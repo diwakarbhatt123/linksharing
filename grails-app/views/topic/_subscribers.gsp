@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Users: "${topicName}"</strong></div>
+    <div class="panel-body">
+        <g:each in="${subscribers}" var="subscriber">
+        <div>
+            <div class="col-xs-2">
+                <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+            </div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span class="h3"><strong>${subscriber.fullName}</strong></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <small class="text-muted">@${subscriber.username}</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3"><small class="text-muted">Subscription</small></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-3"><small class="text-muted">Posts</small></div>
+                    <div class="col-xs-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3"><p class="text-info">${linksharing.Subscription.countByUser(subscriber)}</p></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-3"><p class="text-info">${linksharing.Resource.countByCreatedBy(subscriber)}</p></div>
+                    <div class="col-xs-1"></div>
+                </div>
+            </div>
+        </div>
+        </g:each>
+    </div>
+</div>
