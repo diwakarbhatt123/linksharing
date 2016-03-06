@@ -8,19 +8,16 @@ class LoginController {
             forward(controller:"user",action:"index")
         }
         else {
-            render("User not logged in")
-            List resources = topPosts()
-            render("</br>")
-            resources.each {
-                render(it)
-                render("<br/>")
-            }
+            List topPosts = topPosts()
+            List recentPosts = recentPosts()
+            render(view:"login",model:[topPosts:topPosts, recentPosts:recentPosts])
         }
         }
     def loginHandler(String username,int password)
     {
 
         User user = User.findByUsernameAndPassword(username,password)
+        println "<<<<<<<<<<<<<<<<<<<<${params}<<<<<<<<<<<<<<<<<<<<<<<"
         if(user) {
             if (user.active) {
                 session.user = user
@@ -42,7 +39,7 @@ class LoginController {
     }
     def topPosts()
     {
-        List<ResourceRating>resources=ResourceRating.createCriteria().list(max:5){
+        List resources=ResourceRating.createCriteria().list(max:5){
             projections{
                 groupProperty('resource')
                 avg('score','avgScore')
@@ -53,5 +50,19 @@ class LoginController {
             order('avgScore','desc')
         }
         return resources
+    }
+    def recentPosts()
+    {
+        List recentPosts = Resource.list(sort:"dateCreated",order:"asc",max:2);
+        return recentPosts
+    }
+    def register() {
+        User registerUser = new User(params)
+        if (registerUser.validate()) {
+            registerUser.save()
+            render("Success")
+        } else {
+            render("Could not register user field ${registerUser.errors.fieldError} cannot have value ${registerUser.errors.fieldError.rejectedValue}")
+        }
     }
 }

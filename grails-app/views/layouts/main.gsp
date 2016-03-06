@@ -4,22 +4,64 @@
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title><g:layoutTitle default="Grails"/></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
-		<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
-		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
-  		<asset:stylesheet src="application.css"/>
-		<asset:javascript src="application.js"/>
-		<g:layoutHead/>
-	</head>
-	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
-		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
-		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-	</body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title><g:layoutTitle default="Grails"/></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <asset:javascript src="bootstrap.min.js"/>
+    <asset:stylesheet href="bootstrap.min.css"/>
+    <asset:stylesheet href="font-awesome.min.css"/>
+    <g:layoutHead/>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class = "navbar-brand "href="#">Link Sharing</a>
+        </div>
+        <!-- Search Bar -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <form class="navbar-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <g:if test="${session.user}">
+            <li><a class="glyphicon glyphicon-comment" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#createtopic"></a></li>
+              <g:render template="/topic/create"/>
+                <li><a class="glyphicon glyphicon-envelope" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#sendinvite"></a></li>
+                <g:render template="/topic/email"/>
+                <li><a class="glyphicon glyphicon-link" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#sharelink"></a></li>
+                <g:render template="/linkResource/create"/>
+                <li><a class="glyphicon glyphicon-file" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#sharedocument"></a></li>
+                <g:render template="/documentResource/create"/>
+                <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Diwakar Bhatt <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Profile</a></li>
+                    <li class="divider"></li>
+                     <li><g:link controller="user" action="usershow">Users</g:link></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Topics</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Posts</a></li>
+                    <li class="divider"></li>
+                    <li><g:link controller="login" action="logout">Logout</g:link></li>
+                </ul>
+            </li>
+            </g:if>
+        </ul>
+    </div>
+</nav>
+<g:layoutBody/>
+
+</body>
 </html>

@@ -1,7 +1,5 @@
 package linksharing
 
-import jdk.management.resource.ResourceType
-
 class ResourceRating {
     int score
     Date dateCreated

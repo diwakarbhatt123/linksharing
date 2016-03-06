@@ -8,7 +8,7 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
 @TestFor(ResourceController)
-@Mock([Resource,LinkResource,Topic])
+@Mock([Resource,DocumentResource,Topic])
 class ResourceControllerSpec extends Specification {
 
     def setup() {
@@ -19,9 +19,11 @@ class ResourceControllerSpec extends Specification {
 
     void "test delete"() {
         setup:
-        LinkResource resource = new LinkResource(id:id).save(validate:false)
+        Resource resource = new DocumentResource(description: "Grails",filePath: "ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt")
+        resource.id = 10
+        resource.save()
         when:
-        controller.delete(id)
+        controller.delete(10)
         then:
         response.text == "Success"
         where:

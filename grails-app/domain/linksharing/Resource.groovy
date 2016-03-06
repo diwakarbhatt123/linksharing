@@ -12,6 +12,9 @@ abstract class Resource {
     static transients = ['ratingInfo']
     static hasMany = [ratings: ResourceRating, readingItems: ReadingItem]
     static belongsTo = [createdBy: User, topic: Topic]
+    static mapping = {
+        tablePerHierarchy(true)
+    }
 
     RatingInfoVO getRatingInfo() {
         List result = Resource.createCriteria().list {

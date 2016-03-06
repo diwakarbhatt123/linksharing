@@ -4,11 +4,11 @@ enum Visibility {
     PUBLIC, PRIVATE
     static Visibility toEnum(String visibility)
     {
-        if(visibility.equals("public"))
+        if(visibility.equalsIgnoreCase("public"))
         {
             return PUBLIC
         }
-        else if(visibility.equals("private"))
+        else if(visibility.equalsIgnoreCase("private"))
         {
             return PRIVATE
         }

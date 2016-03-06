@@ -13,7 +13,7 @@ class User {
     boolean active
     Date dateCreated
     Date lastUpdated
-    static transients = ['fullname', 'confirmPassword']
+    static transients = ['fullname', 'confirmPassword','subscribedTopics']
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource, resource_ratings: ResourceRating]
 
     String getFullName() {
@@ -44,6 +44,16 @@ class User {
         sort id:'desc'
     }
 
+    List<Topic> getSubscribedTopics()
+    {
+        List<Topic> subsTopics = Subscription.createCriteria().list(max:5){
+            projections
+                    {
+                        property("topic")
+                    }
+                   eq("user",this)
+        }
+    }
 
     @Override
     String toString() {

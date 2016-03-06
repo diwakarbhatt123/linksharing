@@ -3,13 +3,9 @@ package linksharing
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
-import spock.util.mop.Use
 
-/**
- * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
- */
 @TestFor(LoginController)
-@Mock(User)
+@Mock([User, ResourceRating])
 class LoginControllerSpec extends Specification {
 
     def setup() {
@@ -20,30 +16,35 @@ class LoginControllerSpec extends Specification {
 
     void "test index"() {
         setup:
-        session.user = user
+        session.user = sessionuser
         when:
         controller.index()
         then:
-        response.forwardedUrl == "/user/index"
+        response.forwardedUrl == url
+        response.text == text
         where:
-        user << ["user1"]
+        sessionuser | url           | text
+        "User1"     | "/user/index" | ""
+        null        | ""            | "User not logged in"
     }
-    void "login Handler test"()
-    {
+
+    void "login Handler test"() {
         setup:
-         User user = new User(username:username,password:password)
-         user.active = true
-         user.save(validate:false)
+        User user = new User(username: username, password: password)
+        user.active = active
+        user.save(validate: false)
         when:
-        controller.loginHandler(username,password)
+        controller.loginHandler(username, password)
         then:
-        response.redirectedUrl == "/"
+        response.redirectedUrl == url
+        response.text == text
         where:
-        username        | password
-        "diwkarbhatt68" | 64353
+        username        | password | active | url  | text
+        "diwkarbhatt68" | 64353    | true   | "/"  | null
+        "diwkarbhatt68" | 64353    | false  | null | "Your Account is not active"
     }
-    void "test invalidate"()
-    {
+
+    void "test invalidate"() {
         setup:
         session.user = "User1"
         when:

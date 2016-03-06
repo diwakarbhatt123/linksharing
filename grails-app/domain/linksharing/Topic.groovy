@@ -2,7 +2,6 @@ package linksharing
 
 import com.intelligrape.linksharing.TopicVO
 import jline.internal.Log
-import org.hibernate.Hibernate
 
 class Topic {
 
@@ -10,6 +9,7 @@ class Topic {
     Date dateCreated
     Date lastUpdated
     Visibility visibility
+    static transients = ['subscribedUsers']
     static hasMany = [subscriptions: Subscription, resources: Resource]
     static belongsTo = [createdBy: User]
     static constraints = {
@@ -18,6 +18,16 @@ class Topic {
         createdBy(nullable: false)
         resources(nullable: true)
         subscriptions(nullable: true)
+    }
+    List<User> getSubscribedUsers()
+    {
+        List<User>subUsers = Subscription.createCriteria().list{
+            projections{
+                property("user")
+            }
+            eq("topic",Topic.findByName("Grails"))
+        }
+        return subUsers
     }
     static mapping = {
         sort("name")

@@ -85,11 +85,6 @@ class UserSpec extends Specification {
         uname            | fname     | lname   | mail                       | pwd     | admn | active | valid | validname
         "diwakarbhatt68" | "diwakar" | "bhatt" | "diwakarbhatt68@gmail.com" | "12345" | true | true   | true  | "diwakar bhatt/diwakarbhatt68@gmail.com/diwakarbhatt68"
         "diwakarbhatt68" | "diwakar" | "bhatt" | "diwakarbhatt68@gmail.com" | "12345" | true | true   | true  | "diwakar bhatt/diwakarbhatt68@gmail.com/diwakarbhatt"
-//        "sagarmal624"    | ""         | null        | "sa@gm.com"                | "sagar"       | false | false  | null           | new Date()     | false | "sagarmal624"
-//        "123"            | null       | "sagar  "   | null                       | "12345670890" | true  | null   | null           | new Date()     | false | "123"
-//        "sagar"          | "sagarmal" | "shankhala" | "sagar@gm.com"             | "125"         | false | true   | 02 - 01 - 1993 | 02 - 01 - 1993 | false | "sagar"
-//        "sagar"          | " "        | " "         | ""                         | ""            | null  | null   | null           | null           | false | "sagar"
-//        "shankhala"      | null       | null        | null                       | null          | null  | null   | null           | true           | false | "shankhala"
 
     }
 }

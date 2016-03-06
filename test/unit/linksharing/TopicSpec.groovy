@@ -69,7 +69,6 @@ class TopicSpec extends Specification {
         result == valid
         checkname == topicname.equals(validname)
         where:
-
         name     | visibility         | valid | validname | checkname
         "grails" | Visibility.PRIVATE | true  | "amc"     | false
         "java"   | Visibility.PUBLIC  | true  | "java"    | true
