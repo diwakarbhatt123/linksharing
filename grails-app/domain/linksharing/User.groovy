@@ -54,6 +54,32 @@ class User {
                    eq("user",this)
         }
     }
+    boolean canDeleteResource(Resource resource)
+    {
+        if((resource.createdBy.id==this.id)|| this.admin)
+        {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    int getScore(Resource resource)
+    {
+        int score = ResourceRating.createCriteria().get{
+            projections {
+                property("score")
+            }
+            eq("user",this)
+            eq("resource",resource)
+        }
+        return score
+    }
+
+    boolean isSubscribed(long topicId)
+    {
+        return(Subscription.findByUserAndTopic(this,Topic.read(topicId)))
+    }
 
     @Override
     String toString() {

@@ -11,4 +11,9 @@ class ReadingItem {
         resource(nullable: true)
         user(nullable: true)
     }
+
+    @Override
+    String toString() {
+        "${user}&${resource}"
+    }
 }

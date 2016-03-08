@@ -8,12 +8,12 @@ class ReadingItemController {
         render "Hello"
     }
     def changeIsRead(Long id,Boolean isRead) {
-        Log.info("Change is read called")
-        int result = ReadingItem.executeUpdate("update ReadingItem set isRead=${isRead} where id=${id}")
+        int result = ReadingItem.executeUpdate("update ReadingItem read set read.isRead=${isRead} where read.id=${id}")
         if (result) {
-            render "Success"
+            flash.message = "Updated Successfully"
         } else {
-            render "Could not Update"
+            flash.error = "Could not udpate"
         }
+        redirect(controller:"user",action:"index")
     }
 }

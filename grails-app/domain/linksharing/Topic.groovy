@@ -67,6 +67,14 @@ class Topic {
         }
         return trendingTopics
     }
+    boolean isPublic()
+    {
+        return this.visibility==Visibility.PUBLIC
+    }
+    boolean canViewedBy(User user)
+    {
+        return (user.admin || this.isPublic() || Subscription.countByUserAndTopic(user,this))
+    }
 
     @Override
     String toString() {

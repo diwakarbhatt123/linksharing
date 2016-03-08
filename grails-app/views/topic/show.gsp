@@ -45,15 +45,15 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-xs-3"><a href="#">Subscribe</a></div>
+                                <div class="col-xs-3"><ls:showSubscribe topicId="${topic.id}"/></div>
 
                                 <div class="col-xs-1"></div>
 
-                                <div class="col-xs-3"><p class="text-info">${topic.subscribers}</p></div>
+                                <div class="col-xs-3"><p class="text-info"><ls:subscriptionCount topicId="${topic.id}"/></p></div>
 
                                 <div class="col-xs-1"></div>
 
-                                <div class="col-xs-3"><p class="text-info">${topic.count}</p></div>
+                                <div class="col-xs-3"><p class="text-info"><ls:resourceCount topicId="${topic.id}"/></p></div>
 
                                 <div class="col-xs-1"></div>
                             </div>

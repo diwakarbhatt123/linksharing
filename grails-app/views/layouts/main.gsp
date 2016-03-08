@@ -25,14 +25,14 @@
         <!-- Search Bar -->
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <form class="navbar-form">
+                <g:form controller="resource" action="search" class="navbar-form">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <g:textField type="text" class="form-control" placeholder="Search" name="q" id="srch-term"/>
                         <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            <g:submitButton name="searchsubmit" class="btn btn-default" type="submit" value="Search"/>
                         </div>
                     </div>
-                </form>
+                </g:form>
             </li>
             <g:if test="${session.user}">
             <li><a class="glyphicon glyphicon-comment" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#createtopic"></a></li>

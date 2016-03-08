@@ -34,7 +34,7 @@
 
                         <div class="col-xs-6"></div>
 
-                        <div class="col-xs-3"><a href="#">View Post</a></div>
+                        <div class="col-xs-3"><g:link controller="resource" action="show" id="${post.id}">View Post</g:link> </div>
                     </div>
                 </div>
             </div>

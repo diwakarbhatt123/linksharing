@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="linksharing.Resource" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +30,7 @@
         <div class="col-xs-6">
             <!-- Top Posts Panel-->
             <!-- ************************************************************ -->
-        <g:render template="toppost" model="${[topPosts:topPosts]}"/>
+        <ls:topPosts/>
          </div>
 
         <div class="col-xs-6">

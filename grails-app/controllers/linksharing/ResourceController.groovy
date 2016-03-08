@@ -9,37 +9,39 @@ class ResourceController {
     def index() {}
 
     def delete(long id) {
-      Resource resource = Resource.read(id)
-        println ">>>>>>>>>>>${resource}<<<<<<<<<<<<<<<"
-        if(resource)
+
+        User loggediInUser = session.user
+        Resource resource = Resource.read(id)
+        if(loggediInUser.canDeleteResource(resource))
         {
             resource.delete()
-            render("Success")
+            flash.message = "Resource Deleted"
         }
         else {
-            render("Resource not found")
+            flash.error = "Cannot found resource"
         }
+        redirect(controller:"login",action:"index")
     }
     def search(ResourceSearchCO co)
     {
         if(co.q)
          {
              co.visibility = Visibility.PUBLIC
-             List<Resource> resources = Resource.search(co).list();
-             render(resources)
+             List<Resource> resources = Resource.search(co).list([max:5]);
+             render(view:"search",model:[searchResources:resources])
          }
         else
-        render("Q is not set")
+        flash.message = "No input in query"
     }
     def show(long id)
     {
         Resource resource = Resource.get(id)
-        render resource.ratingInfo;
-        render("</br></br>")
-        List trendingTopics = Topic.trendingTopic
-        trendingTopics.each {
-            render(it)
-            render("</br></br>")
+        if(resource.canViewedBy(session.user)) {
+            List trendingTopics = Topic.trendingTopic
+            render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
+        }
+        else {
+            flash.error = "User Cannot view Topic"
         }
     }
     def saveLinkResource(String url,String description,String topic)

@@ -5,25 +5,27 @@ class SubscriptionController {
     def index() {}
 
     def delete(int id) {
-        Subscription subscription = Subscription.read(id)
+        Subscription subscription = Subscription.findByUserAndTopic(session.user,Topic.read(id))
         if (subscription) {
             subscription.delete(flush:true)
-            render("Success")
+      flash.message = "Subscription Deleted Successfully"
         } else {
-            render("Subscription not found")
+          flash.error = "Subscription Not Found"
         }
+        redirect(controller:"user",action:"index")
     }
 
-    def save(int topicId) {
+    def save(int id) {
         User subscriber = session.user
-        Subscription newSubscription = new Subscription(user: subscriber, topic: Topic.get(topicId),seriousness:Seriousness.SERIOUS)
+        Subscription newSubscription = new Subscription(user: subscriber, topic: Topic.get(id),seriousness:Seriousness.SERIOUS)
         if (newSubscription.validate()) {
             newSubscription.save()
-            render("Success")
+            flash.message = "Subscribed"
         } else {
-            println newSubscription.errors.allErrors
-            render("Cannot make subscription")
+            flash.error = "Cannot Create Subscription"
         }
+        redirect(controller:"user",action:"index")
+
     }
 
     def update(int id, String seriousness) {

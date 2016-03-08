@@ -18,15 +18,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-3"><small class="text-muted">Subscription</small></div>
+                    <div class="col-xs-3"><small class="text-muted">Subscriptions</small></div>
                     <div class="col-xs-1"></div>
-                    <div class="col-xs-3"><small class="text-muted">Posts</small></div>
+                    <div class="col-xs-3"><small class="text-muted">Topics</small></div>
                     <div class="col-xs-1"></div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-3"><p class="text-info">${linksharing.Subscription.countByUser(subscriber)}</p></div>
+                    <div class="col-xs-3"><p class="text-info"><ls:subscriptionCount user="${subscriber}"/></p></div>
                     <div class="col-xs-1"></div>
-                    <div class="col-xs-3"><p class="text-info">${linksharing.Resource.countByCreatedBy(subscriber)}</p></div>
+                    <div class="col-xs-3"><p class="text-info"><ls:topicCount user="${subscriber}"/></p></div>
                     <div class="col-xs-1"></div>
                 </div>
             </div>

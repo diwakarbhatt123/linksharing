@@ -54,5 +54,34 @@ abstract class Resource {
             }
         }
     }
+    static topPosts()
+    {
+        List resources=ResourceRating.createCriteria().list(max:5){
+            projections{
+                groupProperty('resource')
+                avg('score','avgScore')
+            }
+            'resource'{
+                property('id')
+            }
+            order('avgScore','desc')
+        }
+        return resources
+    }
+    String whichResource()
+    {
+        if(this instanceof LinkResource) {
+            return "Link"
+        }
+            else if(this instanceof DocumentResource)
+        {
+         return "Document"
+        }
+    }
+    boolean canViewedBy(User user)
+    {
+        Topic resourceTopic = this.topic
+        return resourceTopic.canViewedBy(user)
+    }
 }
 

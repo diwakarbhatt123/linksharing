@@ -8,7 +8,7 @@ class UserController {
 
     def index() {
        List<TopicVO> trendingTopics = Topic.trendingTopic
-        render(view:"user",model:[trendingTopics:trendingTopics])
+       render(view:"user",model:[trendingTopics:trendingTopics])
     }
     def usershow()
     {

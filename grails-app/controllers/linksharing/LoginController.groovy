@@ -8,7 +8,7 @@ class LoginController {
             forward(controller:"user",action:"index")
         }
         else {
-            List topPosts = topPosts()
+            List topPosts = Resource.topPosts()
             List recentPosts = recentPosts()
             render(view:"login",model:[topPosts:topPosts, recentPosts:recentPosts])
         }
@@ -37,21 +37,8 @@ class LoginController {
         session.invalidate()
         render("User logged out")
     }
-    def topPosts()
-    {
-        List resources=ResourceRating.createCriteria().list(max:5){
-            projections{
-                groupProperty('resource')
-                avg('score','avgScore')
-            }
-            'resource'{
-                property('id')
-            }
-            order('avgScore','desc')
-        }
-        return resources
-    }
-    def recentPosts()
+
+    private recentPosts()
     {
         List recentPosts = Resource.list(sort:"dateCreated",order:"asc",max:2);
         return recentPosts

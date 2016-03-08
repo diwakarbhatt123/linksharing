@@ -31,8 +31,8 @@
                     <div class="col-xs-1 fa fa-google-plus"></div>
                     <div class="col-xs-2"><small><a href="#">Download</a></small></div>
                     <div class="col-xs-3"><small><a href="#">View Full Site</a></small></div>
-                    <div class="col-xs-2"><small><a href="#">Mark as Read</a></small></div>
-                    <div class="col-xs-2"><small><a href="#">View Post</a></small></div>
+                    <div class="col-xs-2"><small><ls:isRead resource="${resource}"/></small></div>
+                    <div class="col-xs-2"><small><g:link controller="resource" action="show" id="${resource.id}">View Post</g:link></small></div>
                 </div>
             </div>
         </div>
