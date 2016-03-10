@@ -60,7 +60,20 @@ grails {
         // filteringCodecForContentType.'text/html' = 'html'
     }
 }
-
+environments{
+    development{
+        userImageFolder = "${userHome}/linksharingimages"
+        documentFolder = "${userHome}/linksharingdocuments"
+    }
+    test{
+//        userImageFolder = "${userHome}/linksharingimages"
+//        documentFolder = "${userHome}/linksharingdocuments"
+    }
+    production{
+//        userImageFolder = //"${userHome}/linksharingimages"
+//        documentFolder = //"${userHome}/linksharingdocuments"
+    }
+}
 
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
@@ -90,6 +103,7 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = false
+        grails.serverURL = "http://localhost:8080"
     }
     production {
         grails.logging.jul.usebridge = false
@@ -129,8 +143,8 @@ grails{
     mail{
         host = "smtp.gmail.com"
         port = 465
-        username = ""
-        password = ""
+        username = "linksharingapplication@gmail.com"
+        password = "64135271"
         props = ["mail.smtp.auth":"true",
                  "mail.smtp.socketFactory.port":"465",
                     "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",

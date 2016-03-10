@@ -55,7 +55,7 @@
                 <label class="col-xs-4">Photo</label>
 
                 <div class="col-xs-5">
-                    <g:field type="file" name="photo" class="form-control"/>
+                    <g:field type="file" accept=".jpg,.jpeg,.png" name="photo" class="form-control"/>
                 </div>
 
             </div>

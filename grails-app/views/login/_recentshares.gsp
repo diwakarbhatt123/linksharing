@@ -5,7 +5,12 @@
         <g:each in="${recentPosts}" var="post">
             <div>
                 <div class="col-xs-2">
-                    <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                    <g:if test="${post.createdBy.imagePath}">
+                        <ls:userImage userId="${post.createdBy.id}"/>
+                    </g:if>
+                    <g:else>
+                        <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                    </g:else>
                 </div>
 
                 <div class="col-xs-10">
@@ -19,7 +24,7 @@
                         </div>
 
                         <div class="col-xs-3">
-                            <a href="#" class="text-left">${post.topic}</a>
+                            <g:link class="text-left" controller="topic" action="show" id="${post.topic.id}">${post.topic}</g:link>
                         </div>
                     </div>
 

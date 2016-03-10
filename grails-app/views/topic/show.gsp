@@ -17,7 +17,12 @@
                 <div class="panel-body">
                     <div>
                         <div class="col-xs-2">
-                            <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                            <g:if test="${topic.createdBy.imagePath}">
+                                <ls:userImage userId="${topic.createdBy.id}"/>
+                            </g:if>
+                            <g:else>
+                                <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                            </g:else>
                         </div>
 
                         <div class="col-xs-10">

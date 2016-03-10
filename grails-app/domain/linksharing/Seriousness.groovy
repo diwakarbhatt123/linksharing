@@ -2,8 +2,12 @@ package linksharing
 
 enum Seriousness
 {
-    SERIOUS, VERYSERIOUS, CASUAL
-
+    SERIOUS("Serious"), VERYSERIOUS("Very Serious"), CASUAL("Casual")
+    private String nameAsString
+    private Seriousness(String nameAsString)
+    {
+       this.nameAsString = nameAsString
+    }
     static Seriousness getSeriousness(String seriousness)
     {
         if(seriousness.equals("serious"))
@@ -18,5 +22,10 @@ enum Seriousness
         {
             return CASUAL
         }
+    }
+
+    @Override
+    String toString() {
+      return this.nameAsString
     }
 }

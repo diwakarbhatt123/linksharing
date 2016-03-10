@@ -3,7 +3,7 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <g:form controller="resource" action="saveLinkResource" class="form-horizontal">
+        <g:form controller="linkResource" action="save" class="form-horizontal">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -26,13 +26,13 @@
                     <div class="form-group">
                         <label class="col-xs-4">Topic</label>
                         <div class="col-xs-8">
-                            <g:select name="topic" from="${linksharing.Topic.list()}" class="form-control"/>
+                            <g:select name="topic" from="${session.user.subscribedTopics}" class="form-control"/>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <g:submitButton name="savelinkresource" value="Share" class="btn btn-info"/>
+                <g:submitButton name="saveLinkResource" value="Share" class="btn btn-info"/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>

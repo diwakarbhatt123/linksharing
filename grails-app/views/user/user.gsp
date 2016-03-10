@@ -22,8 +22,13 @@
                 <div class="panel-body">
                     <div>
                         <div class="col-xs-2">
+                        <g:if test="${session.user.imagePath}">
+                            <ls:userImage userId="${session.user.id}"/>
+                        </g:if>
+                        <g:else>
                             <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
-                        </div>
+                        </g:else>
+                            </div>
 
                         <div class="col-xs-10">
                             <span class="h5"><strong>${session.user.fullName}</strong></span>
@@ -146,7 +151,12 @@
                     <g:each in="${session.user.subscribedTopics}" var="topic">
                         <div>
                             <div class="col-xs-2">
-                                <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                                <g:if test="${topic.createdBy.imagePath}">
+                                    <ls:userImage userId="${topic.createdBy.id}"/>
+                                </g:if>
+                                <g:else>
+                                    <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                                </g:else>
                             </div>
 
                             <div class="col-xs-10">

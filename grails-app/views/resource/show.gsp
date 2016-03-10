@@ -15,7 +15,12 @@
                 <div class="panel-body">
                     <div>
                         <div class="col-xs-2">
-                            <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
+                            <g:if test="${resource.createdBy.imagePath}">
+                                <ls:userImage userId="${resource.createdBy.id}"/>
+                            </g:if>
+                            <g:else>
+                                <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
+                            </g:else>
                         </div>
 
                         <div class="col-xs-10">
@@ -72,26 +77,26 @@
                             <div class="col-xs-1"><ls:canDeleteResouce resource="${resource}"/></div>
 
                             <div class="col-xs-1"><a href="#">Edit</a></div>
-                            <g:if test="${resource.whichResource().equals("Document")}">
-                                <div class="col-xs-2"><a href="#">Download</a></div>
-                            </g:if>
-                            <g:elseif test="${resource.whichResource().equals("Link")}">
-                                <div class="col-xs-3"><a href="${resource?.url}" target="_blank">View Full Site</a>
-                                </div>
-                            </g:elseif>
+                            <ls:documentOrLink resourceId="${resource.id}"/>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
 
         <div class="col-xs-6">
             <!-- Trending Topics Panel -->
             <!-- ************************************************ -->
-            <ls:trendingTopics/>
+            <g:if test="${session.user}">
+                <ls:trendingTopics/>
+            </g:if>
+            <g:else>
+                <g:render template="/login/register"/>
+            </g:else>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

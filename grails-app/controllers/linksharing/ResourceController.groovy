@@ -3,6 +3,7 @@ package linksharing
 import com.intelligrape.linksharing.RatingInfoVO
 import com.intelligrape.linksharing.ResourceSearchCO
 import jline.internal.Log
+import org.springframework.web.multipart.MultipartFile
 
 class ResourceController {
 
@@ -12,64 +13,56 @@ class ResourceController {
 
         User loggediInUser = session.user
         Resource resource = Resource.read(id)
-        if(loggediInUser.canDeleteResource(resource))
-        {
+        if (loggediInUser.canDeleteResource(resource)) {
+            if(!resource.isLinkResource())
+            {
+
+            }
             resource.delete()
             flash.message = "Resource Deleted"
-        }
-        else {
+        } else {
             flash.error = "Cannot found resource"
         }
-        redirect(controller:"login",action:"index")
+        redirect(controller: "login", action: "index")
     }
-    def search(ResourceSearchCO co)
-    {
-        if(co.q)
-         {
-             co.visibility = Visibility.PUBLIC
-             List<Resource> resources = Resource.search(co).list([max:5]);
-             render(view:"search",model:[searchResources:resources])
-         }
-        else
-        flash.message = "No input in query"
+
+    def search(ResourceSearchCO co) {
+        if (co.q) {
+            co.visibility = Visibility.PUBLIC
+            List<Resource> resources = Resource.search(co).list([max: 5]);
+            render(view: "search", model: [searchResources: resources])
+        } else
+            flash.message = "No input in query"
     }
-    def show(long id)
-    {
+
+    def show(long id) {
         Resource resource = Resource.get(id)
-        if(resource.canViewedBy(session.user)) {
-            List trendingTopics = Topic.trendingTopic
+        List trendingTopics = Topic.trendingTopic
+        if(resource.topic.isPublic())
+        {
             render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
         }
         else {
-            flash.error = "User Cannot view Topic"
+            if (resource.canViewedBy(session.user)) {
+
+                render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
+            } else {
+                flash.error = "User Cannot view Topic"
+            }
         }
     }
-    def saveLinkResource(String url,String description,String topic)
-    {
-        User createdBy = session.user
-        Resource resource = new LinkResource(url:url,description:description,topic:Topic.findByName(topic),createdBy:createdBy)
-        if(resource.validate())
-        {
-            flash.message = "Success"
-            resource.save()
-        }
-        else {
-            flash.error = "Resource could not be saved"
-        }
-        redirect(controller: "user",action: "index")
-    }
-//    def saveDocumentResource(String url,String description,String topic)
-//    {
-//        User createdBy = session.user
-//        Resource resource = new DocumentResource(filePath: url,description:description,topic:Topic.findByName(topic),createdBy:createdBy)
-//        if(resource.validate())
-//        {
-//            flash.message = "Success"
-//            resource.save()
-//        }
-//        else {
-//            flash.error = "Resource could not be saved"
-//        }
-//        redirect(controller: "user",action: "index")
-//    }
+
+protected static addToReadingItems(Resource resource)
+{
+   Topic resourceTopic = resource.topic
+   List<User> subscribedUser = resourceTopic.subscribedUsers
+   subscribedUser.each {user->
+       ReadingItem userReadingItem = new ReadingItem(user:user,resource:resource,isRead:(user.id==resource.createdBy.id))
+       if(userReadingItem.validate())
+       {
+           userReadingItem.save()
+       }
+   }
+}
+
 }

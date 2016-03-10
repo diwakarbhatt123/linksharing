@@ -68,14 +68,14 @@ abstract class Resource {
         }
         return resources
     }
-    String whichResource()
+    boolean isLinkResource()
     {
         if(this instanceof LinkResource) {
-            return "Link"
+            return true
         }
             else if(this instanceof DocumentResource)
         {
-         return "Document"
+         return false
         }
     }
     boolean canViewedBy(User user)

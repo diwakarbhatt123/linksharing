@@ -8,7 +8,7 @@ class LinkharingTagLib {
     static namespace = "ls"
     def isRead = { attr, body ->
         if (session.user) {
-            ReadingItem readingItem = ReadingItem.findByUserAndResource(session.user, attr.resource)
+            ReadingItem readingItem = ReadingItem.findByUserAndResource(session.user, Resource.read(attr.resourceId))
             if (readingItem) {
                 if (readingItem.isRead) {
                     out << g.link(controller: "readingItem", action: "changeIsRead", params: [isRead: false], id: "${readingItem.id}", "Mark as Unread")
@@ -16,7 +16,7 @@ class LinkharingTagLib {
                     out << g.link(controller: "readingItem", action: "changeIsRead", params: [isRead: true], id: "${readingItem.id}", "Mark as Read")
                 }
             } else {
-                out << ""
+                out << g.link(controller: "readingItem", action: "addToReadingItem", id: "${attr.resourceId}", "Add to Reading List")
             }
         } else {
             out << ""
@@ -34,12 +34,16 @@ class LinkharingTagLib {
     def canDeleteResouce = { attr, body ->
         User loggedInUser = session.user
         Resource resource = attr.resource
-        (loggedInUser.canDeleteResource(resource)) ? out << link(controller: "resource", action: "delete", id: resource.id, "Delete") : out << ""
+        (loggedInUser && loggedInUser.canDeleteResource(resource)) ? out << link(controller: "resource", action: "delete", id: resource.id, "Delete") : out << ""
 
     }
     def showSubscribe = { attr, body ->
         User loggedInUser = session.user
-        (loggedInUser.isSubscribed(attr.topicId)) ? out << g.link(controller: "subscription", action: "delete", id: "${attr.topicId}", "Unsubscribe") : out << g.link(controller: "subscription", action: "save", id: "${attr.topicId}", "Subscribe")
+        if (loggedInUser) {
+            (loggedInUser.isSubscribed(attr.topicId)) ? out << g.link(controller: "subscription", action: "delete", id: "${attr.topicId}", "Unsubscribe") : out << g.link(controller: "subscription", action: "save", id: "${attr.topicId}", "Subscribe")
+        } else {
+            out << ""
+        }
     }
     def subscriptionCount = { attr, body ->
         int subscription;
@@ -57,6 +61,17 @@ class LinkharingTagLib {
     }
     def topicCount = { attr, body ->
         out << Topic.countByCreatedBy(attr.user)
+    }
+    def userImage = { attr, body ->
+        out << "<img src='${createLink(controller: "user", action: "renderFromDirectory", id: "${attr.userId}")}' width=64 height=64 >"
+    }
+    def documentOrLink = { attr, body ->
+        Resource resource = Resource.read(attr.resourceId)
+        if (resource?.isLinkResource()) {
+            out << "<div class=\"col-xs-3\">${g.link(url: "${resource?.url}", target: "_blank", "View Full Site")}</div>"
+        } else {
+            out << "<div class=\"col-xs-2\">${g.link(controller: "documentResource", action: "downloadDocument", id: "${attr.resourceId}", "Download")}</div>"
+        }
     }
 
 }

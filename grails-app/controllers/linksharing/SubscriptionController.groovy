@@ -1,5 +1,7 @@
 package linksharing
 
+import grails.converters.JSON
+
 class SubscriptionController {
 
     def index() {}
@@ -8,11 +10,12 @@ class SubscriptionController {
         Subscription subscription = Subscription.findByUserAndTopic(session.user,Topic.read(id))
         if (subscription) {
             subscription.delete(flush:true)
-      flash.message = "Subscription Deleted Successfully"
+            [message:"Unsubscribed"] as JSON
         } else {
-          flash.error = "Subscription Not Found"
+           [error:"Subscription not Found"] as JSON
         }
-        redirect(controller:"user",action:"index")
+        //redirect(controller:"user",action:"index")
+
     }
 
     def save(int id) {
@@ -20,11 +23,11 @@ class SubscriptionController {
         Subscription newSubscription = new Subscription(user: subscriber, topic: Topic.get(id),seriousness:Seriousness.SERIOUS)
         if (newSubscription.validate()) {
             newSubscription.save()
-            flash.message = "Subscribed"
+            [message:"Subscribed"] as JSON
         } else {
-            flash.error = "Cannot Create Subscription"
+            [error:"Could not Subscribe"] as JSON
         }
-        redirect(controller:"user",action:"index")
+        //redirect(controller:"user",action:"index")
 
     }
 
@@ -33,14 +36,14 @@ class SubscriptionController {
         if (subscription) {
             subscription.seriousness = Seriousness.getSeriousness(seriousness)
             if (subscription.save()) {
-                render("Success")
+                [message:"Success"] as JSON
             } else {
                 println subscription.errors.allErrors
-                render("Subscription cannot be updated")
+                [error:"Could not Subscribe"] as JSON
             }
         }
         else {
-            render("No subscription found")
+                [error:"Subscription not found"] as JSON
         }
     }
 }

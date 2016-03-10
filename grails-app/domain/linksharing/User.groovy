@@ -8,7 +8,7 @@ class User {
     String firstname
     String lastname
     String confirmPassword
-    byte[] photo
+    String imagePath
     boolean admin
     boolean active
     Date dateCreated
@@ -25,7 +25,7 @@ class User {
         password(size: 0..5, nullable: false, blank: false)
         firstname(nullable: false)
         lastname(nullable: false)
-        photo(nullable: true)
+        imagePath(nullable: true)
         admin(nullable: true)
         active(nullable: true)
         topics(nullable: true)

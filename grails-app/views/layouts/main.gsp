@@ -13,6 +13,7 @@
     <asset:javascript src="bootstrap.min.js"/>
     <asset:stylesheet href="bootstrap.min.css"/>
     <asset:stylesheet href="font-awesome.min.css"/>
+    <asset:javascript src="application.js"/>
     <g:layoutHead/>
 </head>
 
@@ -20,7 +21,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class = "navbar-brand "href="#">Link Sharing</a>
+            <g:link class = "navbar-brand " controller="user" action="index">Link Sharing</g:link>
         </div>
         <!-- Search Bar -->
         <ul class="nav navbar-nav navbar-right">
@@ -44,16 +45,14 @@
                 <li><a class="glyphicon glyphicon-file" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#sharedocument"></a></li>
                 <g:render template="/documentResource/create"/>
                 <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Diwakar Bhatt <b class="caret"></b></a>
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">${session.user}<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Profile</a></li>
                     <li class="divider"></li>
+                    <g:if test="${session.user.admin}">
                      <li><g:link controller="user" action="usershow">Users</g:link></li>
                     <li class="divider"></li>
-                    <li><a href="#">Topics</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Posts</a></li>
-                    <li class="divider"></li>
+                    </g:if>
                     <li><g:link controller="login" action="logout">Logout</g:link></li>
                 </ul>
             </li>
@@ -62,6 +61,5 @@
     </div>
 </nav>
 <g:layoutBody/>
-
 </body>
 </html>

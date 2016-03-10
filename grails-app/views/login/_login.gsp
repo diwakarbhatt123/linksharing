@@ -23,15 +23,14 @@
             <div class="form-group">
                 <div class="col-offset-3 col-xs-10">
                     <a href="#"data-toggle="modal" data-target="#forgotPassword">Forgot Password</a>
-                    <g:render template="/user/forgotPassword"/>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-xs-10">
                     <g:submitButton class="btn btn-primary" name="login" value="Login"/>
                 </div>
             </div>
         </g:form>
+        <g:render template="/user/forgotPassword"/>
     </div>
 </div>

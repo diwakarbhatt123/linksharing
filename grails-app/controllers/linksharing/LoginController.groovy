@@ -1,5 +1,7 @@
 package linksharing
 
+import org.springframework.web.multipart.MultipartFile
+
 class LoginController {
 
     def index() {
@@ -30,12 +32,12 @@ class LoginController {
         else {
             flash.error = "Cannot Find User"
         }
-        render(flash.error)
+        render view:"/login/login"
     }
     def logout()
     {
         session.invalidate()
-        render("User logged out")
+        redirect(controller:"login")
     }
 
     private recentPosts()
@@ -44,6 +46,12 @@ class LoginController {
         return recentPosts
     }
     def register() {
+        MultipartFile inputImage = params.photo
+        String extention = inputImage.originalFilename.tokenize(".")?.last()
+        String filePath = "${grailsApplication.config.userImageFolder}/${UUID.randomUUID().toString()}${extention?".${extention}":""}"
+        File userImage = new File(filePath)
+        inputImage.transferTo(userImage)
+        params.imagePath = userImage.absolutePath
         User registerUser = new User(params)
         if (registerUser.validate()) {
             registerUser.save()

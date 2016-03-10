@@ -4,7 +4,12 @@
         <g:each in="${subscribers}" var="subscriber">
         <div>
             <div class="col-xs-2">
-                <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                <g:if test="${subscriber.imagePath}">
+                    <ls:userImage userId="${subscriber.id}"/>
+                </g:if>
+                <g:else>
+                    <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
+                </g:else>
             </div>
             <div class="col-xs-10">
                 <div class="row">

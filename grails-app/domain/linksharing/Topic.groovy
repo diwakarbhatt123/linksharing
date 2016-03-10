@@ -73,7 +73,7 @@ class Topic {
     }
     boolean canViewedBy(User user)
     {
-        return (user.admin || this.isPublic() || Subscription.countByUserAndTopic(user,this))
+        return (user?.admin || this.isPublic() || Subscription.countByUserAndTopic(user,this))
     }
 
     @Override
