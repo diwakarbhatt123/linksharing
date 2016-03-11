@@ -9,10 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><g:layoutTitle default="Grails"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <asset:javascript src="jquery.min.js"/>
     <asset:javascript src="application.js"/>
     <asset:javascript src="bootstrap.js"/>
     <asset:stylesheet href="bootstrap.css"/>
-    %{--<asset:stylesheet href="font-awesome.min.css"/>--}%
+    <asset:stylesheet href="font-awesome.min.css"/>
     <g:layoutHead/>
 </head>
 
@@ -46,7 +47,7 @@
                 <g:render template="/linkResource/create"/>
                 <li>
                     <a class="glyphicon glyphicon-file" style="color:white;font-size:30px; padding-top:14px;" href="#"
-                       data-toggle="modal" data-target="#xyz"></a>
+                       data-toggle="modal" data-target="#sharedDocument"></a>
                 </li>
                 <g:render template="/documentResource/create"/>
                 <li class="dropdown">
