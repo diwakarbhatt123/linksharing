@@ -2,6 +2,7 @@ package linksharing
 
 import com.intelligrape.linksharing.RatingInfoVO
 import com.intelligrape.linksharing.ResourceSearchCO
+import grails.converters.JSON
 import jline.internal.Log
 import org.springframework.web.multipart.MultipartFile
 
@@ -14,8 +15,7 @@ class ResourceController {
         User loggediInUser = session.user
         Resource resource = Resource.read(id)
         if (loggediInUser.canDeleteResource(resource)) {
-            if(!resource.isLinkResource())
-            {
+            if (!resource.isLinkResource()) {
 
             }
             resource.delete()
@@ -25,7 +25,6 @@ class ResourceController {
         }
         redirect(controller: "login", action: "index")
     }
-
     def search(ResourceSearchCO co) {
         if (co.q) {
             co.visibility = Visibility.PUBLIC
@@ -38,11 +37,9 @@ class ResourceController {
     def show(long id) {
         Resource resource = Resource.get(id)
         List trendingTopics = Topic.trendingTopic
-        if(resource.topic.isPublic())
-        {
+        if (resource.topic.isPublic()) {
             render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
-        }
-        else {
+        } else {
             if (resource.canViewedBy(session.user)) {
 
                 render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
@@ -52,17 +49,14 @@ class ResourceController {
         }
     }
 
-protected static addToReadingItems(Resource resource)
-{
-   Topic resourceTopic = resource.topic
-   List<User> subscribedUser = resourceTopic.subscribedUsers
-   subscribedUser.each {user->
-       ReadingItem userReadingItem = new ReadingItem(user:user,resource:resource,isRead:(user.id==resource.createdBy.id))
-       if(userReadingItem.validate())
-       {
-           userReadingItem.save()
-       }
-   }
-}
-
+    protected static addToReadingItems(Resource resource) {
+        Topic resourceTopic = resource.topic
+        List<User> subscribedUser = resourceTopic.subscribedUsers
+        subscribedUser.each { user ->
+            ReadingItem userReadingItem = new ReadingItem(user: user, resource: resource, isRead: (user.id == resource.createdBy.id))
+            if (userReadingItem.validate()) {
+                userReadingItem.save()
+            }
+        }
+    }
 }

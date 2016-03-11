@@ -1,8 +1,14 @@
 <%@ page import="linksharing.Subscription; linksharing.Topic" %>
-<div class="panel panel-default">
+<div class="panel panel-default" id="trendingTopic">
     <div class="panel-heading"><strong>Trending Topics</strong></div>
 
     <div class="panel-body">
+        <div class="row">
+            <div class="alert alert-success" hidden="hidden" id="responseMessage">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.</span>
+            </div>
+        </div>
         <g:each in="${trendingTopics}" var="trendingTopic">
             <div>
                 <div class="col-xs-2">
@@ -44,7 +50,8 @@
 
                         <div class="col-xs-1"></div>
 
-                        <div class="col-xs-3"><p class="text-info"><ls:subscriptionCount topicId="${trendingTopic.id}"/></p>
+                        <div class="col-xs-3"><p class="text-info"><ls:subscriptionCount
+                                topicId="${trendingTopic.id}"/></p>
                         </div>
 
                         <div class="col-xs-1"></div>
@@ -58,12 +65,15 @@
                     <div style="padding-bottom:7.5px" class="row">
                         <div class="col-xs-4">
                             <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
-                                <g:select name="seriousness" from="${linksharing.Seriousness.values()}" class="form-control" id="Seriousness"/>
+                                <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
+                                          class="form-control" onchange="changeSeriouness(this.value,${trendingTopic.id})" id="Seriousness"/>
                             </g:if>
                         </div>
 
                         <div class="col-xs-4">
-                            <g:select name="visibility" from="${linksharing.Visibility.values()}" onchange="changeVisibility(this.value,${trendingTopic.id})" class="form-control" id="Visibility"/>
+                            <g:select name="visibility" from="${linksharing.Visibility.values()}"
+                                      onchange="changeVisibility(this.value,${trendingTopic.id})" class="form-control"
+                                      id="Visibility"/>
                         </div>
 
                         <div><a class="glyphicon glyphicon-envelope col-xs-1" style="font-size:20px;"

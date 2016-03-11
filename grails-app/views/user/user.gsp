@@ -6,7 +6,7 @@
 </head>
 
 <body>
- <div class="container">
+<div class="container">
     <div class="row">
         <div class="col-xs-6">
             <!-- Name Panel -->
@@ -15,18 +15,20 @@
                 <div class="panel-body">
                     <div>
                         <div class="col-xs-2">
-                        <g:if test="${session.user.imagePath}">
-                            <ls:userImage userId="${session.user.id}"/>
-                        </g:if>
-                        <g:else>
-                            <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
-                        </g:else>
-                            </div>
+                            <g:if test="${session.user.imagePath}">
+                                <ls:userImage userId="${session.user.id}"/>
+                            </g:if>
+                            <g:else>
+                                <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
+                            </g:else>
+                        </div>
 
                         <div class="col-xs-10">
                             <span class="h5"><strong>${session.user.fullName}</strong></span>
                             <small class="text-muted">@${session.user.username}</small>
-                            <div class="row"><div class="col-xs-12"></div> </div>
+
+                            <div class="row"><div class="col-xs-12"></div></div>
+
                             <div class="row">
                                 <div class="col-xs-4 text-muted">Subcriptions</div>
 
@@ -35,6 +37,7 @@
 
                             <div class="row">
                                 <div class="col-xs-4 text-primary"><ls:subscriptionCount user="${session.user}"/></div>
+
                                 <div class="col-xs-6 text-primary"><ls:topicCount user="${session.user}"/></div>
                             </div>
                         </div>
@@ -155,7 +158,8 @@
                             <div class="col-xs-10">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <g:link controller="topic" action="show" id="${topic.id}" class="text-left">${topic.name}</g:link>
+                                        <g:link controller="topic" action="show" id="${topic.id}"
+                                                class="text-left">${topic.name}</g:link>
                                     </div>
                                 </div>
 
@@ -180,11 +184,13 @@
 
                                     <div class="col-xs-1"></div>
 
-                                    <div class="col-xs-3"><p class="text-info"><ls:subscriptionCount topicId="${topic.id}"/></p></div>
+                                    <div class="col-xs-3"><p class="text-info"><ls:subscriptionCount
+                                            topicId="${topic.id}"/></p></div>
 
                                     <div class="col-xs-1"></div>
 
-                                    <div class="col-xs-3"><p class="text-info"><ls:resourceCount topicId="${topic.id}"/></p></div>
+                                    <div class="col-xs-3"><p class="text-info"><ls:resourceCount
+                                            topicId="${topic.id}"/></p></div>
 
                                     <div class="col-xs-1"></div>
                                 </div>
@@ -221,12 +227,15 @@
             </div>
         </div>
 
-        <div class="col-xs-6">
+        <div class="col-xs-6" id="trendingTopicsSection">
             <!-- Subscription Panel-->
             <!-- ************************************************************ -->
-            <ls:trendingTopics/>
+            %{--<ls:trendingTopics/>--}%
         </div>
     </div>
-     </div>
+</div>
+<script>
+    loadTrendingTopics();
+</script>
 </body>
 </html>

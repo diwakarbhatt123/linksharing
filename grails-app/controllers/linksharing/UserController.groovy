@@ -45,4 +45,8 @@ def emailService
         }
         redirect(controller:"login",action:"index")
     }
+    def loadTrendingTopics()
+    {
+        render(template:"/user/trendingtopics",model:[trendingTopics:Topic.getTrendingTopic()])
+    }
 }

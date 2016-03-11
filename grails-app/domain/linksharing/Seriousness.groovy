@@ -10,15 +10,15 @@ enum Seriousness
     }
     static Seriousness getSeriousness(String seriousness)
     {
-        if(seriousness.equals("serious"))
+        if(seriousness.equalsIgnoreCase("serious"))
         {
             return SERIOUS
         }
-        else if(seriousness.equals("very serious"))
+        else if(seriousness.equalsIgnoreCase("very serious"))
         {
             return VERYSERIOUS
         }
-        else if(seriousness.equals("casual"))
+        else if(seriousness.equalsIgnoreCase("casual"))
         {
             return CASUAL
         }

@@ -52,7 +52,7 @@ class TopicController {
            message = ["message":"Success"]
        }
         else {
-           message = ["error": "Could not Update"]
+           message = ["message": "Could not Update"]
        }
            render message as JSON
     }
