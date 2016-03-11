@@ -18,3 +18,8 @@ if (typeof jQuery !== 'undefined') {
 		});
 	})(jQuery);
 }
+/*
+function changeVisibility(value,id)
+{
+	jQuery.post("/topic/update",{"id":id,"visibility":value},function(data,status){console.log(status)});
+}*/

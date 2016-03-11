@@ -3,6 +3,7 @@ package linksharing
 import com.intelligrape.linksharing.EmailDTO
 import com.intelligrape.linksharing.ResourceSearchCO
 import com.intelligrape.linksharing.TopicVO
+import grails.converters.JSON
 import jline.internal.Log
 
 class TopicController {
@@ -10,7 +11,7 @@ class TopicController {
 
     def index() {}
 
-    def show(int id) {
+    def show(long id) {
 
         Topic topic = Topic.read(id)
         List<User> subscribedUsers = topic.subscribedUsers
@@ -31,7 +32,7 @@ class TopicController {
         redirect(controller: "user", action: "index")
     }
 
-    def delete(int id) {
+    def delete(long id) {
         Topic topic = Topic.load(id)
         if (topic) {
             topic.delete()
@@ -39,6 +40,20 @@ class TopicController {
         } else {
             render("Topic not found")
         }
+    }
+    def update(long id,String visibility)
+    {
+        def message
+       Topic topic = Topic.read(id)
+       if(topic)
+       {
+           topic.visibility = Visibility.toEnum(visibility)
+           message = ["message":"Success"]
+       }
+        else {
+           message = ["error": "Could not Update"]
+       }
+           render message as JSON
     }
 
     def invite(String email) {

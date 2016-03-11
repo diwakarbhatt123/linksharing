@@ -9,11 +9,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><g:layoutTitle default="Grails"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <asset:javascript src="bootstrap.min.js"/>
-    <asset:stylesheet href="bootstrap.min.css"/>
-    <asset:stylesheet href="font-awesome.min.css"/>
     <asset:javascript src="application.js"/>
+    <asset:javascript src="bootstrap.js"/>
+    <asset:stylesheet href="bootstrap.css"/>
+    %{--<asset:stylesheet href="font-awesome.min.css"/>--}%
     <g:layoutHead/>
 </head>
 
@@ -21,7 +20,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <g:link class = "navbar-brand " controller="user" action="index">Link Sharing</g:link>
+            <g:link class="navbar-brand " controller="user" action="index">Link Sharing</g:link>
         </div>
         <!-- Search Bar -->
         <ul class="nav navbar-nav navbar-right">
@@ -36,26 +35,32 @@
                 </g:form>
             </li>
             <g:if test="${session.user}">
-            <li><a class="glyphicon glyphicon-comment" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#createtopic"></a></li>
-              <g:render template="/topic/create"/>
-                <li><a class="glyphicon glyphicon-envelope" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#sendinvite"></a></li>
+                <li><a class="glyphicon glyphicon-comment" style="color:white;font-size:30px; padding-top:14px;"
+                       href="#" data-toggle="modal" data-target="#createtopic"></a></li>
+                <g:render template="/topic/create"/>
+                <li><a class="glyphicon glyphicon-envelope" style="color:white;font-size:30px; padding-top:14px;"
+                       href="#" data-toggle="modal" data-target="#sendinvite"></a></li>
                 <g:render template="/topic/email"/>
-                <li><a class="glyphicon glyphicon-link" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#sharelink"></a></li>
+                <li><a class="glyphicon glyphicon-link" style="color:white;font-size:30px; padding-top:14px;" href="#"
+                       data-toggle="modal" data-target="#sharelink"></a></li>
                 <g:render template="/linkResource/create"/>
-                <li><a class="glyphicon glyphicon-file" style="color:white;font-size:30px; padding-top:14px;" href="#" data-toggle="modal" data-target="#sharedocument"></a></li>
+                <li>
+                    <a class="glyphicon glyphicon-file" style="color:white;font-size:30px; padding-top:14px;" href="#"
+                       data-toggle="modal" data-target="#xyz"></a>
+                </li>
                 <g:render template="/documentResource/create"/>
                 <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">${session.user}<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
-                    <li class="divider"></li>
-                    <g:if test="${session.user.admin}">
-                     <li><g:link controller="user" action="usershow">Users</g:link></li>
-                    <li class="divider"></li>
-                    </g:if>
-                    <li><g:link controller="login" action="logout">Logout</g:link></li>
-                </ul>
-            </li>
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">${session.user}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li class="divider"></li>
+                        <g:if test="${session.user.admin}">
+                            <li><g:link controller="user" action="usershow">Users</g:link></li>
+                            <li class="divider"></li>
+                        </g:if>
+                        <li><g:link controller="login" action="logout">Logout</g:link></li>
+                    </ul>
+                </li>
             </g:if>
         </ul>
     </div>

@@ -58,19 +58,12 @@
                     <div style="padding-bottom:7.5px" class="row">
                         <div class="col-xs-4">
                             <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
-                                <select class="form-control" id="Seriousness">
-                                    <option>Serious</option>
-                                    <option>Very Serious</option>
-                                    <option>Casual</option>
-                                </select>
+                                %{--<g:select name="seriousness" from="${linksharing.Seriousness.values()}" class="form-control" id="Seriousness"/>--}%
                             </g:if>
                         </div>
 
                         <div class="col-xs-4">
-                            <select class="form-control" id="Visibility">
-                                <option>Public</option>
-                                <option>Private</option>
-                            </select>
+                            %{--<g:select name="visibility" from="${linksharing.Visibility.values()}" onchange="changeVisibility(this.value,${trendingTopic.id})" class="form-control" id="Visibility"/>--}%
                         </div>
 
                         <div><a class="glyphicon glyphicon-envelope col-xs-1" style="font-size:20px;"

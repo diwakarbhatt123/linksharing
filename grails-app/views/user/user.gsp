@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ttnd
-  Date: 4/3/16
-  Time: 11:18 AM
---%>
-
 <%@ page import="linksharing.Topic; linksharing.Subscription; linksharing.Resource" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
