@@ -48,6 +48,7 @@ class TopicController {
        if(topic)
        {
            topic.visibility = Visibility.toEnum(visibility)
+           topic.save()
            message = ["message":"Success"]
        }
         else {
