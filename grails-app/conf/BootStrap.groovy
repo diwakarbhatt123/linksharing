@@ -24,7 +24,7 @@ class BootStrap {
     }
 
     void createUser() {
-        User user = new User(firstname: "Diwakar", lastname: "Bhatt", email: "diwakarbhatt68@gmail.com", username: "diwakarbhatt68", password: Passwords.defPassword,confirmPassword: Passwords.defPassword,admin: false,active:true,imagePath:"/home/ttnd/linksharingimages/d02df5ae-cc40-43d2-b44b-bbc67ba8c007.png");
+        User user = new User(firstname: "Diwakar", lastname: "Bhatt", email: "diwakarbhatt68@gmail.com", username: "diwakarbhatt68", password: Passwords.defPassword,confirmPassword: Passwords.defPassword,admin: false,active:true);
         Log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${user.fullName}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         User admin = new User(firstname: "User2", lastname: "User2", email: "user2@gmail.com", username: "User2", password: Passwords.defPassword,confirmPassword: Passwords.defPassword, admin: true);
         if (User.count() == 0) {

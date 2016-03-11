@@ -5,7 +5,7 @@
         <g:form class="form-horizontal" controller="login" action="loginHandler" name="login form">
 
             <div class="form-group">
-                <label class="col-xs-4">Email/Username</label>
+                <label class="col-xs-4">Username</label>
 
                 <div class="col-xs-8">
                     <g:textField name="username" type="email" class="form-control"/>
