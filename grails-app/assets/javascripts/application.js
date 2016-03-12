@@ -65,3 +65,12 @@ function loadTrendingTopics(callback) {
         }
     });
 }
+function loadInbox(callback){
+    console.log("This function was called")
+    $("#inboxSection").load("user/loadInbox",function(data){
+        if(callback)
+        {
+            callback();
+        }
+    })
+}

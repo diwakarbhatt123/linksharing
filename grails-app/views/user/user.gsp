@@ -46,86 +46,10 @@
             </div>
         </div>
 
-        <div class="col-xs-6">
+        <div class="col-xs-6" id="inboxSection">
             <!-- Inbox Panel -->
             <!-- ************************************************ -->
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Inbox</strong></div>
-
-                <div class="panel-body">
-                    <div>
-                        <div class="col-xs-2">
-                            <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
-                        </div>
-
-                        <div class="col-xs-10">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <span class="h5">Diwakar Bhatt</span>
-                                    <small class="text-muted">@diwakarbhatt</small>
-                                </div>
-
-                                <div class="col-xs-3">
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <a href="#" class="text-left">Grails</a>
-                                </div>
-                            </div>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mi risus, mollis sit amet purus vitae, rutrum commodo erat.</p>
-
-                            <div class="row">
-                                <div class="col-xs-1 fa fa-facebook-official"></div>
-
-                                <div class="col-xs-1 fa fa-twitter"></div>
-
-                                <div class="col-xs-1 fa fa-google-plus"></div>
-
-                                <div class="col-xs-6"></div>
-
-                                <div class="col-xs-3"><a href="#">View Post</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="col-xs-2">
-                            <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
-                        </div>
-
-                        <div class="col-xs-10">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <span class="h5">Diwakar Bhatt</span>
-                                    <small class="text-muted">@diwakarbhatt</small>
-                                </div>
-
-                                <div class="col-xs-3">
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <a href="#" class="text-left">Grails</a>
-                                </div>
-                            </div>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mi risus, mollis sit amet purus vitae, rutrum commodo erat.</p>
-
-                            <div class="row">
-                                <div class="col-xs-1 fa fa-facebook-official"></div>
-
-                                <div class="col-xs-1 fa fa-twitter"></div>
-
-                                <div class="col-xs-1 fa fa-google-plus"></div>
-
-                                <div class="col-xs-6"></div>
-
-                                <div class="col-xs-3"><a href="#">View Post</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            %{--<g:render template="inbox"/>--}%
         </div>
     </div>
     <!-- Row 2 -->
@@ -236,6 +160,7 @@
 </div>
 <script>
     loadTrendingTopics();
+    loadInbox();
 </script>
 </body>
 </html>

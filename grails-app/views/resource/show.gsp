@@ -33,7 +33,9 @@
                                 </div>
 
                                 <div class="col-xs-3">
-                                    <a href="#" class="text-left">${resource?.topic.name}</a>
+                                    <g:link controller="topic" action="show"
+                                            id="${resource.topic.id}"
+                                            class="text-left">${resource.topic.name}</g:link>
                                 </div>
                             </div>
 

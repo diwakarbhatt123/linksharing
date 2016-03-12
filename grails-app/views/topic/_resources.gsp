@@ -21,7 +21,7 @@
                     <ls:userImage userId="${resource.createdBy.id}"/>
                 </g:if>
                 <g:else>
-                    <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
+                    <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
                 </g:else>
             </div>
             <div class="col-xs-10">

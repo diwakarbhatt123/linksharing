@@ -37,6 +37,18 @@ class LinkharingTagLib {
         (loggedInUser && loggedInUser.canDeleteResource(resource)) ? out << link(controller: "resource", action: "delete", id: resource.id, "Delete") : out << ""
 
     }
+    def canEditResouce = { attr, body ->
+        User loggedInUser = session.user
+        Resource resource = attr.resource
+        (loggedInUser && loggedInUser.canDeleteResource(resource)) ? out << link(controller: "resource", action: "delete", id: resource.id, "Edit") : out << ""
+
+    }
+   def showSeriousness = {attr,body->
+
+   }
+    def canUpdateTopic = {attr,body->
+
+    }
     def showSubscribe = { attr, body ->
         User loggedInUser = session.user
         if (loggedInUser) {

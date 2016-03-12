@@ -32,6 +32,7 @@ class LoginController {
         else {
             flash.error = "Cannot Find User"
         }
+        println flash.error
         render view:"/login/login"
     }
     def logout()

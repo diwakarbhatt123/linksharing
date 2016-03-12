@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <g:link controller="topic" action="show"
-                                    id="${linksharing.Topic.findByName(trendingTopic.name).id}"
+                                    id="${trendingTopic.id}"
                                     class="text-left">${trendingTopic.name}</g:link>
                         </div>
                     </div>
@@ -66,7 +66,8 @@
                         <div class="col-xs-4">
                             <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
                                 <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
-                                          class="form-control" onchange="changeSeriouness(this.value,${trendingTopic.id})" id="Seriousness"/>
+                                          class="form-control"
+                                          onchange="changeSeriouness(this.value,${trendingTopic.id})" id="Seriousness"/>
                             </g:if>
                         </div>
 
