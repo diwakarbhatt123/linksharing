@@ -15,7 +15,7 @@
                 <div class="panel-body">
                     <div>
                         <div class="col-xs-2">
-                            <g:if test="${session.user.imagePath}">
+                            <g:if test="${linksharing.User.read(session.user.id)}">
                                 <ls:userImage userId="${session.user.id}"/>
                             </g:if>
                             <g:else>

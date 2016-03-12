@@ -21,7 +21,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <g:link class="navbar-brand " controller="user" action="index">Link Sharing</g:link>
+            <g:link class="navbar-brand " url="/">Link Sharing</g:link>
         </div>
         <!-- Search Bar -->
         <ul class="nav navbar-nav navbar-right">
@@ -53,7 +53,7 @@
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle">${session.user}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
+                        <li><g:link controller="user" action="showProfile">Profile</g:link></li>
                         <li class="divider"></li>
                         <g:if test="${session.user.admin}">
                             <li><g:link controller="user" action="usershow">Users</g:link></li>

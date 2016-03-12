@@ -74,3 +74,32 @@ function loadInbox(callback){
         }
     })
 }
+function changePassword()
+{
+     var password = $("#password").val();
+     var confirm = $("#confirmPassword").val();
+    $.ajax({
+        url: "/user/updatePassword",
+        data: {"password": password, "confirmPassword": confirm},
+        method: "POST",
+        success: function (data) {
+            var response = data.message
+            if (response == "Successfully Updated") {
+                    $("#responseMessage").attr("class", "alert alert-success").show();
+                    $("#responseMessage > .visibilityText").text(response);
+                $("#password").val("")
+                $("#confirmPassword").val("")
+            }
+            else {
+                $("#responseMessage").attr("class", "alert alert-danger").show();
+                $("#responseMessage > .visibilityText").text(response);
+            }
+
+        },
+        error: function (data) {
+            $("#responseMessage").attr("class", "alert alert-danger").show();
+            $("#responseMessage > .visibilityText").text(data.statusText);
+        }
+    });
+
+}

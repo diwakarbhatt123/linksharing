@@ -33,11 +33,14 @@ class User {
         resources(nullable: true)
         resource_ratings(nullable: true)
         readingItems(nullable: true)
-        confirmPassword (nullable:true, blank:true, bindable: true, validator: { val, obj ->
-            if (val.equals(obj.password))
-                return true
-            else
-                return 'Password Mismatch'
+        confirmPassword(bindable: true, nullable: true, blank: true, validator: { String val, User obj ->
+            boolean result = false
+            if (obj.id) {
+                result = true
+            } else {
+                result = val = obj.password
+            }
+            return result
         })
     }
     static mapping = {
@@ -53,6 +56,11 @@ class User {
                     }
                    eq("user",this)
         }
+    }
+    List <Topic> getCreatedTopics()
+    {
+        List<Topic> createdTopics = Topic.findAllByCreatedBy(this,[max:10])
+        return createdTopics
     }
     boolean canDeleteResource(Resource resource)
     {

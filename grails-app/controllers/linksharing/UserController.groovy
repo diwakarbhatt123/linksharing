@@ -3,15 +3,21 @@ package linksharing
 import com.intelligrape.linksharing.EmailDTO
 import com.intelligrape.linksharing.RandomPasswordGenerator
 import com.intelligrape.linksharing.TopicVO
+import grails.converters.JSON
 import jline.internal.Log
+import org.springframework.web.multipart.MultipartFile
 
 
 class UserController {
     def emailService
-
+    def photoUploaderService
     def index() {
         List<TopicVO> trendingTopics = Topic.trendingTopic
         render(view: "user", model: [trendingTopics: trendingTopics])
+    }
+
+    def showProfile() {
+        render(view: "/user/profile")
     }
 
     def usershow() {
@@ -50,14 +56,55 @@ class UserController {
     }
 
     def loadInbox() {
-        List<Resource> unreadPosts = ReadingItem.createCriteria().list([max:3]) {
+        List<Resource> unreadPosts = ReadingItem.createCriteria().list([max: 3]) {
             projections {
                 property("resource")
             }
             eq("user", session.user)
             eq("isRead", false)
-            order("dateCreated","desc")
+            order("dateCreated", "desc")
         }
         render(template: "/user/inbox", model: [unreadPosts: unreadPosts])
+    }
+
+    def updatePassword(String password, String confirmPassword) {
+        def message
+        if (password.equals(confirmPassword)) {
+
+            User loggedInUser = User.read(session.user.id)
+            if(!loggedInUser.password.equals(password)) {
+                loggedInUser.password = password
+                loggedInUser.confirmPassword = confirmPassword
+                if (loggedInUser.validate()) {
+                    loggedInUser.save()
+                    message = ["message": "Successfully Updated"]
+                } else {
+                    message = ["message": "Could not Update"]
+                }
+            }
+            else{
+                message = ["message": "Successfully Updated"]
+            }
+        } else {
+            message = ["message": "Password do not Match"]
+        }
+        render message as JSON
+    }
+    def updateProfile(String firstname, String lastname, String username)
+    {
+         User loggedInUser = User.read(session.user.id)
+         String imagePath = photoUploaderService.uploadPicture(params.photo)
+         loggedInUser.firstname = firstname
+         loggedInUser.lastname =lastname
+        loggedInUser.username =username
+        loggedInUser.imagePath = imagePath
+        if(loggedInUser.validate())
+        {
+            loggedInUser.save()
+            flash.message = "Successfully updated"
+        }
+        else {
+            flash.error = "Could not Update"
+        }
     }
 }

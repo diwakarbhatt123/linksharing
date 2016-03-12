@@ -3,7 +3,7 @@ package linksharing
 import org.springframework.web.multipart.MultipartFile
 
 class LoginController {
-
+def photoUploaderService
     def index() {
         if(session.user)
         {
@@ -47,12 +47,8 @@ class LoginController {
         return recentPosts
     }
     def register() {
-        MultipartFile inputImage = params.photo
-        String extention = inputImage.originalFilename.tokenize(".")?.last()
-        String filePath = "${grailsApplication.config.userImageFolder}/${UUID.randomUUID().toString()}${extention?".${extention}":""}"
-        File userImage = new File(filePath)
-        inputImage.transferTo(userImage)
-        params.imagePath = userImage.absolutePath
+        String imagePath  = photoUploaderService.uploadPicture(params.photo)
+        params.imagePath = imagePath
         User registerUser = new User(params)
         if (registerUser.validate()) {
             registerUser.save()
