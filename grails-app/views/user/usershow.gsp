@@ -13,6 +13,43 @@
 </head>
 
 <body>
-<g:render template="show" model="${[users:userList]}"/>
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Active</th>
+        <th>Manage</th>
+    </tr>
+    </thead>
+    <tbody>
+    <g:each in="${users}" var="user">
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.firstname}</td>
+            <td>${user.lastname}</td>
+            <td>
+                <g:if test="${user.active}">
+                    Yes
+                </g:if>
+                <g:else>
+                    NO
+                </g:else>
+            </td>
+            <td><g:if test="${user.active}">
+                <a href="#">Deactivate</a>
+            </g:if>
+                <g:else>
+                    <a href="#">Activate</a>
+                </g:else></td>
+        </tr>
+    </g:each>
+    </tbody>
+</table>
 </body>
 </html>

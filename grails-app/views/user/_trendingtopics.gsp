@@ -67,13 +67,13 @@
                             <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
                                 <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
                                           class="form-control"
-                                          onchange="changeSeriouness(this.value,${trendingTopic.id})" id="Seriousness"/>
+                                          onchange="changeSeriouness(this.value,${trendingTopic.id},'trendingTopics')" id="Seriousness"/>
                             </g:if>
                         </div>
 
                         <div class="col-xs-4">
                             <g:select name="visibility" from="${linksharing.Visibility.values()}"
-                                      onchange="changeVisibility(this.value,${trendingTopic.id})" class="form-control"
+                                      onchange="changeVisibility(this.value,${trendingTopic.id},'trendingTopics')" class="form-control"
                                       id="Visibility"/>
                         </div>
 
@@ -85,7 +85,7 @@
                                     href="#"></a></div>
 
                             <div><a class="glyphicon glyphicon-trash col-xs-1" style="font-size:20px;"
-                                    href="#"></a></div>
+                                    href="#" onclick="deleteTopic()"></a></div>
                         </g:if>
                     </div>
                 </div>

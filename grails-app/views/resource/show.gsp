@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <div class="col-xs-6">
+        <div class="col-xs-6" id="trendingTopicsSection">
             <!-- Trending Topics Panel -->
             <!-- ************************************************ -->
             <g:if test="${session.user}">

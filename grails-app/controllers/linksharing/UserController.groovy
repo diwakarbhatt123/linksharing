@@ -17,12 +17,14 @@ class UserController {
     }
 
     def showProfile() {
-        render(view: "/user/profile")
+        render(view:"/user/profile")
     }
-
+    def loadCreatedTopics(){
+        render(template:"/user/createdTopics",model:[createdTopics:session.user.getCreatedTopics()])
+    }
     def usershow() {
-        List<User> userList = User.list([max: 10])
-        render(view: "usershow", model: [userList: userList])
+        List<User> userList = User.list()
+        render(view: "usershow", model: [users: userList])
     }
 
     def renderFromDirectory(long id) {

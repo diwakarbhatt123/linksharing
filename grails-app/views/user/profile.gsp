@@ -28,7 +28,7 @@
                 <div class="panel-body">
                     <div>
                         <div class="col-xs-2">
-                            <g:if test="${linksharing.User.read(session.user.id)}">
+                            <g:if test="${linksharing.User.read(session.user.id).imagePath}">
                                 <ls:userImage userId="${session.user.id}"/>
                             </g:if>
                             <g:else>
@@ -74,10 +74,10 @@
     </div>
     <!-- Row 2 -->
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-6" id="createdTopicSection">
             <!-- Subscription Panel-->
             <!-- ************************************************************ -->
-            <g:render template="createdTopics"/>
+
         </div>
 
         <div class="col-xs-6">
@@ -87,5 +87,8 @@
         </div>
     </div>
 </div>
+<script>
+ loadCreatedTopics();
+</script>
 </body>
 </html>

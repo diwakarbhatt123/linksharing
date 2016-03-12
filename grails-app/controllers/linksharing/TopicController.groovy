@@ -33,13 +33,15 @@ class TopicController {
     }
 
     def delete(long id) {
+        def message
         Topic topic = Topic.load(id)
         if (topic) {
             topic.delete()
-            render("Success")
+            message = ["message":"Deleted"]
         } else {
-            render("Topic not found")
+            message = ["message":"Topic not Found"]
         }
+        render message as JSON
     }
     def update(long id,String visibility)
     {
@@ -55,6 +57,27 @@ class TopicController {
            message = ["message": "Could not Update"]
        }
            render message as JSON
+    }
+    def updateTopicName(long id,String topic)
+    {
+        def message
+        Topic updateTopic = Topic.read(id)
+        if(updateTopic)
+        {
+            updateTopic.name = topic
+            if(updateTopic.validate())
+            {
+                updateTopic.save()
+                message = ["message":"Topic Updated"]
+            }
+            else {
+                message = ["message":"Could not be Updated"]
+            }
+        }
+        else {
+            message = ["message":"Cannot find topic"]
+        }
+        render message as JSON
     }
 
     def invite(String email) {
