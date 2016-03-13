@@ -3,12 +3,6 @@
     <div class="panel-heading"><strong>Trending Topics</strong></div>
 
     <div class="panel-body">
-        <div class="row">
-            <div class="alert alert-success" hidden="hidden" id="responseMessage">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.</span>
-            </div>
-        </div>
         <g:each in="${trendingTopics}" var="trendingTopic">
             <div>
                 <div class="col-xs-2">

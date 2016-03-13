@@ -95,6 +95,10 @@ function loadCreatedTopics(callback) {
         }
     });
 }
+function loadUserTable()
+{
+    $("#userTableSection").load("/user/loadUserTable")
+}
 function changePassword()
 {
      var password = $("#password").val();

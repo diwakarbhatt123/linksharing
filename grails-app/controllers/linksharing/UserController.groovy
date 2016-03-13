@@ -26,7 +26,30 @@ class UserController {
         List<User> userList = User.list()
         render(view: "usershow", model: [users: userList])
     }
-
+def loadUserTable(String q,String sort)
+{
+    List <User> userList = User.list();
+    if(q && !q.equals(""))
+    {
+        println "here"
+        userList = User.createCriteria().list{
+            or {
+                ilike("username","%${q}%")
+                ilike("firstname","%${q}%")
+            }
+        }
+    }
+    else if(sort)
+    {
+        if(sort.equalsIgnoreCase("activated")){
+            userList = User.findAllByActive(true);
+        }
+        else if(sort.equalsIgnoreCase("deactivated")){
+            userList = User.findAllByActive(false);
+        }
+    }
+    render(template:"/user/userTable",model:[users:userList])
+}
     def renderFromDirectory(long id) {
         User user = User.read(id)
         String filePath = user.imagePath
@@ -108,5 +131,25 @@ class UserController {
         else {
             flash.error = "Could not Update"
         }
+    }
+    def activateUser(long userId,boolean activate){
+        def message
+        User user = User.read(userId)
+        if(user)
+        {
+            user.active = activate
+            if(user.validate())
+            {
+                user.save()
+                message = (activate)?["message":"User activated"]:["message":"User Deactivated"]
+            }
+            else {
+                message = ["message":"Could not Activate"]
+            }
+        }
+        else {
+            message = ["message":"Could not Find User"]
+        }
+        render message as JSON
     }
 }
