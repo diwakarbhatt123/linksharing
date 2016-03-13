@@ -26,25 +26,25 @@ class UserController {
         List<User> userList = User.list()
         render(view: "usershow", model: [users: userList])
     }
-def loadUserTable(String q,String sort)
+def loadUserTable(String q,String sortBy)
 {
     List <User> userList = User.list();
     if(q && !q.equals(""))
     {
         println "here"
-        userList = User.createCriteria().list{
+        userList = User.createCriteria().list(){
             or {
                 ilike("username","%${q}%")
                 ilike("firstname","%${q}%")
             }
         }
     }
-    else if(sort)
+    else if(sortBy)
     {
-        if(sort.equalsIgnoreCase("activated")){
+        if(sortBy.equalsIgnoreCase("activated")){
             userList = User.findAllByActive(true);
         }
-        else if(sort.equalsIgnoreCase("deactivated")){
+        else if(sortBy.equalsIgnoreCase("deactivated")){
             userList = User.findAllByActive(false);
         }
     }

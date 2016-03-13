@@ -45,7 +45,7 @@
 </div>
 <script>
   $("#activeSelect").change(function(){
-    $("#userTableSection").load("/user/loadUserTable",{"sort":$("#activeSelect").val()});
+    $("#userTableSection").load("/user/loadUserTable",{"sortBy":$("#activeSelect").val()});
   });
     $("#userSearch").keyup(function(){
         $("#userTableSection").load("/user/loadUserTable",{"q":$("#userSearch").val()});

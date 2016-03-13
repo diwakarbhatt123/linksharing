@@ -33,6 +33,17 @@ class ResourceController {
         } else
             flash.message = "No input in query"
     }
+    def update(long id,String description){
+        Resource resource = Resource.read(id)
+        if(resource){
+            resource.description = description
+            flash.message = (resource.validate())?resource.save():"Could not save"
+        }
+        else {
+            flash.error = "Could not find resource"
+        }
+        redirect(url:request.getHeader('referer'))
+    }
 
     def show(long id) {
         Resource resource = Resource.get(id)

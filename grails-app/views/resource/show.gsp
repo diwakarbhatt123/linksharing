@@ -78,12 +78,12 @@
 
                             <div class="col-xs-1"><ls:canDeleteResouce resource="${resource}"/></div>
 
-                            <div class="col-xs-1"><a href="#">Edit</a></div>
+                            <div class="col-xs-1"><a href="#" data-toggle="modal" data-target="#editResource">Edit</a>
+                            </div>
                             <ls:documentOrLink resourceId="${resource.id}"/>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -97,8 +97,10 @@
                 <g:render template="/login/register"/>
             </g:else>
         </div>
+        <div class="col-xs-6">
+            <g:render template="editResource" model="[description:resource.description,id:resource.id]"/>
+        </div>
     </div>
-</div>
 </div>
 </body>
 </html>

@@ -52,6 +52,16 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
     }
+    codenarc {
+        ruleSetFiles = "file:grails-app/conf/CodeNarcRules.groovy"
+        reports = {
+            HtmlReport('html') {                  // Report type is 'html'
+                outputFile = 'target/CodeNarcReport.html'
+                title = 'My Test Code Narc Report'
+            }
+        }
+    }
+
 
     plugins {
         // plugins for the build system only
@@ -65,6 +75,7 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:console:1.5.7"
         compile ":quartz:1.0.1"
         compile "org.grails.plugins:mail:1.0.7"
+        compile "org.grails.plugins:codenarc:0.25.1"
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.10" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
