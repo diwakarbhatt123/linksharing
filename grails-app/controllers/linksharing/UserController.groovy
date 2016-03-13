@@ -91,7 +91,9 @@ def loadUserTable(String q,String sortBy)
         }
         render(template: "/user/inbox", model: [unreadPosts: unreadPosts])
     }
-
+   def loadSubscription(){
+       render(template:"/user/subscription",model:[subscribedTopics:session.user.subscribedTopics])
+   }
     def updatePassword(String password, String confirmPassword) {
         def message
         if (password.equals(confirmPassword)) {
@@ -151,5 +153,13 @@ def loadUserTable(String q,String sortBy)
             message = ["message":"Could not Find User"]
         }
         render message as JSON
+    }
+    def uniqueEmail(String email)
+    {
+        render (User.countByEmail(email)==0) as JSON
+    }
+    def uniqueUsername(String username)
+    {
+        render (User.countByUsername(username)==0) as JSON
     }
 }

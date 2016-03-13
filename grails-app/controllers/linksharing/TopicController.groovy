@@ -11,11 +11,12 @@ class TopicController {
 
     def index() {}
 
-    def show(long id) {
-
+    def show(long id, String q) {
         Topic topic = Topic.read(id)
         List<User> subscribedUsers = topic.subscribedUsers
         List<Resource> topicResources = Resource.findAllByTopic(topic)
+
+        println topicResources
         TopicVO topicVO = new TopicVO(id: topic.id, name: topic.name, visibility: topic.visibility, count: Resource.countByTopic(topic), createdBy: topic.createdBy, subscribers: Subscription.countByTopic(topic))
         render(view: "show", model: [subscribedUsers: subscribedUsers, topicResources: topicResources, topic: topicVO])
     }
@@ -37,45 +38,39 @@ class TopicController {
         Topic topic = Topic.load(id)
         if (topic) {
             topic.delete()
-            message = ["message":"Deleted"]
+            message = ["message": "Deleted"]
         } else {
-            message = ["message":"Topic not Found"]
+            message = ["message": "Topic not Found"]
         }
         render message as JSON
     }
-    def update(long id,String visibility)
-    {
+
+    def update(long id, String visibility) {
         def message
-       Topic topic = Topic.read(id)
-       if(topic)
-       {
-           topic.visibility = Visibility.toEnum(visibility)
-           topic.save()
-           message = ["message":"Success"]
-       }
-        else {
-           message = ["message": "Could not Update"]
-       }
-           render message as JSON
+        Topic topic = Topic.read(id)
+        if (topic) {
+            topic.visibility = Visibility.toEnum(visibility)
+            topic.save()
+            message = ["message": "Success"]
+        } else {
+            message = ["message": "Could not Update"]
+        }
+        render message as JSON
     }
-    def updateTopicName(long id,String topic)
-    {
+
+    def updateTopicName(long id, String topic) {
         def message
         Topic updateTopic = Topic.read(id)
-        if(updateTopic)
-        {
+        if (updateTopic) {
             updateTopic.name = topic
-            if(updateTopic.validate())
-            {
+            if (updateTopic.validate()) {
                 updateTopic.save()
-                message = ["message":"Topic Updated"]
+                message = ["message": "Topic Updated"]
+            } else {
+                message = ["message": "Could not be Updated"]
             }
-            else {
-                message = ["message":"Could not be Updated"]
-            }
-        }
-        else {
-            message = ["message":"Cannot find topic"]
+        } else {
+            message = ["message": "Cannot find topic"]
         }
         render message as JSON
     }
@@ -102,5 +97,18 @@ class TopicController {
             flash.message = "Already Subscribed"
         }
         redirect(controller: "user", action: "index")
+    }
+
+    def postSearch(long id, String q) {
+        Topic topic = Topic.read(id)
+        List<Resource> topicResources = Resource.findAllByTopic(topic)
+        if (q && !q.equals("")) {
+            topicResources = Resource.createCriteria().list {
+                ilike("description", "%${q}%")
+                createAlias('topic','top');
+                    eq("top.id", id)
+            }
+        }
+        render(template:"/topic/resourcepanelbody",model:[resources:topicResources])
     }
 }

@@ -1,16 +1,18 @@
 package linksharing
 
+import grails.converters.JSON
+
 class ResourceRatingController {
 
     def index() {}
-    def saveRating(long id)
-    {
+    def saveRating(long id,int rating)
+    { def message = ["message":"Success"];
           User user = session.user
           Resource resource = Resource.read(id)
         ResourceRating resourceRating = ResourceRating.findByUserAndResource(user,resource)
         if(resourceRating)
         {
-            resourceRating.score = params.rating
+            resourceRating.score = rating
             resourceRating.save()
         }
         else {
@@ -19,9 +21,9 @@ class ResourceRatingController {
                 newResourceRating.save()
             }
             else {
-                flash.error = "Cannot save Resource Rating"
+                message = ["message":"Cannot save Resource Rating"]
             }
         }
-        redirect(controller:"user", action:"index")
+        render message as JSON
     }
 }

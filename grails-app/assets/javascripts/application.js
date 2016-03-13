@@ -15,32 +15,57 @@ function changeVisibility(visibility, id, panelName) {
         success: function (data) {
             var response = data.message;
             if (response == "Success") {
-                if(panelName=="trendingTopics") {
+                if (panelName == "trendingTopics") {
                     loadTrendingTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").show();
                         $("#responseMessage > .visibilityText").text(response);
                     })
+                    loadSubscription();
                 }
-                else if (panelName=="createdTopics"){
+                else if (panelName == "createdTopics") {
                     loadCreatedTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").show();
                         $("#responseMessage > .visibilityText").text(response);
                     })
                 }
+                else if (panelName == "subscription") {
+                    loadSubscription(function () {
+                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs > .visibilityText").text(response);
+                    })
+                    loadTrendingTopics();
+                }
             }
             else {
-                $("#responseMessage").attr("class", "alert alert-danger").show();
-                $("#responseMessage > .visibilityText").text(response);
+                if (panelName == "subscription") {
+                    loadSubscription(function () {
+                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs > .visibilityText").text(response);
+                    })
+                }
+                else {
+                    $("#responseMessage").attr("class", "alert alert-danger").show();
+                    $("#responseMessage > .visibilityText").text(response);
+                }
             }
 
         },
         error: function (data) {
-            $("#responseMessage").attr("class", "alert alert-danger").show();
-            $("#responseMessage > .visibilityText").text(data.statusText);
+            if (panelName == "subscription") {
+                loadSubscription(function () {
+                    $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                    $("#responseMessageSubs > .visibilityText").text(response);
+                })
+            }
+            else {
+                $("#responseMessage").attr("class", "alert alert-danger").show();
+                $("#responseMessage > .visibilityText").text(data.statusText);
+            }
         }
     });
 }
-function changeSeriouness(seriousness, id,panelName) {
+function changeSeriouness(seriousness, id, panelName) {
+    var alertPanel = $("#alertPanel");
     $.ajax({
         url: "/subscription/update",
         data: {"id": id, "seriousness": seriousness},
@@ -48,42 +73,70 @@ function changeSeriouness(seriousness, id,panelName) {
         success: function (data) {
             var response = data.message
             if (response == "Success") {
-                if(panelName=="trendingTopics") {
+                if (panelName == "trendingTopics") {
                     loadTrendingTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").show();
                         $("#responseMessage > .visibilityText").text(response);
                     })
+                    loadSubscription();
                 }
-                else if (panelName=="createdTopics"){
+                else if (panelName == "createdTopics") {
                     loadCreatedTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").show();
                         $("#responseMessage > .visibilityText").text(response);
                     })
                 }
+                else if (panelName == "subscription") {
+                    loadSubscription(function () {
+                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs > .visibilityText").text(response);
+                    })
+                    loadTrendingTopics();
+                }
+                else {
+                    $("#responseMessage").attr("class", "alert alert-success").show();
+                    $("#responseMessage > .visibilityText").text(response);
+                }
             }
             else {
-                $("#responseMessage").attr("class", "alert alert-danger").show();
-                $("#responseMessage > .visibilityText").text(response);
+                if (panelName == "subscription") {
+                    loadSubscription(function () {
+                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs > .visibilityText").text(response);
+                    })
+                }
+                else {
+                    $("#responseMessage").attr("class", "alert alert-danger").show();
+                    $("#responseMessage > .visibilityText").text(response);
+                }
             }
 
         },
         error: function (data) {
-            $("#responseMessage").attr("class", "alert alert-danger").show();
-            $("#responseMessage > .visibilityText").text(data.statusText);
+            if (panelName == "subscription") {
+                loadSubscription(function () {
+                    $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                    $("#responseMessageSubs > .visibilityText").text(response);
+                })
+            }
+            else {
+                $("#responseMessage").attr("class", "alert alert-danger").show();
+                $("#responseMessage > .visibilityText").text(data.statusText);
+            }
         }
     });
 }
 function loadTrendingTopics(callback) {
-        $("#trendingTopicsSection").load("/user/loadTrendingTopics", function (data) {
-            if (callback) {
-                callback();
-            }
-        });
+    console.log("This was called")
+    $("#trendingTopicsSection").load("/user/loadTrendingTopics", function (data) {
+        if (callback) {
+            callback();
+        }
+    });
 }
-function loadInbox(callback){
-    $("#inboxSection").load("user/loadInbox",function(data){
-        if(callback)
-        {
+function loadInbox(callback) {
+    $("#inboxSection").load("user/loadInbox", function (data) {
+        if (callback) {
             callback();
         }
     })
@@ -95,14 +148,20 @@ function loadCreatedTopics(callback) {
         }
     });
 }
-function loadUserTable()
-{
+function loadSubscription(callback) {
+    console.log("This was called")
+    $("#subscriptionPanel").load("/user/loadSubscription", function (data) {
+        if (callback) {
+            callback();
+        }
+    })
+}
+function loadUserTable() {
     $("#userTableSection").load("/user/loadUserTable")
 }
-function changePassword()
-{
-     var password = $("#password").val();
-     var confirm = $("#confirmPassword").val();
+function changePassword() {
+    var password = $("#password").val();
+    var confirm = $("#confirmPassword").val();
     $.ajax({
         url: "/user/updatePassword",
         data: {"password": password, "confirmPassword": confirm},
@@ -110,8 +169,8 @@ function changePassword()
         success: function (data) {
             var response = data.message
             if (response == "Successfully Updated") {
-                    $("#responseMessagePassword").attr("class", "alert alert-success").show();
-                    $("#responseMessagePassword > .visibilityText").text(response);
+                $("#responseMessagePassword").attr("class", "alert alert-success").show();
+                $("#responseMessagePassword > .visibilityText").text(response);
                 $("#password").val("")
                 $("#confirmPassword").val("")
             }
@@ -127,8 +186,7 @@ function changePassword()
         }
     });
 }
-function deleteTopic(id,panelName)
-{
+function deleteTopic(id, panelName) {
     $.ajax({
         url: "/topic/delete",
         data: {"id": id},
@@ -136,17 +194,19 @@ function deleteTopic(id,panelName)
         success: function (data) {
             var response = data.message;
             if (response == "Deleted") {
-                if(panelName=="trendingTopics") {
+                if (panelName == "trendingTopics") {
                     loadTrendingTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").show();
                         $("#responseMessage > .visibilityText").text(response);
                     })
+                    location.reload();
                 }
-                else if (panelName=="createdTopics"){
+                else if (panelName == "createdTopics") {
                     loadCreatedTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").show();
                         $("#responseMessage > .visibilityText").text(response);
                     })
+                    location.reload();
                 }
             }
             else {
@@ -161,3 +221,4 @@ function deleteTopic(id,panelName)
         }
     });
 }
+

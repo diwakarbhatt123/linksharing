@@ -1,5 +1,6 @@
 package linksharing
 
+import grails.converters.JSON
 import org.springframework.web.multipart.MultipartFile
 
 class LoginController {
@@ -17,23 +18,23 @@ def photoUploaderService
         }
     def loginHandler(String username,int password)
     {
-
+        println "called"
+       def message;
         User user = User.findByUsernameAndPassword(username,password)
-        println "<<<<<<<<<<<<<<<<<<<<${params}<<<<<<<<<<<<<<<<<<<<<<<"
         if(user) {
             if (user.active) {
                 session.user = user
-                redirect(action:"index")
+                message = ["message":"Success"]
             }
             else {
-                flash.error = "Your Account is not active"
+                message = ["message":"Your account is not active"]
             }
         }
         else {
-            flash.error = "Cannot Find User"
+            message = ["message":"Invalid Username or Password"]
         }
-        println flash.error
-        render view:"/login/login"
+        //render view:"/login/login"
+        render message as JSON
     }
     def logout()
     {
@@ -43,7 +44,12 @@ def photoUploaderService
 
     private recentPosts()
     {
-        List recentPosts = Resource.list(sort:"dateCreated",order:"asc",max:2);
+        List <Resource> recentPosts = Resource.createCriteria().list(sort:"dateCreated",order:"asc",max:2){
+            'topic'
+                    {
+                        eq("visibility",Visibility.PUBLIC)
+                    }
+        }
         return recentPosts
     }
     def register() {
@@ -56,5 +62,9 @@ def photoUploaderService
         } else {
             render("Could not register user field ${registerUser.errors.fieldError} cannot have value ${registerUser.errors.fieldError.rejectedValue}")
         }
+    }
+    def loadLoginPanel()
+    {
+        render(template:"login")
     }
 }

@@ -13,7 +13,7 @@ class LinkharingTagLib {
                 if (readingItem.isRead) {
                     out << g.link(controller: "readingItem", action: "changeIsRead", params: [isRead: false], id: "${readingItem.id}", "Mark as Unread")
                 } else {
-                    out << g.link(controller: "readingItem", action: "changeIsRead", params: [isRead: true], id: "${readingItem.id}", "Mark as Read")
+                    out << g.link(controller: "readingItem", action: "changeIsRead", onclick:"changeisRead(${readingItem.id},${attr.panelName})" , params: [isRead: true], id: "${readingItem.id}", "Mark as Read")
                 }
             } else {
                 out << g.link(controller: "readingItem", action: "addToReadingItem", id: "${attr.resourceId}", "Add to Reading List")
@@ -82,7 +82,7 @@ class LinkharingTagLib {
         if (resource?.isLinkResource()) {
             out << "<div class=\"col-xs-3\">${g.link(url: "${resource?.url}", target: "_blank", "View Full Site")}</div>"
         } else {
-            out << "<div class=\"col-xs-2\">${g.link(controller: "documentResource", action: "downloadDocument", id: "${attr.resourceId}", "Download")}</div>"
+            out << "<div class=\"col-xs-3\">${g.link(controller: "documentResource", action: "downloadDocument", id: "${attr.resourceId}", "Download")}</div>"
         }
     }
 

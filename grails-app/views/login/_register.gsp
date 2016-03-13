@@ -2,7 +2,7 @@
     <div class="panel-heading"><strong>Register</strong></div>
 
     <div class="panel-body">
-        <g:uploadForm class="form-horizontal" controller="login" action="register" name="registerForm">
+        <g:uploadForm name="registrationForm" class="form-horizontal" controller="login" action="register">
             <div class="form-group">
                 <label class="col-xs-4">First Name</label>
 
