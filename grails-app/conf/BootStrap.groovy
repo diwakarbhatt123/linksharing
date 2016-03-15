@@ -73,8 +73,7 @@ class BootStrap {
 
     void subscribeTopic() {
         User subscriber = User.findByFirstname("User2")
-        List topicsNotCreated = Topic.findAllByCreatedByNotEqual(subscriber)
-        topicsNotCreated.each {
+        Topic.list().each {
             if (Subscription.countByUserAndTopic(subscriber, it) == 0) {
                 Subscription subscription = new Subscription(seriousness: Seriousness.VERYSERIOUS, user: subscriber, topic: it).save()
             } else {
