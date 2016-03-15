@@ -1,10 +1,9 @@
 package linksharing
 
 import com.intelligrape.linksharing.EmailDTO
-import com.intelligrape.linksharing.ResourceSearchCO
 import com.intelligrape.linksharing.TopicVO
+import com.intelligrape.linksharing.Visibility
 import grails.converters.JSON
-import jline.internal.Log
 
 class TopicController {
     def emailService

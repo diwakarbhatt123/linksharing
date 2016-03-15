@@ -68,3 +68,5 @@
         </g:uploadForm>
     </div>
 </div>
+<script>
+</script>

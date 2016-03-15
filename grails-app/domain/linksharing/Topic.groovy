@@ -1,6 +1,8 @@
 package linksharing
 
+import com.intelligrape.linksharing.Seriousness
 import com.intelligrape.linksharing.TopicVO
+import com.intelligrape.linksharing.Visibility
 import jline.internal.Log
 
 class Topic {
@@ -13,7 +15,7 @@ class Topic {
     static hasMany = [subscriptions: Subscription, resources: Resource]
     static belongsTo = [createdBy: User]
     static constraints = {
-        name(nullable: false, blank: false, unique: true)
+        name(nullable: false, blank: false, unique:'createdBy')
         visibility(nullable: false)
         createdBy(nullable: false)
         resources(nullable: true)
@@ -35,7 +37,7 @@ class Topic {
 
     def afterInsert() {
         Subscription.withNewSession {
-            Subscription subscription = new Subscription(topic: this, user: createdBy, seriousness: Seriousness.VERYSERIOUS)
+            Subscription subscription = new Subscription(topic: this, user: this.createdBy, seriousness: Seriousness.VERYSERIOUS)
             Log.info(subscription.validate())
             if (subscription.validate()) {
                 subscription.save()

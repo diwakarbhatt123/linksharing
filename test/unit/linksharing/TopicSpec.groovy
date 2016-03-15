@@ -1,7 +1,8 @@
 package linksharing
 
+import com.intelligrape.linksharing.Seriousness
+import com.intelligrape.linksharing.Visibility
 import grails.test.mixin.Mock
-import grails.test.mixin.TestFor
 import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -17,10 +18,10 @@ class TopicSpec extends Specification {
         true
     }
 
-    void "test something"() {
+    void "test TopicName"() {
         setup:
         Topic topic = new Topic(name: name, visibility: visibility, createdBy: creater)
-
+        User user = new User(name: "abc")
         when:
         Boolean result = topic.validate()
 
@@ -29,10 +30,9 @@ class TopicSpec extends Specification {
 
         where:
         name     | visibility        | creater    | valid
-        "Grails" | null              | new User() | true
-        ""       | Visibility.PUBLIC | new User() | false
-        null     | Visibility.PUBLIC | new User() | true
-
+        "Grails" | null              | new User() | false
+        "Grails" | Visibility.PUBLIC | user       | true
+        "Grails" | Visibility.PUBLIC | user       | false
     }
 
     void "unique name"() {
@@ -54,6 +54,19 @@ class TopicSpec extends Specification {
         newTopic.errors.allErrors.size() == 1
     }
 
+    def "toString Test"() {
+        setup:
+        Topic topic = new User(name: name)
+
+        expect:
+        topic.toString() == result
+
+        where:
+        name     | result
+        "Grails" | "Grails"
+        "AMC"    | "AMC"
+    }
+
     //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GORM-1 Test>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     @Unroll
     void "Test Topic Validation"() {
@@ -63,7 +76,7 @@ class TopicSpec extends Specification {
         Topic topic = new Topic(name: name, visibility: visibility);
         when:
         Boolean result = topic.validate();
-        String topicname = topic.toString()
+        String topicname = name
 
         then:
         result == valid

@@ -1,5 +1,6 @@
 package linksharing
 
+import com.google.common.hash.HashCode
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
@@ -12,20 +13,33 @@ import spock.lang.Unroll
 class LinkResourceSpec extends Specification {
 
     void "test"() {
-    expect:
-    true
+        expect:
+        true
     }
 
     @Unroll
-    void "Check Url"()
-    {
+    void "Check Url"() {
         setup:
-        LinkResource linkResource = new LinkResource(description: "blah blah",createdBy: new User(),topic: new Topic(),url:url)
+        LinkResource linkResource = new LinkResource(description: "blah blah", createdBy: new User(), topic: new Topic(), url: url)
 
         expect:
-        linkResource.validate()
+        linkResource.validate() == result
 
         where:
-        url << ["http://www.google.com","abc"]
+        url                     | result
+        "http://www.google.com" | true
+        "abc"                   | false
+    }
+    void "toString test"(){
+        setup:
+        Resource resource = new LinkResource(url:url,description:description)
+
+        expect:
+        resource.toString()== result
+
+        where:
+        url | description | result
+        "http://www.google.com" | "Lorem ipsum" | "Description:Lorem ipsum,Url:http://www.google.com"
+        "http://www.yahoo.com" | "Random" | "Description:Random,Url:http://www.yahoo.com"
     }
 }

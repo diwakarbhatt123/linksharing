@@ -9,6 +9,10 @@
     </div>
 
     <div class="panel-body">
+        <g:if test="${subscribedTopics.empty}">
+        <p>No Subscribed Topics</p>
+        </g:if>
+        <g:else>
         <div class="alert alert-success" hidden="hidden" id="responseMessageSubs">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.</span>
@@ -78,25 +82,27 @@
                         <div class="col-xs-1"></div>
 
                         <div class="col-xs-3"><p class="text-info"><ls:resourceCount
-                                topicId="${topic.id}"/></p></div>
+                                topicId="${topic.id}"/></p></div>o
 
                         <div class="col-xs-1"></div>
                     </div>
 
                     <div style="visibility: ${visibility}; padding-bottom:7.5px" class="row">
-                        <div class="col-xs-4">
-                            <select class="form-control" id="SeriousnessSubs" onchange="changeSeriouness(this.value,${topic.id},'subscription')">
-                                <option>Serious</option>
-                                <option>Very Serious</option>
-                                <option>Casual</option>
-                            </select>
+                        <div class="col-xs-5">
+                            <ls:showSeriousness topicId="${topic.id}" panelName="subscription"/>
+                            %{--<select class="form-control" id="SeriousnessSubs" onchange="changeSeriouness(this.value,${topic.id},'subscription')">--}%
+                                %{--<option>Serious</option>--}%
+                                %{--<option>Very Serious</option>--}%
+                                %{--<option>Casual</option>--}%
+                            %{--</select>--}%
                         </div>
 
                         <div class="col-xs-4">
-                            <select class="form-control" id="VisibilitySubs" onchange="changeVisibility(this.value,${topic.id},'subscription')">
-                                <option>Public</option>
-                                <option>Private</option>
-                            </select>
+                            <ls:showVisibility topicId="${topic.id}" panelName="subscription"/>
+                            %{--<select class="form-control" id="VisibilitySubs" onchange="changeVisibility(this.value,${topic.id},'subscription')">--}%
+                                %{--<option>Public</option>--}%
+                                %{--<option>Private</option>--}%
+                            %{--</select>--}%
                         </div>
 
                         <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
@@ -114,6 +120,7 @@
                 </div>
             </div>
         </g:each>
+        </g:else>
     </div>
 </div>
 <script>

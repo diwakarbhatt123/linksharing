@@ -1,9 +1,9 @@
 package linksharing
 
+import com.intelligrape.linksharing.Visibility
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
-import spock.util.mop.Use
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions

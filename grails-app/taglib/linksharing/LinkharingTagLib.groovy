@@ -1,6 +1,8 @@
 package linksharing
 
+import com.intelligrape.linksharing.Seriousness
 import com.intelligrape.linksharing.TopicVO
+import com.intelligrape.linksharing.Visibility
 
 class LinkharingTagLib {
     //static defaultEncodeAs = [taglib: 'html']
@@ -44,10 +46,13 @@ class LinkharingTagLib {
 
     }
    def showSeriousness = {attr,body->
-
+       Topic topic  = Topic.read(attr.topicId)
+       Subscription subscription = Subscription.findByTopicAndUser(topic,session.user);
+       (subscription)?out << g.select(name:"seriousness",from:Seriousness.values(),value:subscription.seriousness,class:"form-control",onchange:"changeSeriouness(this.value,${attr.topicId},'${attr.panelName}')",id:"Seriousness"):out<<""
    }
-    def canUpdateTopic = {attr,body->
-
+    def showVisibility = {attr,body->
+        Topic topic  = Topic.read(attr.topicId)
+        out << g.select(name:"visibility",from:Visibility.values(),value:topic.visibility,class:"form-control",onchange:"changeVisibility(this.value,${attr.topicId},'${attr.panelName}')",id:"Visibility")
     }
     def showSubscribe = { attr, body ->
         User loggedInUser = session.user

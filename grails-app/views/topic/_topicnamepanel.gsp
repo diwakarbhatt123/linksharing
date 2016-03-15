@@ -1,13 +1,15 @@
+<%@ page import="linksharing.Topic" %>
 <div class="panel panel-default">
     <div class="panel-heading"><strong>Topic: "${topic.name}"</strong></div>
 
     <div class="panel-body">
         <div class="row" id="alertPanelSection">
             <div id="alertPanel">
-            <div class="alert alert-success" hidden="hidden" id="responseMessage">
-                <a href="#" id="alertDismiss" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.</span>
-            </div>
+                <div class="alert alert-success" hidden="hidden" id="responseMessage">
+                    <a href="#" id="alertDismiss" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -63,19 +65,25 @@
                 </div>
                 <g:if test="${session.user}">
                     <div class="row">
-                        <div class="col-xs-7">
+                        <div class="col-xs-6">
                         </div>
 
-                        <div class="col-xs-4">
-                            <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
-                                      class="form-control"
-                                      onchange="changeSeriouness(this.value,${topic.id})"
-                                      id="Seriousness"/>
+                        <div class="col-xs-5">
+                            <ls:showSeriousness topicId="${topic.id}"/>
+                            %{--<g:select name="seriousness" from="${com.intelligrape.linksharing.Seriousness.values()}"--}%
+                            %{--class="form-control"--}%
+                            %{--onchange="changeSeriouness(this.value,${topic.id})"--}%
+                            %{--id="Seriousness"/>--}%
                         </div>
 
-                        <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
-                                class="glyphicon glyphicon-envelope col-xs-1"
-                                style="font-size:20px;"></i></a></div>
+                        <div>
+                            <g:if test="${linksharing.Subscription.countByUserAndTopic(session.user, linksharing.Topic.read(topic.id))}">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite">
+                                    <i class="glyphicon glyphicon-envelope col-xs-1"
+                                       style="font-size:20px;"></i>
+                                </a>
+                            </g:if>
+                        </div>
                     </div>
                 </g:if>
             </div>

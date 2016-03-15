@@ -1,7 +1,7 @@
 package linksharing
 
+import com.intelligrape.linksharing.Visibility
 import grails.converters.JSON
-import org.springframework.web.multipart.MultipartFile
 
 class LoginController {
     def photoUploaderService
@@ -54,6 +54,7 @@ class LoginController {
             String imagePath = photoUploaderService.uploadPicture(params.photo)
             params.imagePath = imagePath
         }
+        params.active = true;
         User registerUser = new User(params)
         if (registerUser.validate()) {
             registerUser.save()

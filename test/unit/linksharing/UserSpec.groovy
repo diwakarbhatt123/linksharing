@@ -25,12 +25,12 @@ class UserSpec extends Specification {
 
         then:
         result == valid
+        println user.errors.allErrors
         where:
         fname     | lname   | email                      | password    | valid
         ""        | "bhatt" | "d@b.com"                  | "123"       | false
         "Diwakar" | "Bhatt" | "diwakarbhatt68@gmail.com" | "123456"    | false
-        "Diwakar" | "Bhatt" | "diwakar"                  | "tested123" | true
-
+        "Diwakar" | "Bhatt" | "diwakar"                  | "tested123" | false
     }
 
     def "Unique Email"() {
@@ -55,6 +55,28 @@ class UserSpec extends Specification {
         newEmployee.errors.getFieldErrorCount('email') == 1
     }
 
+    def "Unique Username"() {
+        setup:
+        String username = "diwakarbhatt68"
+        User user = new User(username: username)
+
+        when:
+        user.save(validate: false)
+
+        then:
+        user.count() == 1
+
+        when:
+        User newEmployee = new User(username: username)
+        newEmployee.save()
+
+        then:
+        User.count() == 1
+        newEmployee.errors.allErrors.size() == 1
+        newEmployee.errors.getFieldErrorCount('username') == 1
+
+    }
+
     def "Get Fullname"() {
 
         setup:
@@ -66,7 +88,20 @@ class UserSpec extends Specification {
         where:
         fname     | lname   | full
         "Diwakar" | "Bhatt" | "Diwakar Bhatt"
-        "a"       | "b"     | "a"
+        "a"       | "b"     | "a b"
+    }
+
+    def "To String test"() {
+        setup:
+        User user = new User(firstname: fname, lastname: lname)
+
+        expect:
+        user.toString() == full
+
+        where:
+        fname     | lname   | full
+        "Diwakar" | "Bhatt" | "Diwakar Bhatt"
+        "a"       | "b"     | "a b"
     }
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GORM-1 Test Cases>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -83,8 +118,8 @@ class UserSpec extends Specification {
         username.equals(validname)
         where:
         uname            | fname     | lname   | mail                       | pwd     | admn | active | valid | validname
-        "diwakarbhatt68" | "diwakar" | "bhatt" | "diwakarbhatt68@gmail.com" | "12345" | true | true   | true  | "diwakar bhatt/diwakarbhatt68@gmail.com/diwakarbhatt68"
-        "diwakarbhatt68" | "diwakar" | "bhatt" | "diwakarbhatt68@gmail.com" | "12345" | true | true   | true  | "diwakar bhatt/diwakarbhatt68@gmail.com/diwakarbhatt"
+        "diwakarbhatt68" | "diwakar" | "bhatt" | "diwakarbhatt68@gmail.com" | "12345" | true | true   | true  | "diwakar bhatt"
+        "abc"            | "temp"    | "user"  | "tempuser@gmail.com"       | "12345" | true | true   | true  | "temp user"
 
     }
 }

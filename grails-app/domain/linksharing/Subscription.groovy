@@ -1,5 +1,7 @@
 package linksharing
 
+import com.intelligrape.linksharing.Seriousness
+
 class Subscription {
 
     Seriousness seriousness
@@ -9,6 +11,7 @@ class Subscription {
     static constraints = {
         seriousness(nullable: false,blank:false)
         topic(nullable: false)
+        user(unique:'topic')
     }
     static mapping = {
         seriousness enumType:Seriousness.SERIOUS

@@ -18,6 +18,7 @@
     <asset:javascript src="bootstrap.js"/>
     <asset:stylesheet href="bootstrap.css"/>
     <asset:stylesheet href="font-awesome.min.css"/>
+    <asset:stylesheet src="custompagination.css"/>
     <g:layoutHead/>
 </head>
 

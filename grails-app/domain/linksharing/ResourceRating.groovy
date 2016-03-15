@@ -6,8 +6,7 @@ class ResourceRating {
     Date lastUpdated
     static belongsTo = [resource:Resource,user:User]
     static constraints = {
-        resource(nullable: false)
-        score(min: 0, max: 5, nullable: false)
-        user(nullable: false)
+        score(min: 1, max: 5, nullable: false)
+        user(unique:'resource')
     }
 }

@@ -77,9 +77,6 @@ function changeSeriouness(seriousness, id, panelName) {
                     loadTrendingTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
-                        var successPanel = setInterval(function(){
-                           $("#trendingTopic").attr("class","panel panel-success")
-                        },0);
                     });
                     loadSubscription();
                 }

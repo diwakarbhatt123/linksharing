@@ -1,7 +1,6 @@
 package com.intelligrape.linksharing
 
 import linksharing.User
-import linksharing.Visibility
 
 class TopicVO {
     long id

@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>Register</strong></div>
+    <div class="panel-heading"><strong>Update Profile</strong></div>
 
     <div class="panel-body">
         <g:uploadForm name="profileUpdateForm" controller="user" action="updateProfile" class="form-horizontal">

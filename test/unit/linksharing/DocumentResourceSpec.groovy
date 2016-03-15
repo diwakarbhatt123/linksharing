@@ -16,7 +16,27 @@ class DocumentResourceSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test Document Resource"() {
+        setup:
+        Resource resource = new DocumentResource(description: description, createdBy: user, topic: topic, filePath: filePath)
+        expect:
+        resource.validate() == result
+        where:
+        description   | user       | topic       | filePath     | result
+        "Lorem Ipsum" | new User() | new Topic() | ""           | false
+        ""            | new User() | new Topic() | "/home/ttnd" | false
+        "Lorem Ipsum" | new User() | new Topic() | "/home/ttnd" | true
+    }
+    void "toString Test"(){
+        setup:
+        Resource resource = new DocumentResource(filePath:filePath,description:description)
 
+        expect:
+        resource.toString()== result
+
+        where:
+        filePath | description | result
+        "/home/ttnd" | "Lorem ipsum" | "Description:Lorem ipsum,filepath:/home/ttnd"
+        "/home/deadpool" | "Random" | "Description:Random,filepath:/home/deadpool"
     }
 }

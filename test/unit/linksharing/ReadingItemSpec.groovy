@@ -20,14 +20,29 @@ class ReadingItemSpec extends Specification {
         ReadingItem readingItem = new ReadingItem(resource: resuorce, user: user, isRead: read)
 
         expect:
-        readingItem.validate() == true
+        readingItem.validate() == result
 
         where:
-        resuorce               | user       | read
-        new DocumentResource() | new User() | false
-        null                   | new User() | false
-        new LinkResource()     | null       | false
-        new LinkResource()     | new User() | null
+        resuorce               | user       | read | result
+        new DocumentResource() | new User() | false | true
+        null                   | new User() | false | false
+        new LinkResource()     | null       | false | false
+        new LinkResource()     | new User() | null  | false
 
+    }
+    void "resource user unique test"() {
+        setup:
+        User user = new User()
+        Resource resource = new DocumentResource()
+        ReadingItem readingItem = new ReadingItem(user: user, resource: resource,isRead:false)
+        when:
+        readingItem.save()
+        then:
+        ReadingItem.count() == 1
+        when:
+        ReadingItem newReadingItem = new ReadingItem(user: user, resource: resource,isRead:false)
+        newReadingItem.validate()
+        then:
+        newReadingItem.errors.allErrors.size() == 1
     }
 }

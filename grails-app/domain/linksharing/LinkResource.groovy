@@ -3,7 +3,7 @@ package linksharing
 class LinkResource extends Resource {
     String url
     static constraints = {
-        url (url: true)
+        url (url: true,blank:false)
     }
 
     @Override

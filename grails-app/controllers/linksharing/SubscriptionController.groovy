@@ -1,5 +1,6 @@
 package linksharing
 
+import com.intelligrape.linksharing.Seriousness
 import grails.converters.JSON
 
 class SubscriptionController {

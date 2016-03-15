@@ -18,6 +18,6 @@
     </div>
 
     <div class="panel-body" id="postsSection">
-        <g:render template="resourcepanelbody" model="[resources:resources]"/>
+            <g:render template="resourcepanelbody" model="[resources: resources]"/>
     </div>
 </div>

@@ -5,6 +5,10 @@
     </div></div>
 
     <div class="panel-body">
+        <g:if test="${createdTopics.empty}">
+            <p>No Created Topics</p>
+        </g:if>
+        <g:else>
         <div class="row">
             <div class="alert alert-success" hidden="hidden" id="responseMessage">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -79,18 +83,20 @@
                     </div>
 
                     <div style="padding-bottom:15px" class="row">
-                        <div class="col-xs-4">
-                            <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
-                                      class="form-control"
-                                      onchange="changeSeriouness(this.value,${topic.id},'createdTopics')"
-                                      id="Seriousness"/>
+                        <div class="col-xs-5">
+                            <ls:showSeriousness topicId="${topic.id}" panelName="createdTopics"/>
+                            %{--<g:select name="seriousness" from="${com.intelligrape.linksharing.Seriousness.values()}"--}%
+                                      %{--class="form-control"--}%
+                                      %{--onchange="changeSeriouness(this.value,${topic.id},'createdTopics')"--}%
+                                      %{--id="Seriousness"/>--}%
                         </div>
 
                         <div class="col-xs-4">
-                            <g:select name="visibility" from="${linksharing.Visibility.values()}"
-                                      onchange="changeVisibility(this.value,${topic.id},'createdTopics')"
-                                      class="form-control"
-                                      id="Visibility"/>
+                            <ls:showVisibility topicId="${topic.id}" panelName="createdTopics"/>
+                            %{--<g:select name="visibility" from="${com.intelligrape.linksharing.Visibility.values()}"--}%
+                                      %{--onchange="changeVisibility(this.value,${topic.id},'createdTopics')"--}%
+                                      %{--class="form-control"--}%
+                                      %{--id="Visibility"/>--}%
                         </div>
 
                         <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
@@ -108,6 +114,7 @@
                 </div>
             </div>
         </g:each>
+        </g:else>
     </div>
 </div>
 <script>

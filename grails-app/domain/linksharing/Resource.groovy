@@ -14,8 +14,14 @@ abstract class Resource {
     static belongsTo = [createdBy: User, topic: Topic]
     static mapping = {
         tablePerHierarchy(true)
+        description sqlType: 'text'
     }
 
+    static constraints = {
+        description(blank: false)
+        ratings(nullable: true)
+        readingItems(nullable: true)
+    }
     RatingInfoVO getRatingInfo() {
         List result = Resource.createCriteria().list {
             'ratings'
@@ -31,15 +37,6 @@ abstract class Resource {
         }
         Log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${result}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         return new RatingInfoVO(totalVotes:result[0][0],totalScore:result[0][1],averageScore:result[0][2])
-    }
-    static constraints = {
-        description(nullable: false, blank: false)
-        dateCreated(nullable: true)
-        lastUpdated(nullable: true)
-        createdBy(nullable: true)
-        topic(nullable: true)
-        ratings(nullable: true)
-        readingItems(nullable: true)
     }
     static namedQueries = {
         search { ResourceSearchCO co ->

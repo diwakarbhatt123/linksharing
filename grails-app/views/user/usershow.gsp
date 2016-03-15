@@ -5,7 +5,7 @@
   Time: 11:58 AM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="linksharing.User" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta content="main" name="layout">
@@ -39,16 +39,22 @@
         </div>
     </div></div>
 
-    <div class="panel-body" id="userTableSection">
-    <g:render template="userTable" model="[users:users,userCount:userCount]"/>
+    <div class="panel-body">
+        <div id="userTableSection">
+        </div>
+
+        <div class="pagination">
+            <g:paginate total="${linksharing.User.count()}" max="2"/>
+        </div>
     </div>
 </div>
 <script>
-  $("#activeSelect").change(function(){
-    $("#userTableSection").load("/user/loadUserTable",{"sortBy":$("#activeSelect").val()});
-  });
-    $("#userSearch").keyup(function(){
-        $("#userTableSection").load("/user/loadUserTable",{"q":$("#userSearch").val()});
+    loadUserTable();
+    $("#activeSelect").change(function () {
+        $("#userTableSection").load("/user/loadUserTable", {"sortBy": $("#activeSelect").val()});
+    });
+    $("#userSearch").keyup(function () {
+        $("#userTableSection").load("/user/loadUserTable", {"q": $("#userSearch").val()});
     });
 </script>
 </body>

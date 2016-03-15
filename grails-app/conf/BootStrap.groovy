@@ -4,11 +4,11 @@ import linksharing.LinkResource
 import linksharing.ReadingItem
 import linksharing.Resource
 import linksharing.ResourceRating
-import linksharing.Seriousness
+import com.intelligrape.linksharing.Seriousness
 import linksharing.Subscription
 import linksharing.Topic
 import linksharing.User
-import linksharing.Visibility
+import com.intelligrape.linksharing.Visibility
 
 class BootStrap {
     def grailsApplication
@@ -25,12 +25,12 @@ class BootStrap {
 
     void createUser() {
         if (User.count() == 0) {
-            User user = new User(firstname: "Diwakar", lastname: "Bhatt", email: "diwakarbhatt68@gmail.com", username: "diwakarbhatt68", password: Passwords.defPassword,confirmPassword: Passwords.defPassword,admin: true,active:true,imagePath:"");
+            User user = new User(firstname: "Diwakar", lastname: "Bhatt", email: "diwakarbhatt68@gmail.com", username: "diwakarbhatt68", password: Passwords.defPassword, confirmPassword: Passwords.defPassword, admin: true, active: true, imagePath: "");
             Log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${user.fullName}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-            User admin = new User(firstname: "User2", lastname: "User2", email: "user2@gmail.com", username: "User2", password: Passwords.defPassword,confirmPassword: Passwords.defPassword, admin: false,active:false);
-            if (user.validate())
+            User admin = new User(firstname: "User2", lastname: "User2", email: "user2@gmail.com", username: "User2", password: Passwords.defPassword, confirmPassword: Passwords.defPassword, admin: false, active: false);
+            if (user.validate()) {
                 user.save(flush: true, failOnError: true)
-            else
+            } else
                 log.error("Could not Validate")
 
             if (admin.validate()) {
@@ -44,14 +44,17 @@ class BootStrap {
     }
 
     void createTopics() {
-        User creater = User.findByFirstname("Diwakar")
-        List topicsList = ["Grails","DevOps","AMC","Java","MeanStack"]
-        if (Topic.countByCreatedBy(creater) == 0) {
-            topicsList.each {
-                Topic topic = new Topic(name: it, createdBy: creater, visibility: Visibility.PUBLIC).save()
+        List topicsList = ["Grails", "DevOps", "AMC", "Java", "MeanStack", "Automata", "Ruby", "Groovy", "C++", ".NET"]
+        Integer indexTopic = 0;
+        User.list().each { user ->
+            if (!(user?.topics)) {
+                (0..4).each {
+                    Topic newTopic = new Topic(name: topicsList[indexTopic], createdBy: user, visibility: Visibility.PUBLIC).save(validate: false, failOnError: false)
+                    indexTopic++
+                }
+            } else {
+                Log.info("User already has 5 topics")
             }
-        } else {
-            Log.info("User already has 5 topics")
         }
     }
 
@@ -59,15 +62,15 @@ class BootStrap {
         List topicList = Topic.getAll();
         if (Resource.count() == 0) {
             topicList.each {
-                Resource docResource1 = new DocumentResource(description: it.name, topic: it, createdBy: it.createdBy, filePath: "ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt").save()
-                Resource docResource2 = new DocumentResource(description: it.name, topic: it, createdBy: it.createdBy, filePath: "ftp://ftp.funet.fi/pub/standards/RFC/rfc960.txt").save()
-                Resource linkResource1 = new LinkResource(description: it.name, topic: it, createdBy: it.createdBy, url: "https://en.wikipedia.org/wiki/Main_Page").save()
-                Resource linkResource2 = new LinkResource(description: it.name, topic: it, createdBy: it.createdBy, url: "http://www.encyclopedia.com/").save()
+                Resource docResource1 = new DocumentResource(description: it.name, topic: it, createdBy: it.createdBy, filePath: "ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt").save(flush: true, failOnError: true)
+                Resource docResource2 = new DocumentResource(description: it.name, topic: it, createdBy: it.createdBy, filePath: "ftp://ftp.funet.fi/pub/standards/RFC/rfc960.txt").save(flush: true, failOnError: true)
+                Resource linkResource1 = new LinkResource(description: it.name, topic: it, createdBy: it.createdBy, url: "https://en.wikipedia.org/wiki/Main_Page").save(flush: true, failOnError: true)
+                Resource linkResource2 = new LinkResource(description: it.name, topic: it, createdBy: it.createdBy, url: "http://www.encyclopedia.com/").save(flush: true, failOnError: true)
             }
         } else {
             Log.info("Resource count greater than zero")
         }
-        Log.info("Resource count is"+Resource.count())
+        Log.info("Resource count is" + Resource.count())
 
     }
 
@@ -76,7 +79,7 @@ class BootStrap {
         List topicsNotCreated = Topic.findAllByCreatedByNotEqual(subscriber)
         topicsNotCreated.each {
             if (Subscription.countByUserAndTopic(subscriber, it) == 0) {
-                Subscription subscription = new Subscription(seriousness: Seriousness.VERYSERIOUS, user: subscriber, topic: it).save()
+                Subscription subscription = new Subscription(seriousness: Seriousness.VERYSERIOUS, user: subscriber, topic: it).save(flush: true, failOnError: true)
             } else {
                 Log.info("${subscriber.fullName} is already subscribed to ${it.name}")
             }
@@ -86,11 +89,10 @@ class BootStrap {
     void createReadingItems() {
         User user = User.findByFirstname("User2")
         List resourceNotCreated = Resource.findAllByCreatedByNotEqual(user)
-
         resourceNotCreated.each {
             if (Subscription.countByUserAndTopic(user, it.topic) > 0) {
                 if (ReadingItem.countByUserAndResource(user, it) == 0)
-                    ReadingItem readingItem = new ReadingItem(isRead: false, resource: it, user: user).save()
+                    ReadingItem readingItem = new ReadingItem(isRead: false, resource: it, user: user).save(flush: true, failOnError: true)
                 else
                     Log.info("${user.fullName} already has this Reading Item in his list")
             } else {
@@ -99,17 +101,14 @@ class BootStrap {
         }
     }
 
-    void createResourceRating()
-    {
+    void createResourceRating() {
         User user = User.findByFirstname("User2")
-        List unRead = ReadingItem.findAllByUserAndIsRead(user,false)
-        if(unRead.size()>0) {
+        List unRead = ReadingItem.findAllByUserAndIsRead(user, false)
+        if (unRead.size() > 0) {
             unRead.each {
-                ResourceRating rating = new ResourceRating(score: 5, user:user, resource: it.resource).save()
+                ResourceRating rating = new ResourceRating(score: 5, user: user, resource: it.resource).save(flush: true, failOnError: true)
             }
-        }
-        else
-        {
+        } else {
             Log.info("All the reading item has been read")
         }
 

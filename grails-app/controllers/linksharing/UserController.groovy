@@ -11,45 +11,44 @@ import org.springframework.web.multipart.MultipartFile
 class UserController {
     def emailService
     def photoUploaderService
+
     def index() {
         List<TopicVO> trendingTopics = Topic.trendingTopic
         render(view: "user", model: [trendingTopics: trendingTopics])
     }
 
     def showProfile() {
-        render(view:"/user/profile")
+        render(view: "/user/profile")
     }
-    def loadCreatedTopics(){
-        render(template:"/user/createdTopics",model:[createdTopics:session.user.getCreatedTopics()])
+
+    def loadCreatedTopics() {
+        render(template: "/user/createdTopics", model: [createdTopics: session.user.getCreatedTopics()])
     }
+
     def usershow() {
-        List<User> userList = User.list(params)
-        render(view: "usershow", model: [users: userList,userCount:userList.size()])
+        render(view: "usershow",model:[userCount:User.count])
     }
-def loadUserTable(String q,String sortBy)
-{
-    List <User> userList = User.list();
-    if(q && !q.equals(""))
-    {
-        println "here"
-        userList = User.createCriteria().list(){
-            or {
-                ilike("username","%${q}%")
-                ilike("firstname","%${q}%")
+
+    def loadUserTable(String q, String sortBy) {
+        List<User> userList = User.list(params);
+        if (q && !q.equals("")) {
+            println "here"
+            userList = User.createCriteria().list(params) {
+                or {
+                    ilike("username", "%${q}%")
+                    ilike("firstname", "%${q}%")
+                }
+            }
+        } else if (sortBy) {
+            if (sortBy.equalsIgnoreCase("activated")) {
+                userList = User.findAllByActive(true);
+            } else if (sortBy.equalsIgnoreCase("deactivated")) {
+                userList = User.findAllByActive(false);
             }
         }
+        render(template: "/user/userTable", model: [users: userList])
     }
-    else if(sortBy)
-    {
-        if(sortBy.equalsIgnoreCase("activated")){
-            userList = User.findAllByActive(true);
-        }
-        else if(sortBy.equalsIgnoreCase("deactivated")){
-            userList = User.findAllByActive(false);
-        }
-    }
-    render(template:"/user/userTable",model:[users:userList])
-}
+
     def renderFromDirectory(long id) {
         User user = User.read(id)
         String filePath = user.imagePath
@@ -91,15 +90,17 @@ def loadUserTable(String q,String sortBy)
         }
         render(template: "/user/inbox", model: [unreadPosts: unreadPosts])
     }
-   def loadSubscription(){
-       render(template:"/user/subscription",model:[subscribedTopics:session.user.subscribedTopics])
-   }
+
+    def loadSubscription() {
+        render(template: "/user/subscription", model: [subscribedTopics: session.user.subscribedTopics])
+    }
+
     def updatePassword(String password, String confirmPassword) {
         def message
         if (password.equals(confirmPassword)) {
 
             User loggedInUser = User.read(session.user.id)
-            if(!loggedInUser.password.equals(password)) {
+            if (!loggedInUser.password.equals(password)) {
                 loggedInUser.password = password
                 loggedInUser.confirmPassword = confirmPassword
                 if (loggedInUser.validate()) {
@@ -108,8 +109,7 @@ def loadUserTable(String q,String sortBy)
                 } else {
                     message = ["message": "Could not Update"]
                 }
-            }
-            else{
+            } else {
                 message = ["message": "Successfully Updated"]
             }
         } else {
@@ -117,49 +117,44 @@ def loadUserTable(String q,String sortBy)
         }
         render message as JSON
     }
-    def updateProfile(String firstname, String lastname, String username)
-    {
-         User loggedInUser = User.read(session.user.id)
-         String imagePath = photoUploaderService.uploadPicture(params.photo)
-         loggedInUser.firstname = firstname
-         loggedInUser.lastname =lastname
-        loggedInUser.username =username
+
+    def updateProfile(String firstname, String lastname, String username) {
+        User loggedInUser = User.read(session.user.id)
+        String imagePath = photoUploaderService.uploadPicture(params.photo)
+        loggedInUser.firstname = firstname
+        loggedInUser.lastname = lastname
+        loggedInUser.username = username
         loggedInUser.imagePath = imagePath
-        if(loggedInUser.validate())
-        {
+        if (loggedInUser.validate()) {
             loggedInUser.save()
             flash.message = "Successfully updated"
-        }
-        else {
+        } else {
             flash.error = "Could not Update"
         }
     }
-    def activateUser(long userId,boolean activate){
+
+    def activateUser(long userId, boolean activate) {
         def message
         User user = User.read(userId)
-        if(user)
-        {
+        if (user) {
             user.active = activate
-            if(user.validate())
-            {
+            if (user.validate()) {
                 user.save()
-                message = (activate)?["message":"User activated"]:["message":"User Deactivated"]
+                message = (activate) ? ["message": "User activated"] : ["message": "User Deactivated"]
+            } else {
+                message = ["message": "Could not Activate"]
             }
-            else {
-                message = ["message":"Could not Activate"]
-            }
-        }
-        else {
-            message = ["message":"Could not Find User"]
+        } else {
+            message = ["message": "Could not Find User"]
         }
         render message as JSON
     }
-    def uniqueEmail(String email)
-    {
-        render (User.countByEmail(email)==0) as JSON
+
+    def uniqueEmail(String email) {
+        render(User.countByEmail(email) == 0) as JSON
     }
-    def uniqueUsername(String username)
-    {
-        render (User.countByUsername(username)==0) as JSON
+
+    def uniqueUsername(String username) {
+        render(User.countByUsername(username) == 0) as JSON
     }
 }

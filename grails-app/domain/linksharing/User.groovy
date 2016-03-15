@@ -22,9 +22,9 @@ class User {
     static constraints = {
         username(nullable: false, unique: true)
         email(unique: true, email: true, nullable: false, blank: false)
-        password(size: 0..5, nullable: false, blank: false)
-        firstname(nullable: false)
-        lastname(nullable: false)
+        password(size: 1..5, nullable: false, blank: false)
+        firstname(nullable: false,blank:false)
+        lastname(nullable: false,blank:false)
         imagePath(nullable: true)
         admin(nullable: true)
         active(nullable: true)

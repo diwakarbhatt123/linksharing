@@ -45,7 +45,6 @@
         </g:if>
     </g:each>
     </tbody>
-    <g:paginate total="${userCount}" next="Forward" prev="Previous" maxsteps="10" controller="user" action="usershow"/>
 </table>
 <script>
     function updateActivation(id, buttonid) {

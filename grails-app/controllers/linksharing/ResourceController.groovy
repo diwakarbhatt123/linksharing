@@ -1,10 +1,7 @@
 package linksharing
 
-import com.intelligrape.linksharing.RatingInfoVO
 import com.intelligrape.linksharing.ResourceSearchCO
-import grails.converters.JSON
-import jline.internal.Log
-import org.springframework.web.multipart.MultipartFile
+import com.intelligrape.linksharing.Visibility
 
 class ResourceController {
 
