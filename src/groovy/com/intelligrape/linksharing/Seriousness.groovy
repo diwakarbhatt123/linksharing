@@ -1,4 +1,4 @@
-package linksharing
+package com.intelligrape.linksharing
 
 enum Seriousness
 {
