@@ -18,44 +18,45 @@
         <g:else>
             <g:set var="active" value="danger"/>
         </g:else>
-        <tr class="${active}">
-            <td>${user.id}</td>
-            <td>${user.username}</td>
-            <td>${user.email}</td>
-            <td>${user.firstname}</td>
-            <td>${user.lastname}</td>
-            <td>
-                <g:if test="${user.active}">
-                    Yes
+        <g:if test="${user.id!=session.user.id || !user.admin}">
+            <tr class="${active}">
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td>${user.firstname}</td>
+                <td>${user.lastname}</td>
+                <td>
+                    <g:if test="${user.active}">
+                        Yes
+                    </g:if>
+                    <g:else>
+                        No
+                    </g:else>
+                </td>
+                <td><g:if test="${user.active}">
+                    <a href="#" class="activateButtons" id="deactivate"
+                       onclick="updateActivation(${user.id}, this.id)">Deactivate</a>
                 </g:if>
-                <g:else>
-                    No
-                </g:else>
-            </td>
-            <td><g:if test="${user.active}">
-                <a href="#" class="activateButtons" id="deactivate" onclick="updateActivation(${user.id},this.id)">Deactivate</a>
-            </g:if>
-                <g:else>
-                    <a href="#" class="activateButtons" id="activate" onclick="updateActivation(${user.id},this.id)">Activate</a>
-                </g:else></td>
-        </tr>
+                    <g:else>
+                        <a href="#" class="activateButtons" id="activate"
+                           onclick="updateActivation(${user.id}, this.id)">Activate</a>
+                    </g:else></td>
+            </tr>
+        </g:if>
     </g:each>
     </tbody>
-    <tfoot>
-    <g:paginate total="${users}" controller="user" action="loadUserTable"/>
-    </tfoot>
+    <g:paginate total="${userCount}" next="Forward" prev="Previous" maxsteps="10" controller="user" action="usershow"/>
 </table>
 <script>
-    function updateActivation(id,buttonid)
-    {
-      var active = ($("#"+buttonid).text())=="Activate";
+    function updateActivation(id, buttonid) {
+        var active = ($("#" + buttonid).text()) == "Activate";
         $.ajax({
             url: "/user/activateUser",
-            data: {"activate": active, "userId":id},
+            data: {"activate": active, "userId": id},
             method: "POST",
             success: function (data) {
                 var response = data.message
-                if (response == "User activated"||response == "User Deactivated") {
+                if (response == "User activated" || response == "User Deactivated") {
                     loadUserTable(function () {
                         $("#responseMessagePassword").attr("class", "alert alert-success").show();
                         $("#responseMessagePassword > .visibilityText").text(response);

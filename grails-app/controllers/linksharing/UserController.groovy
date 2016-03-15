@@ -23,8 +23,8 @@ class UserController {
         render(template:"/user/createdTopics",model:[createdTopics:session.user.getCreatedTopics()])
     }
     def usershow() {
-        List<User> userList = User.list()
-        render(view: "usershow", model: [users: userList])
+        List<User> userList = User.list(params)
+        render(view: "usershow", model: [users: userList,userCount:userList.size()])
     }
 def loadUserTable(String q,String sortBy)
 {

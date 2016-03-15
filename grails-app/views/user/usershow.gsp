@@ -40,7 +40,7 @@
     </div></div>
 
     <div class="panel-body" id="userTableSection">
-    <g:render template="userTable" model="[users:users]"/>
+    <g:render template="userTable" model="[users:users,userCount:userCount]"/>
     </div>
 </div>
 <script>

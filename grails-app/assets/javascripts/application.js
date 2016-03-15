@@ -17,20 +17,20 @@ function changeVisibility(visibility, id, panelName) {
             if (response == "Success") {
                 if (panelName == "trendingTopics") {
                     loadTrendingTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").show();
+                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
-                    })
+                    });
                     loadSubscription();
                 }
                 else if (panelName == "createdTopics") {
                     loadCreatedTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").show();
+                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
                     })
                 }
                 else if (panelName == "subscription") {
                     loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessageSubs > .visibilityText").text(response);
                     })
                     loadTrendingTopics();
@@ -39,12 +39,12 @@ function changeVisibility(visibility, id, panelName) {
             else {
                 if (panelName == "subscription") {
                     loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessageSubs > .visibilityText").text(response);
                     })
                 }
                 else {
-                    $("#responseMessage").attr("class", "alert alert-danger").show();
+                    $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
                     $("#responseMessage > .visibilityText").text(response);
                 }
             }
@@ -75,38 +75,41 @@ function changeSeriouness(seriousness, id, panelName) {
             if (response == "Success") {
                 if (panelName == "trendingTopics") {
                     loadTrendingTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").show();
+                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
-                    })
+                        var successPanel = setInterval(function(){
+                           $("#trendingTopic").attr("class","panel panel-success")
+                        },0);
+                    });
                     loadSubscription();
                 }
                 else if (panelName == "createdTopics") {
                     loadCreatedTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").show();
+                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
                     })
                 }
                 else if (panelName == "subscription") {
                     loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessageSubs > .visibilityText").text(response);
                     })
                     loadTrendingTopics();
                 }
                 else {
-                    $("#responseMessage").attr("class", "alert alert-success").show();
+                    $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                     $("#responseMessage > .visibilityText").text(response);
                 }
             }
             else {
                 if (panelName == "subscription") {
                     loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessageSubs > .visibilityText").text(response);
                     })
                 }
                 else {
-                    $("#responseMessage").attr("class", "alert alert-danger").show();
+                    $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
                     $("#responseMessage > .visibilityText").text(response);
                 }
             }
@@ -115,12 +118,12 @@ function changeSeriouness(seriousness, id, panelName) {
         error: function (data) {
             if (panelName == "subscription") {
                 loadSubscription(function () {
-                    $("#responseMessageSubs").attr("class", "alert alert-success").show();
+                    $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
                     $("#responseMessageSubs > .visibilityText").text(response);
                 })
             }
             else {
-                $("#responseMessage").attr("class", "alert alert-danger").show();
+                $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
                 $("#responseMessage > .visibilityText").text(data.statusText);
             }
         }
@@ -169,19 +172,19 @@ function changePassword() {
         success: function (data) {
             var response = data.message
             if (response == "Successfully Updated") {
-                $("#responseMessagePassword").attr("class", "alert alert-success").show();
+                $("#responseMessagePassword").attr("class", "alert alert-success").fadeIn();
                 $("#responseMessagePassword > .visibilityText").text(response);
                 $("#password").val("")
                 $("#confirmPassword").val("")
             }
             else {
-                $("#responseMessagePassword").attr("class", "alert alert-danger").show();
+                $("#responseMessagePassword").attr("class", "alert alert-danger").fadeIn();
                 $("#responseMessagePassword > .visibilityText").text(response);
             }
 
         },
         error: function (data) {
-            $("#responseMessagePassword").attr("class", "alert alert-danger").show();
+            $("#responseMessagePassword").attr("class", "alert alert-danger").fadeIn();
             $("#responseMessagePassword > .visibilityText").text(data.statusText);
         }
     });
@@ -196,27 +199,27 @@ function deleteTopic(id, panelName) {
             if (response == "Deleted") {
                 if (panelName == "trendingTopics") {
                     loadTrendingTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").show();
+                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
                     })
                     location.reload();
                 }
                 else if (panelName == "createdTopics") {
                     loadCreatedTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").show();
+                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
                     })
                     location.reload();
                 }
             }
             else {
-                $("#responseMessage").attr("class", "alert alert-danger").show();
+                $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
                 $("#responseMessage > .visibilityText").text(response);
             }
 
         },
         error: function (data) {
-            $("#responseMessage").attr("class", "alert alert-danger").show();
+            $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
             $("#responseMessage > .visibilityText").text(data.statusText);
         }
     });

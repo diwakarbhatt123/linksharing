@@ -46,7 +46,7 @@
                                             id="topicCancelButtonSubs${iteration}">Cancel</button>
                                 </div>
                             </div>
-                            <g:link controller="topic" action="show" id="${topic.id}"
+                            <g:link elementId="topicNameSubs${iteration}" controller="topic" action="show" id="${topic.id}"
                                     class="text-left">${topic.name}</g:link>
                         </div>
                     </div>
