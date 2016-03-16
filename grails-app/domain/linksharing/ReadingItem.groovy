@@ -12,6 +12,23 @@ class ReadingItem {
         user(nullable: false,unique:'resource')
     }
 
+    static List unReadPosts(){
+        List unReadResources = ReadingItem.createCriteria().list{
+            projections{
+                'resource'{
+                    'topic'{
+                        property("name")
+                    }
+                }
+                'user'{
+                    property("email")
+                }
+            }
+            eq("isRead",false)
+        }.unique();
+        return unReadResources
+    }
+
     @Override
     String toString() {
         "${user}&${resource}"

@@ -75,12 +75,13 @@ class BootStrap {
     }
 
     void subscribeTopic() {
-        User subscriber = User.findByFirstname("User2")
-        Topic.list().each {
-            if (Subscription.countByUserAndTopic(subscriber, it) == 0) {
-                Subscription subscription = new Subscription(seriousness: Seriousness.VERYSERIOUS, user: subscriber, topic: it).save(flush: true, failOnError: true)
-            } else {
-                Log.info("${subscriber.fullName} is already subscribed to ${it.name}")
+        User.list().each {user ->
+            Topic.list().each { topic ->
+                if (Subscription.countByUserAndTopic(user,topic) == 0 && user.id != topic.createdBy.id) {
+                    Subscription subscription = new Subscription(seriousness: Seriousness.VERYSERIOUS, user: user, topic: topic).save(flush: true, failOnError: true)
+                } else {
+                    Log.info("${user.fullName} is already subscribed to ${topic.name}")
+                }
             }
         }
     }

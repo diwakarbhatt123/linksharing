@@ -18,4 +18,10 @@ class EmailService {
             body(view:emailDTO.view,model:emailDTO.model)
         }
     }
+    def sendUnreadResourcesEmail(List unReadResources){
+        unReadResources.each {unReadResource ->
+            EmailDTO emailDTO1 = new EmailDTO(to:unReadResource[1],subject:"Unread Posts",content:"You have unread posts from your subscribed topic ${unReadResource[0]}")
+            sendMail(emailDTO1)
+        }
+    }
 }

@@ -14,7 +14,7 @@ class EmailDTO {
     static constraints = {
         model(nullable: true)
         to(nullable: false)
-        view(nullable: false)
+        view(nullable: true)
         subject(nullable: false)
         content(nullable:true)
     }
