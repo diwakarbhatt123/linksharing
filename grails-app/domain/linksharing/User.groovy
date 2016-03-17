@@ -49,7 +49,7 @@ class User {
 
     List<Topic> getSubscribedTopics()
     {
-        List<Topic> subsTopics = Subscription.createCriteria().list(max:5){
+        List<Topic> subsTopics = Subscription.createCriteria().list(){
             projections
                     {
                         property("topic")

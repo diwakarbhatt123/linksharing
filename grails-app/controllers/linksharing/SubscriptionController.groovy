@@ -15,7 +15,7 @@ class SubscriptionController {
         } else {
             flash.error = "Subscription Not Found"
         }
-        redirect(url:"/")
+        redirect(url:request.getHeader('referer'))
 
     }
 
@@ -28,7 +28,7 @@ class SubscriptionController {
         } else {
             flash.error = "Cannot Create Subscription"
         }
-        redirect(url:"/")
+        redirect(url:request.getHeader('referer'))
 
     }
 

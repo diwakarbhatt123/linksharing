@@ -43,3 +43,30 @@
         </g:uploadForm>
     </div>
 </div>
+<script>
+    $("#profileUpdateForm").validate({
+        rules: {
+            firstname: "required",
+            lastname: "required",
+            username: {
+                required : true,
+                remote: {
+                    type: 'post',
+                    url: 'user/uniqueUsername',
+                    data: {
+                        username: console.log(function(){
+                            return $('#registrationForm > #username').val()})
+                    }
+                }
+            }
+        },
+        messages: {
+            firstname: "You do have a first name!! Right??",
+            lastname: "We would love to know your last name. Please Fill in!!",
+            username: {
+                required :"we dont accept blank as username how unique it might be",
+                remote : "Username already taken find a new one"
+            }
+        }
+    });
+</script>

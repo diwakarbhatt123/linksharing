@@ -7,7 +7,7 @@
             <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.</span>
         </div>
 
-        <form class="form-horizontal" name="login form">
+        <form class="form-horizontal" name="login form" id="loginform">
 
             <div class="form-group">
                 <label class="col-xs-4">Username</label>
