@@ -15,7 +15,7 @@ class SubscriptionController {
         } else {
             flash.error = "Subscription Not Found"
         }
-        redirect(controller: "user", action: "index")
+        redirect(url:"/")
 
     }
 
@@ -28,7 +28,7 @@ class SubscriptionController {
         } else {
             flash.error = "Cannot Create Subscription"
         }
-        redirect(controller: "user", action: "index")
+        redirect(url:"/")
 
     }
 

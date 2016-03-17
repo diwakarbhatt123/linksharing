@@ -1,4 +1,4 @@
-<%@ page import="linksharing.Topic" contentType="text/html;charset=UTF-8" %>
+<%@ page import="linksharing.Resource; linksharing.Topic" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta content="main" name="layout">
@@ -53,7 +53,7 @@
                                     <div class="col-xs-4"></div>
                                     <form name="ratingForm" class="form-horizontal">
                                         <div class="col-xs-4">
-                                            <g:select name="rating" from="${0..5}" class="form-control"/>
+                                            <g:select value="${linksharing.ResourceRating.findByUserAndResource(session.user,resource)}" name="rating" from="${0..5}" class="form-control"/>
                                         </div>
                                         <g:hiddenField name="id" value="${resource.id}"/>
                                         <div class="col-xs-4">

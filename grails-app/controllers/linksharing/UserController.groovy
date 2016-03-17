@@ -26,10 +26,11 @@ class UserController {
     }
 
     def usershow() {
-        render(view: "usershow",model:[userCount:User.count])
+        render(view: "usershow", model: [userCount: User.count])
     }
 
     def loadUserTable(String q, String sortBy) {
+        params.max = (params.max)?params.max:10;
         List<User> userList = User.list(params);
         if (q && !q.equals("")) {
             println "here"
@@ -85,8 +86,7 @@ class UserController {
                 property("resource")
             }
             eq("user", session.user)
-            eq("isRead", false)
-            order("dateCreated", "desc")
+            order("isRead", "asc")
         }
         render(template: "/user/inbox", model: [unreadPosts: unreadPosts])
     }
@@ -120,17 +120,23 @@ class UserController {
 
     def updateProfile(String firstname, String lastname, String username) {
         User loggedInUser = User.read(session.user.id)
-        String imagePath = photoUploaderService.uploadPicture(params.photo)
+        if (!params.photo.empty) {
+            String imagePath = photoUploaderService.uploadPicture(params.photo)
+            loggedInUser.imagePath = imagePath
+        }
         loggedInUser.firstname = firstname
         loggedInUser.lastname = lastname
         loggedInUser.username = username
-        loggedInUser.imagePath = imagePath
         if (loggedInUser.validate()) {
             loggedInUser.save()
+            session.user = loggedInUser
             flash.message = "Successfully updated"
+            redirect(url:request.getHeader('referer'))
         } else {
             flash.error = "Could not Update"
         }
+        println flash.error
+        println flash.message
     }
 
     def activateUser(long userId, boolean activate) {
@@ -156,5 +162,13 @@ class UserController {
 
     def uniqueUsername(String username) {
         render(User.countByUsername(username) == 0) as JSON
+    }
+    def userProfileShow(long id)
+    {
+        User user = User.read(id)
+        List <Topic> userTopics = Topic.findByCreatedBy(user);
+        println userTopics
+        List <Resource> userResource = Resource.findByCreatedBy(user);
+        render(view:"profilepage",model:[userTopics:userTopics,subscribedTopics:user.subscribedTopics,userPosts:userResource])
     }
 }

@@ -29,27 +29,34 @@
                     <div class="col-xs-10">
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="form-group" style="padding-bottom:25px" hidden="hidden"
-                                     id="editTopic${iteration}">
-                                    <div class="col-xs-5">
-                                        <input type="text" placeholder="Grails" class="form-control"
-                                               id="topicEditBox${iteration}" value="${trendingTopic.name}">
-                                    </div>
+                                <g:if test="${session.user && (session.user.admin || session.user.id == trendingTopic.createdBy.id)}">
+                                    <div class="form-group" style="padding-bottom:25px" hidden="hidden"
+                                         id="editTopic${iteration}">
+                                        <div class="col-xs-5">
+                                            <input type="text" placeholder="Grails" class="form-control"
+                                                   id="topicEditBox${iteration}" value="${trendingTopic.name}">
+                                        </div>
 
-                                    <div class="col-xs-2">
-                                        <button type="button" class="btn btn-success buttonSave"
-                                                id="topicsaveButton${iteration}"
-                                                onclick="saveTopicName(${trendingTopic.id}, this.id)">Save</button>
-                                    </div>
+                                        <div class="col-xs-2">
+                                            <button type="button" class="btn btn-success buttonSave"
+                                                    id="topicsaveButton${iteration}"
+                                                    onclick="saveTopicName(${trendingTopic.id}, this.id)">Save</button>
+                                        </div>
 
-                                    <div class="col-xs-2">
-                                        <button type="button" class="btn btn-danger buttonCancel"
-                                                id="topicCancelButton${iteration}">Cancel</button>
+                                        <div class="col-xs-2">
+                                            <button type="button" class="btn btn-danger buttonCancel"
+                                                    id="topicCancelButton${iteration}">Cancel</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <g:link controller="topic" elementId="topicName${iteration}" action="show"
-                                        id="${trendingTopic.id}"
-                                        class="text-left">${trendingTopic.name}</g:link>
+                                    <g:link controller="topic" elementId="topicName${iteration}" action="show"
+                                            id="${trendingTopic.id}"
+                                            class="text-left">${trendingTopic.name}</g:link>
+                                </g:if>
+                                <g:else>
+                                    <g:link controller="topic" action="show"
+                                            id="${trendingTopic.id}"
+                                            class="text-left">${trendingTopic.name}</g:link>
+                                </g:else>
                             </div>
                         </div>
 
@@ -89,7 +96,7 @@
 
                         <div style="padding-bottom:7.5px" class="row">
                             <div class="col-xs-5">
-                                <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
+                                <g:if test="${session.user && linksharing.Subscription.countByUserAndTopic(session.user, Topic.read(trendingTopic.id))}">
                                     <ls:showSeriousness topicId="${trendingTopic.id}" panelName="trendingTopics"/>
                                 %{--<g:select name="seriousness" from="${com.intelligrape.linksharing.Seriousness.values()}"--}%
                                 %{--class="form-control"--}%
@@ -99,7 +106,7 @@
                             </div>
 
                             <div class="col-xs-4">
-                                <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
+                                <g:if test="${session.user && (session.user.admin || session.user.id == trendingTopic.createdBy.id)}">
                                     <ls:showVisibility topicId="${trendingTopic.id}" panelName="trendingTopics"/>
                                 %{--<g:select name="visibility" from="${com.intelligrape.linksharing.Visibility.values()}"--}%
                                 %{--onchange="changeVisibility(this.value,${trendingTopic.id},'trendingTopics')"--}%
@@ -107,12 +114,12 @@
                                 %{--id="Visibility"/>--}%
                                 </g:if>
                             </div>
-                            <g:if test="${linksharing.Subscription.countByUserAndTopic(session.user,Topic.read(trendingTopic.id))}">
-                            <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
-                                    class="glyphicon glyphicon-envelope col-xs-1"
-                                    style="font-size:20px;"></i></a></div>
+                            <g:if test="${linksharing.Subscription.countByUserAndTopic(session.user, Topic.read(trendingTopic.id))}">
+                                <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
+                                        class="glyphicon glyphicon-envelope col-xs-1"
+                                        style="font-size:20px;"></i></a></div>
                             </g:if>
-                            <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
+                            <g:if test="${session.user && (session.user.admin || session.user.id == trendingTopic.createdBy.id)}">
 
                                 <div><a href="javascript:void(0);" class="editButton"
                                         id="editTopicIcon${iteration++}"><i

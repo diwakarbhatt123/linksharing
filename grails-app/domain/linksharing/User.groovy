@@ -38,7 +38,7 @@ class User {
             if (obj.id) {
                 result = true
             } else {
-                result = val = obj.password
+                result =  (val == obj.password)
             }
             return result
         })

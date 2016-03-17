@@ -78,7 +78,7 @@ class TopicController {
         Topic topic = Topic.findByName(params.topic)
         EmailDTO emailDTO = new EmailDTO(to: [email], subject: "${session.user} invited you to like a topic.", view: "/email/_invite", model: [topic: topic, user: session.user, serverUrl: grailsApplication.config.grails.serverURL])
         emailService.sendMail(emailDTO)
-        redirect(controller: "user", action: "index")
+        redirect(url:"/")
     }
 
     def join(long id) {

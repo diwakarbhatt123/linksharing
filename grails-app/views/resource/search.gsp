@@ -39,47 +39,53 @@
                         </div>
 
                         <div class="panel-body">
-                            <g:each in="${searchResources}" var="resource">
-                                <div>
-                                    <div class="col-xs-2">
-                                        <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
-                                    </div>
-
-                                    <div class="col-xs-10">
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <span class="h5">${resource.createdBy.fullName}</span>
-                                                <small class="text-muted">@${resource.createdBy.username}</small>
-                                            </div>
-
-                                            <div class="col-xs-3">
-                                            </div>
-
-                                            <div class="col-xs-3">
-                                                <a href="#" class="text-left">${resource.topic.name}</a>
-                                            </div>
+                            <g:if test="${searchResources?.empty}">
+                                <p>No Result Found</p>
+                            </g:if>
+                            <g:else>
+                                <g:each in="${searchResources}" var="resource">
+                                    <div>
+                                        <div class="col-xs-2">
+                                            <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
                                         </div>
 
-                                        <p>${resource.description}</p>
+                                        <div class="col-xs-10">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <span class="h5">${resource.createdBy.fullName}</span>
+                                                    <small class="text-muted">@${resource.createdBy.username}</small>
+                                                </div>
 
-                                        <div class="row">
-                                            <div class="col-xs-1 fa fa-facebook-official"></div>
+                                                <div class="col-xs-3">
+                                                </div>
 
-                                            <div class="col-xs-1 fa fa-twitter"></div>
+                                                <div class="col-xs-3">
+                                                    <a href="#" class="text-left">${resource.topic.name}</a>
+                                                </div>
+                                            </div>
 
-                                            <div class="col-xs-1 fa fa-google-plus"></div>
+                                            <p>${resource.description}</p>
 
-                                            <div class="col-xs-2"><small><a href="#">Download</a></small></div>
+                                            <div class="row">
+                                                <div class="col-xs-1 fa fa-facebook-official"></div>
 
-                                            <div class="col-xs-3"><small><a href="#">View Full Site</a></small></div>
+                                                <div class="col-xs-1 fa fa-twitter"></div>
 
-                                            <div class="col-xs-2"><small><a href="#">Mark as Read</a></small></div>
+                                                <div class="col-xs-1 fa fa-google-plus"></div>
 
-                                            <div class="col-xs-2"><small><a href="#">View Post</a></small></div>
+                                                <div class="col-xs-2"><small><a href="#">Download</a></small></div>
+
+                                                <div class="col-xs-3"><small><a href="#">View Full Site</a></small>
+                                                </div>
+
+                                                <div class="col-xs-2"><small><a href="#">Mark as Read</a></small></div>
+
+                                                <div class="col-xs-2"><small><a href="#">View Post</a></small></div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </g:each>
+                                </g:each>
+                            </g:else>
                         </div>
                     </div>
                 </div>

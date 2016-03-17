@@ -26,7 +26,7 @@
             <div class="col-xs-10">
                 <div class="row">
                     <div class="col-xs-12">
-                        <a href="#" class="text-left">${topic.name}</a>
+                        <a href="javascript:void(0);" class="text-left">${topic.name}</a>
                         <small class="text-muted">(${topic.visibility})</small>
                     </div>
                 </div>

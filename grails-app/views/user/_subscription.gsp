@@ -82,7 +82,7 @@
                         <div class="col-xs-1"></div>
 
                         <div class="col-xs-3"><p class="text-info"><ls:resourceCount
-                                topicId="${topic.id}"/></p></div>o
+                                topicId="${topic.id}"/></p></div>
 
                         <div class="col-xs-1"></div>
                     </div>

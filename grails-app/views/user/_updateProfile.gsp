@@ -7,7 +7,7 @@
                 <label class="col-xs-4">First Name</label>
 
                 <div class="col-xs-8">
-                    <g:textField name="firstname" type="text" class="form-control" id="fname"/>
+                    <g:textField value="${session.user.firstname}" name="firstname" type="text" class="form-control" id="fname"/>
                 </div>
             </div>
 
@@ -15,7 +15,7 @@
                 <label class="col-xs-4">Last Name</label>
 
                 <div class="col-xs-8">
-                    <g:textField name="lastname" type="text" class="form-control" id="lname"/>
+                    <g:textField value="${session.user.lastname}" name="lastname" type="text" class="form-control" id="lname"/>
                 </div>
             </div>
 
@@ -23,7 +23,7 @@
                 <label class="col-xs-4">Username</label>
 
                 <div class="col-xs-8">
-                    <g:textField name="username" type="text" class="form-control" id="username"/>
+                    <g:textField value="${session.user.username}" name="username" type="text" class="form-control" id="username"/>
                 </div>
             </div>
 

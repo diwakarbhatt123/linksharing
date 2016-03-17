@@ -24,7 +24,7 @@ class LoginControllerSpec extends Specification {
         response.text == text
         where:
         sessionuser | url           | text
-        "User1"     | "/user/index" | ""
+        new User()  | "/user/index" | ""
         null        | ""            | "User not logged in"
     }
 

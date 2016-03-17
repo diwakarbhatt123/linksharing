@@ -87,7 +87,7 @@ class BootStrap {
     }
 
     void createReadingItems() {
-        User user = User.findByFirstname("User2")
+        User user = User.findByFirstname("Diwakar")
         List resourceNotCreated = Resource.findAllByCreatedByNotEqual(user)
         resourceNotCreated.each {
             if (Subscription.countByUserAndTopic(user, it.topic) > 0) {

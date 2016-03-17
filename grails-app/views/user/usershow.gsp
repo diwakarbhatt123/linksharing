@@ -44,7 +44,8 @@
         </div>
 
         <div class="pagination">
-            <g:paginate total="${linksharing.User.count()}" max="2"/>
+            %{--<g:paginate total="${User.count()}" max="1" controller="user" action="loadUserTable"/>--}%
+            <util:remotePaginate total="${User.count()}" controller="user" action="loadUserTable" max="20" update="userTableSection"/>
         </div>
     </div>
 </div>

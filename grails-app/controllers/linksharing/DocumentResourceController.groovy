@@ -20,7 +20,7 @@ class DocumentResourceController extends ResourceController {
         } else {
             flash.error = "Resource could not be saved"
         }
-        redirect(controller: "user", action: "index")
+        redirect(url:"/")
     }
     def downloadDocument(long id)
     {
