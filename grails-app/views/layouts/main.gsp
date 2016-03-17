@@ -16,6 +16,7 @@
     <asset:javascript src="jquery.min.js"/>
     <asset:javascript src="application.js"/>
     <asset:javascript src="bootstrap.js"/>
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.js"></script>
     <asset:stylesheet href="bootstrap.css"/>
     <asset:stylesheet href="font-awesome.min.css"/>
     <asset:stylesheet src="custompagination.css"/>

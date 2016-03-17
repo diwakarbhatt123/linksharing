@@ -2,7 +2,7 @@
     <div class="modal-dialog">
 
     <!-- Modal content-->
-        <g:uploadForm controller="documentResource" action="save" class="form-horizontal">
+        <g:uploadForm name="saveDocumentForm" controller="documentResource" action="save" class="form-horizontal">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -45,3 +45,17 @@
         </g:uploadForm>
     </div>
 </div>
+<script>
+    $("#saveDocumentForm").validate({
+        rules: {
+            document: "required",
+            description: "required",
+            topic: "required"
+        },
+        messages:{
+            document: "You are uploading a document and you do not have a document!!",
+            description: "Description should be provided",
+            topic: "Topic is required"
+        }
+    });
+</script>

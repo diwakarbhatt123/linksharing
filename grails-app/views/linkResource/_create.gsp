@@ -3,7 +3,7 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <g:form controller="linkResource" action="save" class="form-horizontal">
+        <g:form name="linkResourceForm" controller="linkResource" action="save" class="form-horizontal">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -39,3 +39,23 @@
         </g:form>
     </div>
 </div>
+<script>
+    $("#linkResourceForm").validate({
+        rules: {
+            url: {
+                required : true,
+              url : true
+            },
+            description: "required",
+            topic: "required"
+        },
+        messages:{
+            url: {
+              required : "You are Sharing a link and you have not provided a Link!!",
+              url : "This is not a valid url"
+            },
+                description: "Description should be provided",
+            topic: "Topic is required"
+        }
+    });
+</script>

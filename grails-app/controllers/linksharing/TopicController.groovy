@@ -29,7 +29,7 @@ class TopicController {
         } else {
             flash.error = "Cannot save topic"
         }
-        redirect(controller: "user", action: "index")
+        redirect(url:request.getHeader('referer'))
     }
 
     def delete(long id) {

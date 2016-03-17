@@ -2,7 +2,7 @@
     <div class="modal-dialog">
 
     <!-- Modal content-->
-        <g:form controller="topic" action="invite" class="form-horizontal">
+        <g:form name="sendInvite" controller="topic" action="invite" class="form-horizontal">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -37,3 +37,21 @@
         </g:form>
     </div>
 </div>
+<script>
+    $("#sendInvite").validate({
+        rules: {
+            email: {
+              required : true,
+              email : true
+            },
+            topic: "required"
+        },
+        messages:{
+            email: {
+                required : "Email is Required",
+                email : "That doesn't look like a Valid Email"
+            },
+            topic: "Topic is required"
+        }
+    });
+</script>

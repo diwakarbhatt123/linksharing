@@ -2,7 +2,7 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <g:form controller="topic" action="save" class="form-horizontal">
+        <g:form name="topicSave" controller="topic" action="save" class="form-horizontal">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -32,3 +32,13 @@
         </g:form>
     </div>
 </div>
+<script>
+    $("#topicSave").validate({
+        rules: {
+            topicName: "required"
+        },
+        messages:{
+            topicName: "Topic name should be provided"
+        }
+    });
+</script>
