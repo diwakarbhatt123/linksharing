@@ -1,14 +1,7 @@
-import jline.internal.Log
-import linksharing.DocumentResource
-import linksharing.LinkResource
-import linksharing.ReadingItem
-import linksharing.Resource
-import linksharing.ResourceRating
 import com.intelligrape.linksharing.Seriousness
-import linksharing.Subscription
-import linksharing.Topic
-import linksharing.User
 import com.intelligrape.linksharing.Visibility
+import jline.internal.Log
+import linksharing.*
 
 class BootStrap {
     def grailsApplication

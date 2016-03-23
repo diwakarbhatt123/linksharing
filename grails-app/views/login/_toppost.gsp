@@ -3,15 +3,15 @@
         <h5 class="panel-title pull-left"
             style="font-size:15px;padding-top:7.5px;"><strong>Top Posts</strong></h5>
 
-        <div class="btn-group pull-right">
-            <button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Today<span
-                    class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Today</a></li>
-                <li><a href="#">1 Week</a></li>
-                <li><a href="#">1 Month</a></li>
-            </ul>
-        </div>
+        %{--<div class="btn-group pull-right">--}%
+            %{--<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Today<span--}%
+                    %{--class="caret"></span></button>--}%
+            %{--<ul class="dropdown-menu">--}%
+                %{--<li><a href="#">Today</a></li>--}%
+                %{--<li><a href="#">1 Week</a></li>--}%
+                %{--<li><a href="#">1 Month</a></li>--}%
+            %{--</ul>--}%
+        %{--</div>--}%
     </div>
 
     <div class="panel-body">

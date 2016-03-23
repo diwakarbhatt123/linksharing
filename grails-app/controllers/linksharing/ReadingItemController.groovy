@@ -1,7 +1,6 @@
 package linksharing
 
 import grails.converters.JSON
-import jline.internal.Log
 
 class ReadingItemController {
 

@@ -56,12 +56,13 @@ class LoginController {
         }
         params.active = true;
         User registerUser = new User(params)
-        if (registerUser.validate()) {
+        if (!registerUser.validate()) {
             registerUser.save()
             session.user = registerUser
             redirect(action:"index")
         } else {
             flash.error = "Could not register"
+            redirect(url:"/")
         }
     }
 

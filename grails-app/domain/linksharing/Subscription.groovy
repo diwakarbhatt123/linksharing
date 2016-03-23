@@ -4,7 +4,7 @@ import com.intelligrape.linksharing.Seriousness
 
 class Subscription {
 
-    Seriousness seriousness
+    Seriousness seriousness = Seriousness.SERIOUS;
     Date dateCreated
     Date lastUpdated
     static belongsTo = [user:User,topic:Topic]
@@ -14,7 +14,6 @@ class Subscription {
         user(unique:'topic')
     }
     static mapping = {
-        seriousness enumType:Seriousness.SERIOUS
         user lazy:false
         topic lazy: false
     }

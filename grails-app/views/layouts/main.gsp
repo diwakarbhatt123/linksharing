@@ -12,7 +12,7 @@
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    %{--<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">--}%
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
     <asset:javascript src="jquery.min.js"/>
     <asset:javascript src="application.js"/>
     <asset:javascript src="bootstrap.js"/>
@@ -72,6 +72,18 @@
         </ul>
     </div>
 </nav>
+<g:if test="${flash.message}">
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        ${flash.message}
+    </div>
+</g:if>
+<g:elseif test="${flash.error}">
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        ${flash.error}
+    </div>
+</g:elseif>
 <g:layoutBody/>
 </body>
 </html>

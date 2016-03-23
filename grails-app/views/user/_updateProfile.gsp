@@ -52,7 +52,7 @@
                 required : true,
                 remote: {
                     type: 'post',
-                    url: 'user/uniqueUsername',
+                    url: '/user/uniqueUsername',
                     data: {
                         username: console.log(function(){
                             return $('#registrationForm > #username').val()})

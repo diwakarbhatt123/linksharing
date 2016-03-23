@@ -110,4 +110,9 @@ class TopicController {
         }
         render(template:"/topic/resourcepanelbody",model:[resources:topicResources])
     }
+    def loadTopicNamePanel(long id){
+        println id
+        Topic topic = Topic.read(id)
+        render(template:"/topic/topicnamepanel",model:[topic:topic])
+    }
 }

@@ -60,6 +60,17 @@ grails {
         // filteringCodecForContentType.'text/html' = 'html'
     }
 }
+grails {
+    plugin {
+        facebooksdk {
+            app = [
+                    id: '982776161775775',
+                    //permissions: APP_PERMISSIONS,
+                    secret: '40734c02481a4a54e0c5152d50125200'
+            ]
+        }
+    }
+}
 environments{
     development{
         userImageFolder = "${userHome}/linksharingimages"

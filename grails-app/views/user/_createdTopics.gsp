@@ -74,7 +74,7 @@
                             <small class="text-muted">@${topic.createdBy.username}</small>
                         </div>
 
-                        <div class="col-xs-4"><p class="text-info"><ls:subscriptionCount user="${session.user}"/></p>
+                        <div class="col-xs-4"><p class="text-info"><ls:subscriptionCount topicId="${topic.id}"/></p>
                         </div>
 
 
