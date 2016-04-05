@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta content="main" name="layout">
-    <title>Subscribed Users</title>
+    <title>${topic.name}</title>
 </head>
 
 <body>
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-xs-6">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12" id="topicNameSection">
                     <!-- Topic Panel -->
                     <!-- ************************************************** -->
                     <g:render template="topicnamepanel" model="[topic:topic]"/>
@@ -36,6 +36,7 @@
     </div>
 </div>
 <script>
+// loadTopicNamePanel(topic.id);
 $("#postSearch").keyup(function(){
    $("#postsSection").load("/topic/postSearch",{"id":${topic.id},"q":$("#postSearch").val()})
 });

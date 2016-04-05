@@ -77,11 +77,12 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:codenarc:0.25.1"
         compile "org.grails.plugins:remote-pagination:0.4.8"
         compile "org.grails.plugins:quartz:1.0.2"
+        compile "org.grails.plugins:spring-security-core:2.0.0"
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.10" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
-
+        runtime ':facebook-sdk:2.3.0'
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"

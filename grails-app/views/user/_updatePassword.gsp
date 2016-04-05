@@ -36,22 +36,22 @@ $("#updatePasswordForm").validate({
     rules: {
         password: {
             required: true,
-            maxlength: 5
+            minlength: 5
         },
         confirmPassword: {
             required: true,
-            maxlength: 5,
+            minlength: 5,
             equalTo: "#password"
         }
     },
     messages: {
         password: {
             required: "Password is required",
-            maxlength: "Too long!!We cannot count more than 5 digits."
+            minlength: "Password should have atleast 5 characters."
         },
         confirmpassword: {
             required: "We know you're lazy but you do need to confirm your password",
-            maxlength: "Too long!!We cannot count more than 5 digits.",
+            minlength: "Password should have atleast 5 characters.",
             equalTo: "Password do not match!! That is fishy!!"
         }
     }

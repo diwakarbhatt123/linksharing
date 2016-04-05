@@ -46,6 +46,7 @@ abstract class Resource {
                   ilike("description","%${co.q}%")
                   'topic' {
                       ilike("name", "%${co.q}%")
+                     eq('visibility',co.visibility)
                   }
               }
             }

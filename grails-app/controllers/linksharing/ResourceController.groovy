@@ -2,11 +2,12 @@ package linksharing
 
 import com.intelligrape.linksharing.ResourceSearchCO
 import com.intelligrape.linksharing.Visibility
+import grails.plugin.springsecurity.annotation.Secured
 
 class ResourceController {
 
     def index() {}
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def delete(long id) {
 
         User loggediInUser = session.user
@@ -22,26 +23,33 @@ class ResourceController {
         }
         redirect(controller: "login", action: "index")
     }
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def search(ResourceSearchCO co) {
         if (co.q) {
-            co.visibility = Visibility.PUBLIC
             List<Resource> resources = Resource.search(co).list();
-            render(view: "search", model: [searchResources: resources,query:co.q])
+
+
+            List<Topic> topics = Topic.search(co).list();
+
+            println topics;
+            render(view: "search", model: [searchResources: resources,searchTopics:topics,query:co.q])
         } else
             flash.message = "No input in query"
     }
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def update(long id,String description){
         Resource resource = Resource.read(id)
         if(resource){
             resource.description = description
-            flash.message = (resource.validate())?resource.save():"Could not save"
+            if(resource.validate())
+            flash.message = resource.save()?"Description Updated Successfully":"Could not Update Description"
         }
         else {
             flash.error = "Could not find resource"
         }
         redirect(url:request.getHeader('referer'))
     }
-
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(long id) {
         Resource resource = Resource.get(id)
         List trendingTopics = Topic.trendingTopic

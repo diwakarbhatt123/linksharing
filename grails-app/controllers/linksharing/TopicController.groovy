@@ -4,12 +4,13 @@ import com.intelligrape.linksharing.EmailDTO
 import com.intelligrape.linksharing.TopicVO
 import com.intelligrape.linksharing.Visibility
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 class TopicController {
     def emailService
 
     def index() {}
-
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(long id, String q) {
         Topic topic = Topic.read(id)
         List<User> subscribedUsers = topic.subscribedUsers
@@ -19,7 +20,7 @@ class TopicController {
         TopicVO topicVO = new TopicVO(id: topic.id, name: topic.name, visibility: topic.visibility, count: Resource.countByTopic(topic), createdBy: topic.createdBy, subscribers: Subscription.countByTopic(topic))
         render(view: "show", model: [subscribedUsers: subscribedUsers, topicResources: topicResources, topic: topicVO])
     }
-
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def save(String topicName, String visibility) {
         User loggedInUser = session.user
         Topic topic = new Topic(name: topicName, visibility: Visibility.toEnum(visibility), createdBy: loggedInUser)
@@ -31,7 +32,7 @@ class TopicController {
         }
         redirect(url:request.getHeader('referer'))
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def delete(long id) {
         def message
         Topic topic = Topic.load(id)
@@ -43,7 +44,7 @@ class TopicController {
         }
         render message as JSON
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def update(long id, String visibility) {
         def message
         Topic topic = Topic.read(id)
@@ -56,7 +57,7 @@ class TopicController {
         }
         render message as JSON
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def updateTopicName(long id, String topic) {
         def message
         Topic updateTopic = Topic.read(id)
@@ -73,7 +74,7 @@ class TopicController {
         }
         render message as JSON
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def invite(String email) {
         Topic topic = Topic.findByName(params.topic)
         EmailDTO emailDTO = new EmailDTO(to: [email], subject: "${session.user} invited you to like a topic.", view: "/email/_invite", model: [topic: topic, user: session.user, serverUrl: grailsApplication.config.grails.serverURL])
@@ -97,7 +98,7 @@ class TopicController {
         }
         redirect(controller: "user", action: "index")
     }
-
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def postSearch(long id, String q) {
         Topic topic = Topic.read(id)
         List<Resource> topicResources = Resource.findAllByTopic(topic)
@@ -109,5 +110,10 @@ class TopicController {
             }
         }
         render(template:"/topic/resourcepanelbody",model:[resources:topicResources])
+    }
+    def loadTopicNamePanel(long id){
+        println id
+        Topic topic = Topic.read(id)
+        render(template:"/topic/topicnamepanel",model:[topic:topic])
     }
 }

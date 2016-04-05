@@ -10,6 +10,7 @@ class EmailService {
     {
         sendMail{
             async true
+            from "diwakarbhatt68@gmail.com"
             to emailDTO.to.toArray()
             subject emailDTO.subject
             if(emailDTO.content)

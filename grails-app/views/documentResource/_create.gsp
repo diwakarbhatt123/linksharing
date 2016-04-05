@@ -48,12 +48,19 @@
 <script>
     $("#saveDocumentForm").validate({
         rules: {
-            document: "required",
+            document:
+            {
+                required:true,
+                //extension :"pdf"
+            },
             description: "required",
             topic: "required"
         },
         messages:{
-            document: "You are uploading a document and you do not have a document!!",
+            document: {
+               required: "You are uploading a document and you do not have a document!!",
+                //extension : "Documents can only be of PDF, DOCX or txt Format!!"
+            },
             description: "Description should be provided",
             topic: "Topic is required"
         }

@@ -1,10 +1,12 @@
 package linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 class ResourceRatingController {
 
     def index() {}
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def saveRating(long id,int rating)
     { def message = ["message":"Success"];
           User user = session.user

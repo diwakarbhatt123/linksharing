@@ -4,31 +4,29 @@ import com.intelligrape.linksharing.EmailDTO
 import com.intelligrape.linksharing.RandomPasswordGenerator
 import com.intelligrape.linksharing.TopicVO
 import grails.converters.JSON
-import jline.internal.Log
-import org.springframework.web.multipart.MultipartFile
-
+import grails.plugin.springsecurity.annotation.Secured
 
 class UserController {
     def emailService
     def photoUploaderService
-
+    def springSecurityService
     def index() {
         List<TopicVO> trendingTopics = Topic.trendingTopic
         render(view: "user", model: [trendingTopics: trendingTopics])
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def showProfile() {
         render(view: "/user/profile")
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def loadCreatedTopics() {
         render(template: "/user/createdTopics", model: [createdTopics: session.user.getCreatedTopics()])
     }
-
+    @Secured(['ROLE_ADMIN'])
     def usershow() {
         render(view: "usershow", model: [userCount: User.count])
     }
-
+    @Secured(['ROLE_ADMIN'])
     def loadUserTable(String q, String sortBy) {
         params.max = (params.max)?params.max:10;
         List<User> userList = User.list(params);
@@ -60,6 +58,7 @@ class UserController {
         response.outputStream.flush()
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def forgotPassword(String recoveryemail) {
         User user = User.findByEmail(recoveryemail)
         if (user && user.active) {
@@ -75,11 +74,11 @@ class UserController {
         }
         redirect(controller: "login", action: "index")
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def loadTrendingTopics() {
         render(template: "/user/trendingtopics", model: [trendingTopics: Topic.getTrendingTopic()])
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def loadInbox() {
         List<Resource> unreadPosts = ReadingItem.createCriteria().list([max: 3]) {
             projections {
@@ -90,16 +89,15 @@ class UserController {
         }
         render(template: "/user/inbox", model: [unreadPosts: unreadPosts])
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def loadSubscription() {
         render(template: "/user/subscription", model: [subscribedTopics: session.user.subscribedTopics])
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def updatePassword(String password, String confirmPassword) {
         def message
         if (password.equals(confirmPassword)) {
-
-            User loggedInUser = User.read(session.user.id)
+            User loggedInUser = User.get(session.user.id)
             if (!loggedInUser.password.equals(password)) {
                 loggedInUser.password = password
                 loggedInUser.confirmPassword = confirmPassword
@@ -117,7 +115,7 @@ class UserController {
         }
         render message as JSON
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def updateProfile(String firstname, String lastname, String username) {
         User loggedInUser = User.read(session.user.id)
         if (!params.photo.empty) {
@@ -131,14 +129,13 @@ class UserController {
             loggedInUser.save()
             session.user = loggedInUser
             flash.message = "Successfully updated"
-            redirect(url:request.getHeader('referer'))
         } else {
+            println loggedInUser.errors.allErrors
             flash.error = "Could not Update"
         }
-        println flash.error
-        println flash.message
+        redirect(url:request.getHeader('referer'))
     }
-
+    @Secured(['ROLE_ADMIN'])
     def activateUser(long userId, boolean activate) {
         def message
         User user = User.read(userId)
@@ -155,11 +152,11 @@ class UserController {
         }
         render message as JSON
     }
-
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def uniqueEmail(String email) {
         render(User.countByEmail(email) == 0) as JSON
     }
-
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def uniqueUsername(String username) {
         render(User.countByUsername(username) == 0) as JSON
     }

@@ -1,13 +1,14 @@
 package linksharing
 
 import grails.converters.JSON
-import jline.internal.Log
+import grails.plugin.springsecurity.annotation.Secured
 
 class ReadingItemController {
 
     def index() {
         render "Hello"
     }
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def addToReadingItem(int id)
     {
        ReadingItem readingItem = new ReadingItem(user:session.user,resource:Resource.read(id),isRead:false)
@@ -21,6 +22,7 @@ class ReadingItemController {
         }
         redirect(url:request.getHeader('referer'))
     }
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def changeIsRead(Long id,Boolean isRead) {
         int result = ReadingItem.executeUpdate("update ReadingItem read set read.isRead=${isRead} where read.id=${id}")
         if (result) {

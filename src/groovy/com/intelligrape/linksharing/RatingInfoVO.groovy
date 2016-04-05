@@ -1,5 +1,7 @@
 package com.intelligrape.linksharing
 
+import grails.validation.Validateable
+
 class RatingInfoVO {
     Integer totalVotes
     Integer averageScore

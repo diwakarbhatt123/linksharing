@@ -13,24 +13,24 @@ grails.config.locations = ["file:${userHome}/.grails/${appName}-tempconfig.groov
 // }
 
 grails.project.groupId = com.intelligrape.linksharing // change this to alter the default package name and Maven publishing destination
-
+myname = "Sagar"
 grails.app.context = "/"
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 grails.mime.types = [ // the first one is the default format
-    all:           '*/*', // 'all' maps to '*' or the first available format in withFormat
-    atom:          'application/atom+xml',
-    css:           'text/css',
-    csv:           'text/csv',
-    form:          'application/x-www-form-urlencoded',
-    html:          ['text/html','application/xhtml+xml'],
-    js:            'text/javascript',
-    json:          ['application/json', 'text/json'],
-    multipartForm: 'multipart/form-data',
-    rss:           'application/rss+xml',
-    text:          'text/plain',
-    hal:           ['application/hal+json','application/hal+xml'],
-    xml:           ['text/xml', 'application/xml']
+                      all          : '*/*', // 'all' maps to '*' or the first available format in withFormat
+                      atom         : 'application/atom+xml',
+                      css          : 'text/css',
+                      csv          : 'text/csv',
+                      form         : 'application/x-www-form-urlencoded',
+                      html         : ['text/html', 'application/xhtml+xml'],
+                      js           : 'text/javascript',
+                      json         : ['application/json', 'text/json'],
+                      multipartForm: 'multipart/form-data',
+                      rss          : 'application/rss+xml',
+                      text         : 'text/plain',
+                      hal          : ['application/hal+json', 'application/hal+xml'],
+                      xml          : ['text/xml', 'application/xml']
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -60,16 +60,27 @@ grails {
         // filteringCodecForContentType.'text/html' = 'html'
     }
 }
-environments{
-    development{
+grails {
+    plugin {
+        facebooksdk {
+            app = [
+                    id    : '982776161775775',
+                    //permissions: APP_PERMISSIONS,
+                    secret: '40734c02481a4a54e0c5152d50125200'
+            ]
+        }
+    }
+}
+environments {
+    development {
         userImageFolder = "${userHome}/linksharingimages"
         documentFolder = "${userHome}/linksharingdocuments"
     }
-    test{
+    test {
 //        userImageFolder = "${userHome}/linksharingimages"
 //        documentFolder = "${userHome}/linksharingdocuments"
     }
-    production{
+    production {
 //        userImageFolder = //"${userHome}/linksharingimages"
 //        documentFolder = //"${userHome}/linksharingdocuments"
     }
@@ -86,7 +97,7 @@ grails.enable.native2ascii = true
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
 // whether to disable processing of multi part requests
-grails.web.disable.multipart=false
+grails.web.disable.multipart = false
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
@@ -116,22 +127,22 @@ log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
     appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+        console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
     }
 
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
-           'grails.app.controllers.UtilController'
-    fatal  'grails.app.controllers.UtilController'
+    error 'org.codehaus.groovy.grails.web.servlet',        // controllers
+            'org.codehaus.groovy.grails.web.pages',          // GSP
+            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping',        // URL mapping
+            'org.codehaus.groovy.grails.commons',            // core / classloading
+            'org.codehaus.groovy.grails.plugins',            // plugins
+            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
+    'grails.app.controllers.UtilController'
+    fatal 'grails.app.controllers.UtilController'
 //    debug  'org.hibernate.sql'
 //    trace  'org.hibernate.type'
 
@@ -139,15 +150,32 @@ log4j.main = {
 }
 
 grails.plugin.console.enabled = true
-grails{
-    mail{
+grails {
+    mail {
         host = "smtp.gmail.com"
         port = 465
         username = "linksharingapplication@gmail.com"
         password = "64135271"
-        props = ["mail.smtp.auth":"true",
-                 "mail.smtp.socketFactory.port":"465",
-                    "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                     "mail.smtp.socketFactory.fallback":"false"]
+        props = ["mail.smtp.auth"                  : "true",
+                 "mail.smtp.socketFactory.port"    : "465",
+                 "mail.smtp.socketFactory.class"   : "javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback": "false"]
     }
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.logout.postonly = false
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'linksharing.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'linksharing.UserRole'
+grails.plugin.springsecurity.authority.className = 'linksharing.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll']
+]
+

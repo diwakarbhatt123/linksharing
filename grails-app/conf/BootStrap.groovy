@@ -1,14 +1,7 @@
-import jline.internal.Log
-import linksharing.DocumentResource
-import linksharing.LinkResource
-import linksharing.ReadingItem
-import linksharing.Resource
-import linksharing.ResourceRating
 import com.intelligrape.linksharing.Seriousness
-import linksharing.Subscription
-import linksharing.Topic
-import linksharing.User
 import com.intelligrape.linksharing.Visibility
+import jline.internal.Log
+import linksharing.*
 
 class BootStrap {
     def grailsApplication
@@ -25,19 +18,14 @@ class BootStrap {
 
     void createUser() {
         if (User.count() == 0) {
-            User user = new User(firstname: "Diwakar", lastname: "Bhatt", email: "diwakarbhatt68@gmail.com", username: "diwakarbhatt68", password: Passwords.defPassword, confirmPassword: Passwords.defPassword, admin: true, active: true, imagePath: "");
-            Log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${user.fullName}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-            User admin = new User(firstname: "User2", lastname: "User2", email: "user2@gmail.com", username: "User2", password: Passwords.defPassword, confirmPassword: Passwords.defPassword, admin: false, active: false);
-            if (user.validate()) {
-                user.save(flush: true, failOnError: true)
-            } else
-                log.error("Could not Validate")
-
-            if (admin.validate()) {
-                User userReturned = admin.save(flush: true, failOnError: true)
-                log.info(userReturned)
-            } else
-                log.error("Could not Validate")
+            User user = new User(firstname: "Diwakar", lastname: "Bhatt", email: "diwakarbhatt68@gmail.com", username: "diwakarbhatt68", password: Passwords.defPassword,confirmPassword:Passwords.defPassword, admin: true, active: true, imagePath: "");
+            User admin = new User(firstname: "User2", lastname: "User2", email: "user2@gmail.com", username: "User2", password: Passwords.defPassword,confirmPassword:Passwords.defPassword, active: false);
+            if(user.validate()) {
+                user.save(flush:true,failOnError:true)
+            }
+            if(user.validate()) {
+                admin.save(flush: true, failOnError: true)
+            }
         } else {
             Log.info("Users already Exists")
         }
@@ -75,9 +63,9 @@ class BootStrap {
     }
 
     void subscribeTopic() {
-        User.list().each {user ->
+        User.list().each { user ->
             Topic.list().each { topic ->
-                if (Subscription.countByUserAndTopic(user,topic) == 0 && user.id != topic.createdBy.id) {
+                if (Subscription.countByUserAndTopic(user, topic) == 0 && user.id != topic.createdBy.id) {
                     Subscription subscription = new Subscription(seriousness: Seriousness.VERYSERIOUS, user: user, topic: topic).save(flush: true, failOnError: true)
                 } else {
                     Log.info("${user.fullName} is already subscribed to ${topic.name}")

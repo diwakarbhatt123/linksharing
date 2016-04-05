@@ -2,11 +2,21 @@ package linksharing
 
 import com.intelligrape.linksharing.Visibility
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.ProviderManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
 
-class LoginController {
+class LoginController extends grails.plugin.springsecurity.LoginController {
     def photoUploaderService
 
     def index() {
+        def user = springSecurityService.currentUser
+        session.user = user
         if (session.user) {
             forward(controller: "user", action: "index")
         } else {
@@ -34,9 +44,22 @@ class LoginController {
         render message as JSON
     }
 
+    def auth() {
+
+        def config = SpringSecurityUtils.securityConfig
+        if (springSecurityService.isLoggedIn()) {
+            redirect controller: "login", action: "index"
+            return
+        }
+
+        List topPosts = Resource.topPosts()
+        List recentPosts = recentPosts()
+        render(view: "login", model: [topPosts: topPosts, recentPosts: recentPosts])
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def logout() {
-        session.invalidate()
-        redirect(controller: "login")
+        redirect(url: "/j_spring_security_logout");
     }
 
     private recentPosts() {
@@ -49,8 +72,9 @@ class LoginController {
         return recentPosts
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def register() {
-        if(!params.photo.empty) {
+        if (!params.photo.empty) {
             String imagePath = photoUploaderService.uploadPicture(params.photo)
             params.imagePath = imagePath
         }
@@ -58,10 +82,11 @@ class LoginController {
         User registerUser = new User(params)
         if (registerUser.validate()) {
             registerUser.save()
-            session.user = registerUser
-            redirect(action:"index")
+            springSecurityService.reauthenticate(registerUser.username,registerUser.password)
+            redirect(action: "index")
         } else {
             flash.error = "Could not register"
+            redirect(url: "/")
         }
     }
 

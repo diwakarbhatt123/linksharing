@@ -2,11 +2,12 @@ package linksharing
 
 import com.intelligrape.linksharing.Seriousness
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 class SubscriptionController {
 
     def index() {}
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def delete(int id) {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
         if (subscription) {
@@ -18,7 +19,7 @@ class SubscriptionController {
         redirect(url:request.getHeader('referer'))
 
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def save(int id) {
         User subscriber = session.user
         Subscription newSubscription = new Subscription(user: subscriber, topic: Topic.get(id), seriousness: Seriousness.SERIOUS)
@@ -31,7 +32,7 @@ class SubscriptionController {
         redirect(url:request.getHeader('referer'))
 
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def update(long id, String seriousness) {
         def message
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
