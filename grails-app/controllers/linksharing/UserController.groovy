@@ -14,7 +14,7 @@ class UserController {
 
     def index() {
         List<TopicVO> trendingTopics = Topic.trendingTopic
-        render(view: "user", model: [trendingTopics: trendingTopics])
+        render(view: "index", model: [trendingTopics: trendingTopics])
     }
 
     def showProfile() {
@@ -81,7 +81,7 @@ class UserController {
     }
 
     def loadInbox() {
-        List<Resource> unreadPosts = ReadingItem.createCriteria().list([max: 3]) {
+        List<Resource> unreadPosts = ReadingItem.createCriteria().list() {
             projections {
                 property("resource")
             }

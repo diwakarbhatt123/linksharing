@@ -1,8 +1,8 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="box box-warning">
+    <div class="box-header with-border">
         <div class="row">
             <div class="col-xs-4">
-                <strong>Posts: "${topicName}"</strong></div>
+                <strong class="box-title">Posts: "${topicName}"</strong></div>
 
             <div class="col-xs-4 pull-right">
                 <div class="input-group">
@@ -14,10 +14,18 @@
                     </div>
                 </div>
             </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
     </div>
 
-    <div class="panel-body" id="postsSection">
+    <div class="box-body" id="postsSection">
             <g:render template="resourcepanelbody" model="[resources: resources]"/>
     </div>
 </div>
+<script>
+    $("#resource-scrollable").slimScroll({
+        height : '434px'
+    });
+</script>

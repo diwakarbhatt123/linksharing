@@ -137,6 +137,18 @@ log4j.main = {
 
 
 }
+oauth {
+    providers {
+        facebook {
+            api = org.scribe.builder.api.FacebookApi
+            key = 'oauth_facebook_key'
+            secret = 'oauth_facebook_secret'
+            successUri = '/oauth/facebook/success'
+            failureUri = '/oauth/facebook/error'
+            callback = "${baseURL}/oauth/facebook/callback"
+        }
+    }
+}
 
 grails.plugin.console.enabled = true
 grails{

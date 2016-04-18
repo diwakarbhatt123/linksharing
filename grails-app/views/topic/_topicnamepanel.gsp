@@ -1,16 +1,14 @@
 <%@ page import="linksharing.Topic" %>
-<div class="panel panel-default">
-    <div class="panel-heading"><strong>Topic: "${topic.name}"</strong></div>
+<div class="box box-warning">
+    <div class="box-header with-border"><strong class="box-title">Topic: "${topic.name}"</strong></div>
 
-    <div class="panel-body">
+    <div class="box-body">
         <div class="row" id="alertPanelSection">
-            <div id="alertPanel">
                 <div class="alert alert-success" hidden="hidden" id="responseMessage">
-                    <a href="#" id="alertDismiss" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <a href="#" id="alertDismiss" class="close" aria-label="close">&times;</a>
                     <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.
                     </span>
                 </div>
-            </div>
         </div>
 
         <div>
@@ -90,3 +88,8 @@
         </div>
     </div>
 </div>
+<script>
+$("#alertDismiss").click(function(){
+  $("#responseMessage").fadeOut();
+});
+</script>

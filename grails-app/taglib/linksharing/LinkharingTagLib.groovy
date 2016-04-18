@@ -74,13 +74,21 @@ class LinkharingTagLib {
         out << subscription
     }
     def resourceCount = { attr, body ->
-        out << Resource.countByTopic(Topic.read(attr.topicId))
+        if(attr.topicId) {
+            out << Resource.countByTopic(Topic.read(attr.topicId))
+        }
+        else if(attr.user){
+            out << Resource.countByCreatedBy(attr.user)
+        }
+        }
+    def readingItemCount = { attr, body ->
+        out << ReadingItem.countByUser(attr.user)
     }
     def topicCount = { attr, body ->
         out << Topic.countByCreatedBy(attr.user)
     }
     def userImage = { attr, body ->
-        out << "<img src='${createLink(controller: "user", action: "renderFromDirectory", id: "${attr.userId}")}' width=64 height=64 >"
+        out << "<img src='${createLink(controller: "user", action: "renderFromDirectory", id: "${attr.userId}")}' class='img-circle' alt='User Image'>"
     }
     def documentOrLink = { attr, body ->
         Resource resource = Resource.read(attr.resourceId)

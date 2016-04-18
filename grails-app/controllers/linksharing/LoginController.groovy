@@ -2,6 +2,7 @@ package linksharing
 
 import com.intelligrape.linksharing.Visibility
 import grails.converters.JSON
+import org.springframework.web.multipart.MultipartFile
 
 class LoginController {
     def photoUploaderService
@@ -12,7 +13,7 @@ class LoginController {
         } else {
             List topPosts = Resource.topPosts()
             List recentPosts = recentPosts()
-            render(view: "login", model: [topPosts: topPosts, recentPosts: recentPosts])
+            render(view: "/login/index", model: [topPosts: topPosts, recentPosts: recentPosts])
         }
     }
 
@@ -50,8 +51,9 @@ class LoginController {
     }
 
     def register() {
-        if(!params.photo.empty) {
-            String imagePath = photoUploaderService.uploadPicture(params.photo)
+        println params
+        if(!params.regPhoto.empty) {
+            String imagePath = photoUploaderService.uploadPicture(params.regPhoto)
             params.imagePath = imagePath
         }
         params.active = true;
@@ -61,11 +63,12 @@ class LoginController {
             session.user = registerUser
             redirect(action:"index")
         } else {
+            println registerUser.errors.allErrors
             flash.error = "Could not register"
         }
     }
 
     def loadLoginPanel() {
         render(template: "login")
-    }
+   }
 }

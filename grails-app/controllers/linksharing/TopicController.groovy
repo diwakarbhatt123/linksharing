@@ -15,7 +15,7 @@ class TopicController {
         List<User> subscribedUsers = topic.subscribedUsers
         List<Resource> topicResources = Resource.findAllByTopic(topic)
 
-        println topicResources
+        println subscribedUsers
         TopicVO topicVO = new TopicVO(id: topic.id, name: topic.name, visibility: topic.visibility, count: Resource.countByTopic(topic), createdBy: topic.createdBy, subscribers: Subscription.countByTopic(topic))
         render(view: "show", model: [subscribedUsers: subscribedUsers, topicResources: topicResources, topic: topicVO])
     }

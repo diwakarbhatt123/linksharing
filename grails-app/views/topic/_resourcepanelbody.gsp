@@ -1,3 +1,4 @@
+<div id="resource-scrollable">
 <g:if test="${resources.empty}">
     <p>No Posts Found</p>
 </g:if>
@@ -39,3 +40,4 @@
     </div>
 </g:each>
 </g:else>
+    </div>

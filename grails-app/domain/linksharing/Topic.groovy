@@ -48,7 +48,7 @@ class Topic {
     }
 
     static List<TopicVO> getTrendingTopic() {
-       List list =  Resource.createCriteria().list(max : 5){
+       List list =  Resource.createCriteria().list(max : 6){
            projections
                    {
                        groupProperty("topic")

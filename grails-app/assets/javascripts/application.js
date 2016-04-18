@@ -115,7 +115,7 @@ function changeSeriouness(seriousness, id, panelName) {
         error: function (data) {
             if (panelName == "subscription") {
                 loadSubscription(function () {
-                    $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
+                    $("#responseMessageSubs").attr("class", "alert alert-danger").fadeIn();
                     $("#responseMessageSubs > .visibilityText").text(response);
                 })
             }
