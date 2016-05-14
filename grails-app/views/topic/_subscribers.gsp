@@ -1,6 +1,6 @@
 <div class="box box-warning">
     <div class="box-header with-border">
-        <strong class="box-title">Users: "${topicName}"</strong>
+        <strong class="box-title">Subscribers: "${topicName}"</strong>
 
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
