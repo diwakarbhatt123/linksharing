@@ -25,7 +25,7 @@
                     <div>
                         <div class="col-xs-2">
                             <g:if test="${session.user.imagePath}">
-                                <ls:userImage userId="${session.user.createdBy.id}"/>
+                                <img src='${createLink(controller: "user", action: "renderFromDirectory", id: "${session.user.id}")}' style="width:80px;" class='img-circle' alt='User Image'>
                             </g:if>
                             <g:else>
                                 <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
