@@ -1,7 +1,6 @@
 package com.intelligrape.linksharing
 
 import grails.validation.Validateable
-import linksharing.User
 
 @Validateable
 class EmailDTO {

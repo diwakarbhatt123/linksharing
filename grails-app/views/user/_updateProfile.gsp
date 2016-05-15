@@ -73,7 +73,19 @@
             firstname: "required",
             lastname: "required",
             username: {
+<<<<<<< HEAD
                 required : true
+=======
+                required : true,
+                remote: {
+                    type: 'post',
+                    url: '/user/uniqueUsername',
+                    data: {
+                        username: console.log(function(){
+                            return $('#registrationForm > #username').val()})
+                    }
+                }
+>>>>>>> bd373b2f550e42a7ecaf10cc8e86241ba9b8d157
             }
         },
         messages: {

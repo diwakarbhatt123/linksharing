@@ -1,7 +1,5 @@
 package linksharing
 
-import org.apache.commons.logging.Log
-
 class LoginFilters {
 
     def filters = {

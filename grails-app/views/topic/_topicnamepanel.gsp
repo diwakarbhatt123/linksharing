@@ -63,7 +63,7 @@
                 </div>
                 <g:if test="${session.user}">
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-4">
                         </div>
 
                         <div class="col-xs-5">
@@ -81,7 +81,20 @@
                                        style="font-size:20px;"></i>
                                 </a>
                             </g:if>
+
                         </div>
+                        <g:if test="${session.user && (session.user.admin || session.user.id == trendingTopic.createdBy.id)}">
+
+                            <div><a href="javascript:void(0);" class="editButton"
+                                    id="editTopicIcon"><i
+                                        class="glyphicon glyphicon-file col-xs-1"
+                                        style="font-size:20px;"></i></a></div>
+
+                            <div><a href="javascript:void(0);"
+                                    onclick="deleteTopic(${topic.id}, 'trendingTopics')"><i
+                                        class="glyphicon glyphicon-trash col-xs-1"
+                                        style="font-size:20px;"></i></a></div>
+                        </g:if>
                     </div>
                 </g:if>
             </div>

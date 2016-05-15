@@ -7,6 +7,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"
                                      xmlns:z-index="http://www.w3.org/1999/xhtml"><!--<![endif]-->
 <head>
+<<<<<<< HEAD
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -29,6 +30,15 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!-- REQUIRED JS SCRIPTS -->
     <!-- jQuery 2.1.4 -->
+=======
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title><g:layoutTitle default="Grails"/></title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+>>>>>>> bd373b2f550e42a7ecaf10cc8e86241ba9b8d157
     <asset:javascript src="jquery.min.js"/>
     <asset:javascript src="jquery-ui.min.js"/>
     <asset:javascript src="transition.js"/>
@@ -217,6 +227,7 @@
                         <li><g:link controller="user" action="showProfile"><i class="fa fa-circle-o"></i>Account Setting</g:link></li>
                     </ul>
                 </li>
+<<<<<<< HEAD
                 <g:if test="${session.user.admin}">
                     <li class="active"><g:link controller="user" action="usershow"><i class="fa fa-laptop"></i> <span>Admin</span></g:link></li>
                 </g:if>
@@ -229,5 +240,24 @@
     <g:render template="/linkResource/create"/>
     <g:render template="/documentResource/create"/>
     <g:layoutBody/>
+=======
+            </g:if>
+        </ul>
+    </div>
+</nav>
+<g:if test="${flash.message}">
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        ${flash.message}
+    </div>
+</g:if>
+<g:elseif test="${flash.error}">
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        ${flash.error}
+    </div>
+</g:elseif>
+<g:layoutBody/>
+>>>>>>> bd373b2f550e42a7ecaf10cc8e86241ba9b8d157
 </body>
 </html>

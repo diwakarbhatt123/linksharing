@@ -24,9 +24,13 @@ class ResourceController {
     }
     def search(ResourceSearchCO co) {
         if (co.q) {
-            co.visibility = Visibility.PUBLIC
             List<Resource> resources = Resource.search(co).list();
-            render(view: "search", model: [searchResources: resources,query:co.q])
+
+
+            List<Topic> topics = Topic.search(co).list();
+
+            println topics;
+            render(view: "search", model: [searchResources: resources,searchTopics:topics,query:co.q])
         } else
             flash.message = "No input in query"
     }

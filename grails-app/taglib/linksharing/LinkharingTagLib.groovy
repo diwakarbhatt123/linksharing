@@ -67,7 +67,7 @@ class LinkharingTagLib {
         if (attr.topicId) {
             subscription = Subscription.countByTopic(Topic.read(attr.topicId))
         } else if (attr.user) {
-            subscription = Subscription.countByUser(session.user)
+            subscription = Subscription.countByUser(attr.user)
         } else if (attr.topicId && attr.user) {
             subscription = Subscription.countByUserAndTopic(session.user, Topic.read(attr.topicId))
         }
@@ -93,7 +93,7 @@ class LinkharingTagLib {
     def documentOrLink = { attr, body ->
         Resource resource = Resource.read(attr.resourceId)
         if (resource?.isLinkResource()) {
-            out << "<div class=\"col-xs-3\">${g.link(url: "${resource?.url}", target: "_blank", "View Full Site")}</div>"
+            out << "<div class=\"col-xs-3 text-nowrap\">${g.link(url: "${resource?.url}", target: "_blank", "View Full Site")}</div>"
         } else {
             out << "<div class=\"col-xs-3\">${g.link(controller: "documentResource", action: "downloadDocument", id: "${attr.resourceId}", "Download")}</div>"
         }

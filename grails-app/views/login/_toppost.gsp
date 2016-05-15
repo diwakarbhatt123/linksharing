@@ -2,8 +2,12 @@
     <div class="box-header with-border">
         <strong class="box-title">Top Posts</strong>
 
+<<<<<<< HEAD
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+=======
+        %{--<div class="btn-group pull-right">--}%
+>>>>>>> bd373b2f550e42a7ecaf10cc8e86241ba9b8d157
             %{--<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Today<span--}%
                     %{--class="caret"></span></button>--}%
             %{--<ul class="dropdown-menu">--}%
@@ -11,7 +15,11 @@
                 %{--<li><a href="#">1 Week</a></li>--}%
                 %{--<li><a href="#">1 Month</a></li>--}%
             %{--</ul>--}%
+<<<<<<< HEAD
         </div>
+=======
+        %{--</div>--}%
+>>>>>>> bd373b2f550e42a7ecaf10cc8e86241ba9b8d157
     </div>
 
     <div class="box-body">

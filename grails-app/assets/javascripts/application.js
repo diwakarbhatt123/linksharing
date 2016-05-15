@@ -126,6 +126,14 @@ function changeSeriouness(seriousness, id, panelName) {
         }
     });
 }
+function loadTopicNamePanel(callback,id)
+{
+    $("#topicNameSection").load("/topic/loadTopicNamePanel", function (data) {
+        if (callback) {
+            callback();
+        }
+    });
+}
 function loadTrendingTopics(callback) {
     console.log("This was called")
     $("#trendingTopicsSection").load("/user/loadTrendingTopics", function (data) {
@@ -229,4 +237,12 @@ function deleteTopic(id, panelName) {
         }
     });
 }
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=982776161775775";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
 

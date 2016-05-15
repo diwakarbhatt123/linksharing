@@ -5,9 +5,6 @@ import com.intelligrape.linksharing.RandomPasswordGenerator
 import com.intelligrape.linksharing.TopicVO
 import com.intelligrape.linksharing.UserCO
 import grails.converters.JSON
-import jline.internal.Log
-import org.springframework.web.multipart.MultipartFile
-
 
 class UserController {
     def emailService

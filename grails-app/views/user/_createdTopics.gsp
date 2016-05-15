@@ -79,9 +79,14 @@
                                     <small class="text-muted">@${topic.createdBy.username}</small>
                                 </div>
 
+<<<<<<< HEAD
                                 <div class="col-xs-4"><p class="text-info"><ls:subscriptionCount
                                         user="${session.user}"/></p>
                                 </div>
+=======
+                        <div class="col-xs-4"><p class="text-info"><ls:subscriptionCount topicId="${topic.id}"/></p>
+                        </div>
+>>>>>>> bd373b2f550e42a7ecaf10cc8e86241ba9b8d157
 
 
                                 <div class="col-xs-4"><p class="text-info"><ls:resourceCount topicId="${topic.id}"/></p>
