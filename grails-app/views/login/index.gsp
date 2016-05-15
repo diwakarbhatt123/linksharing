@@ -81,10 +81,10 @@
 <header>
     <div class="header-content">
         <div class="header-content-inner">
-            <h1>Your Favorite Source of Free Bootstrap Themes</h1>
+            <h1>The Latest Knowledge Sharing Platform</h1>
             <hr>
 
-            <p>Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
+            <p>Linksharing is the the place for sharing usefull posts, links & documents</p>
             <a href="#signup" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
         </div>
     </div>
@@ -104,7 +104,7 @@
             <g:set var="pic" value="${1}"/>
             <g:each in="${linksharing.Topic.trendingTopic}" var="topic">
                 <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
+                    <a href="#login" class="portfolio-box page-scroll">
                         <g:img src="portfolio/${pic++}.jpg" class="img-responsive"/>
 
                         <div class="portfolio-box-caption">

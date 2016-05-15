@@ -1,7 +1,7 @@
-<div class="panel panel-default">
-    <div class="panel-heading"><strong>Update Profile</strong></div>
+<div class="box box-warning">
+    <div class="box-header with-border"><strong class="box-title">Update Profile</strong></div>
 
-    <div class="panel-body">
+    <div class="box-body">
         <g:uploadForm name="profileUpdateForm" controller="user" action="updateProfile" class="form-horizontal">
             <div class="form-group">
                 <label class="col-xs-4">First Name</label>
@@ -36,6 +36,30 @@
             </div>
 
             <div class="form-group">
+                <label class="col-xs-4">City</label>
+
+                <div class="col-xs-5">
+                    <g:textField value="${session.user.city}" name="city" type="text" class="form-control" id="city"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-4">Country</label>
+
+                <div class="col-xs-5">
+                    <g:textField value="${session.user.country}" name="country" type="text" class="form-control" id="country"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-4">Bio</label>
+
+                <div class="col-xs-5">
+                    <g:textArea value="${session.user.bio}" name="bio" type="text" class="form-control" id="bio"/>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-xs-10">
                     <g:submitButton name="updateProfile" value="Update" class="btn btn-primary"/>
                 </div>
@@ -49,15 +73,7 @@
             firstname: "required",
             lastname: "required",
             username: {
-                required : true,
-                remote: {
-                    type: 'post',
-                    url: 'user/uniqueUsername',
-                    data: {
-                        username: console.log(function(){
-                            return $('#registrationForm > #username').val()})
-                    }
-                }
+                required : true
             }
         },
         messages: {

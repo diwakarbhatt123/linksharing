@@ -13,10 +13,14 @@
 </head>
 
 <body>
-<div class="panel panel-default">
-    <div class="panel-heading"><div class="row">
-        <div class="col-xs-4">
-            <strong>Users</strong></div>
+<div class="box box-warning" style="
+padding-left: 55px;
+margin-bottom: 0px;">
+    <div class="box-header with-border">
+        <div class="row">
+         <div class="col-xs-4">
+            <strong class="box-title">Users</strong>
+          </div>
 
         <div class="col-xs-4"></div>
 
@@ -39,8 +43,8 @@
         </div>
     </div></div>
 
-    <div class="panel-body">
-        <div id="userTableSection">
+    <div class="box-body">
+        <div id="userTableSection" class="table-responsive no-padding">
         </div>
 
         <div class="pagination">

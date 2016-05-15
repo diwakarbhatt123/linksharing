@@ -5,8 +5,10 @@ import grails.converters.JSON
 class ResourceRatingController {
 
     def index() {}
-    def saveRating(long id,int rating)
-    { def message = ["message":"Success"];
+    def saveRating(long id,float rating)
+    {
+        println id+"/"+rating
+        def message = ["message":"Success"];
           User user = session.user
           Resource resource = Resource.read(id)
         ResourceRating resourceRating = ResourceRating.findByUserAndResource(user,resource)

@@ -9,6 +9,9 @@ class User {
     String lastname
     String confirmPassword
     String imagePath
+    String city
+    String country
+    String bio
     boolean admin
     boolean active
     Date dateCreated
@@ -28,6 +31,9 @@ class User {
         imagePath(nullable: true)
         admin(nullable: true)
         active(nullable: true)
+        city(nullable: true,blank: true)
+        country(nullable: true,blank: true)
+        bio(nullable: true,blank: true)
         topics(nullable: true)
         subscriptions(nullable: true)
         resources(nullable: true)

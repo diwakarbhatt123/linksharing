@@ -1,20 +1,21 @@
-<div class="panel panel-default">
-    <div class="panel-heading clearfix">
-        <h5 class="panel-title pull-left"
-            style="font-size:15px;padding-top:7.5px;"><strong>Top Posts</strong></h5>
+<div class="box box-warning">
+    <div class="box-header with-border">
+        <strong class="box-title">Top Posts</strong>
 
-        <div class="btn-group pull-right">
-            <button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Today<span
-                    class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Today</a></li>
-                <li><a href="#">1 Week</a></li>
-                <li><a href="#">1 Month</a></li>
-            </ul>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            %{--<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Today<span--}%
+                    %{--class="caret"></span></button>--}%
+            %{--<ul class="dropdown-menu">--}%
+                %{--<li><a href="#">Today</a></li>--}%
+                %{--<li><a href="#">1 Week</a></li>--}%
+                %{--<li><a href="#">1 Month</a></li>--}%
+            %{--</ul>--}%
         </div>
     </div>
 
-    <div class="panel-body">
+    <div class="box-body">
+        <div id="topPost-scrollable">
         <g:if test="${topPosts.isEmpty()}">
             <p>No Top Posts</p>
         </g:if>
@@ -64,5 +65,11 @@
                 </div>
             </g:each>
         </g:else>
+       </div>
     </div>
 </div>
+<script>
+    $("#topPost-scrollable").slimScroll({
+        height : '326px'
+    });
+</script>

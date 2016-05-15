@@ -26,7 +26,7 @@
                     <div>
                         <div class="col-xs-2">
                             <g:if test="${trendingTopic.createdBy.imagePath}">
-                                <ls:userImage userId="${trendingTopic.createdBy.id}"/>
+                                <img src='${createLink(controller: "user", action: "renderFromDirectory", id: "${trendingTopic.createdBy.id}")}' style="width:80px;" class='img-circle' alt='User Image'>
                             </g:if>
                             <g:else>
                                 <div class="glyphicon glyphicon-user" style="font-size:60px"></div>
@@ -69,7 +69,7 @@
 
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <small class="text-muted">@${trendingTopic.createdBy.username}</small>
+                                    <small class="text-muted"><g:link controller="user" action="userProfile" params="${[username:trendingTopic.createdBy.username]}">@${trendingTopic.createdBy.username}</g:link></small>
                                 </div>
 
                                 <div class="col-xs-1"></div>

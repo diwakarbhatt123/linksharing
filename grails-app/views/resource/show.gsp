@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta content="main" name="layout">
+    <asset:stylesheet src="jquery.rateyo.min.css"/>
     <title>Resource Show</title>
 </head>
 
@@ -23,7 +24,7 @@
                             <div>
                                 <div class="col-xs-2">
                                     <g:if test="${resource?.createdBy?.imagePath}">
-                                        <ls:userImage userId="${resource?.createdBy?.id}"/>
+                                        <img src='${createLink(controller: "user", action: "renderFromDirectory", id: "${resource?.createdBy?.id}")}' style="width:90px;" class='img-circle' alt='User Image'>
                                     </g:if>
                                     <g:else>
                                         <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
@@ -48,7 +49,7 @@
 
                                     <div class="row" style="padding-bottom:10px">
                                         <div class="col-xs-4">
-                                            <small class="text-muted">@${resource?.createdBy?.username}</small>
+                                            <small class="text-muted"><g:link controller="user" action="userProfile" params="${[username:resource.createdBy.username]}">@${resource?.createdBy?.username}</g:link></small>
                                         </div>
 
                                         <div class="col-xs-2"></div>
@@ -60,25 +61,24 @@
                                     <g:if test="${session.user}">
                                         <div class="row" style="padding-bottom:15px">
                                             <div class="col-xs-4"></div>
-
-                                            <form name="ratingForm" class="form-horizontal">
-                                                <div class="col-xs-4">
-                                                    <g:select
-                                                            value="${linksharing.ResourceRating.findByUserAndResource(session.user, resource)}"
-                                                            name="rating" from="${0..5}" class="form-control"/>
-                                                </div>
-                                                <g:hiddenField name="id" value="${resource.id}"/>
-                                                <div class="col-xs-4">
-                                                    <input name="vote" id="vote" type="button" value="Vote"
-                                                           class="btn btn-success"/>
-                                                </div>
-                                            </form>
+                                            <div class="rateyo-readonly-widg jq-ry-container" style="margin-left: 145px;"></div>
+                                            %{--<form name="ratingForm" class="form-horizontal">--}%
+                                                %{--<div class="col-xs-4">--}%
+                                                    %{--<g:select--}%
+                                                            %{--value="${linksharing.ResourceRating.findByUserAndResource(session.user, resource)}"--}%
+                                                            %{--name="rating" from="${0..5}" class="form-control"/>--}%
+                                                %{--</div>--}%
+                                                %{--<g:hiddenField name="id" value="${resource.id}"/>--}%
+                                                %{--<div class="col-xs-4">--}%
+                                                    %{--<input name="vote" id="vote" type="button" value="Vote"--}%
+                                                           %{--class="btn btn-success"/>--}%
+                                                %{--</div>--}%
+                                            %{--</form>--}%
                                         </div>
 
                                         <div class="row">
                                             <div class="alert alert-success" hidden="hidden" id="responseMessageRating">
-                                                <a href="#" class="close" data-dismiss="alert"
-                                                   aria-label="close">&times;</a>
+                                                <a href="#" id="alertDismiss" class="close" aria-label="close">&times;</a>
                                                 <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.
                                                 </span>
                                             </div>
@@ -133,11 +133,17 @@
                 </g:if>
             </div>
         </div>
+        <asset:javascript src="jquery.rateyo.min.js"/>
         <script>
-            $("#vote").click(function () {
+        console.log(${rating});
+        $(".rateyo-readonly-widg").rateYo({
+            rating: ${rating},
+            halfStar: true,
+            starWidth: "25px",
+            onSet: function (score,rateYoInstance) {
                 $.ajax({
                     url: "/resourceRating/saveRating",
-                    data: {"id": $("#id").val(), "rating": $("#rating").val()},
+                    data: {"id": $("#id").val(), "rating": score},
                     method: "POST",
                     success: function (data) {
                         var response = data.message;
@@ -156,7 +162,11 @@
                         $("#responseMessageRating > .visibilityText").text(data.statusText);
                     }
                 });
-            });
+            }
+        });
+        $("#alertDismiss").click(function(){
+            $("#responseMessageRating").fadeOut();
+        });
         </script>
     </section>
 </div>

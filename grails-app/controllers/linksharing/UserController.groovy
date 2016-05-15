@@ -3,6 +3,7 @@ package linksharing
 import com.intelligrape.linksharing.EmailDTO
 import com.intelligrape.linksharing.RandomPasswordGenerator
 import com.intelligrape.linksharing.TopicVO
+import com.intelligrape.linksharing.UserCO
 import grails.converters.JSON
 import jline.internal.Log
 import org.springframework.web.multipart.MultipartFile
@@ -24,9 +25,23 @@ class UserController {
     def loadCreatedTopics() {
         render(template: "/user/createdTopics", model: [createdTopics: session.user.getCreatedTopics()])
     }
+    def loadCreatedPosts(long id){
+
+        List<Resource> posts = Resource.findAllByCreatedBy(User.get(id));
+        render(template:"/user/createdPosts",model:[createdPosts:posts])
+    }
 
     def usershow() {
         render(view: "usershow", model: [userCount: User.count])
+    }
+
+    def userProfile(String username)
+    {
+        User user = User.findByUsername(username);
+        List<Topic> topics = Topic.findAllByCreatedBy(user);
+        List<Resource> posts = Resource.findAllByCreatedBy(user,[max:5]);
+        println topics
+        render(view: "userProfile",model:[user:user,userPosts:posts,topic:topics])
     }
 
     def loadUserTable(String q, String sortBy) {
@@ -118,15 +133,19 @@ class UserController {
         render message as JSON
     }
 
-    def updateProfile(String firstname, String lastname, String username) {
+    def updateProfile(UserCO userCO) {
+        println userCO
         User loggedInUser = User.read(session.user.id)
         if (!params.photo.empty) {
             String imagePath = photoUploaderService.uploadPicture(params.photo)
             loggedInUser.imagePath = imagePath
         }
-        loggedInUser.firstname = firstname
-        loggedInUser.lastname = lastname
-        loggedInUser.username = username
+        loggedInUser.firstname = userCO.firstname
+        loggedInUser.lastname = userCO.lastname
+        loggedInUser.username = userCO.username
+        loggedInUser.city = userCO.city
+        loggedInUser.country = userCO.country
+        loggedInUser.bio = userCO.bio
         if (loggedInUser.validate()) {
             loggedInUser.save()
             session.user = loggedInUser
@@ -135,7 +154,7 @@ class UserController {
         } else {
             flash.error = "Could not Update"
         }
-        println flash.error
+        println loggedInUser.errors.allErrors
         println flash.message
     }
 

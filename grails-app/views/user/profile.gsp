@@ -21,6 +21,13 @@
 <!--****************************************************************-->
 <!-- Row 1 -->
 <!-- *************************************************** -->
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Profile Settings
+        </h1>
+    </section>
+<section class="content">
 <div class="container">
     <div class="row">
         <div class="col-xs-6">
@@ -28,12 +35,12 @@
             <div class="col-xs-12">
                 <!-- Name Panel -->
                 <!-- ************************************************** -->
-                <div class="panel panel-default">
-                    <div class="panel-body">
+                <div class="box box-warning">
+                    <div class="box-body">
                         <div>
                             <div class="col-xs-2">
                                 <g:if test="${linksharing.User.read(session.user.id).imagePath}">
-                                    <ls:userImage userId="${session.user.id}"/>
+                                    <img src='${createLink(controller: "user", action: "renderFromDirectory", id: "${session.user.id}")}' style="width: 100px;" class='img-circle' alt='User Image'>
                                 </g:if>
                                 <g:else>
                                     <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
@@ -96,9 +103,16 @@
         </div>
         </div>
     </div>
+</section>
 </div>
 <script>
     loadCreatedTopics();
 </script>
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.3.0
+    </div>
+    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+</footer>
 </body>
 </html>

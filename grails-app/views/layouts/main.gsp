@@ -4,11 +4,11 @@
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js" xmlns:z-index="http://www.w3.org/1999/xhtml"><!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"
+                                     xmlns:z-index="http://www.w3.org/1999/xhtml"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Starter</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -24,12 +24,15 @@
           apply the skin class to the body tag so the changes take effect.
     -->
     <asset:stylesheet href="skins/skin-blue.min.css"/>
-
+    <asset:stylesheet href="jquery-ui.css"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!-- REQUIRED JS SCRIPTS -->
     <!-- jQuery 2.1.4 -->
     <asset:javascript src="jquery.min.js"/>
+    <asset:javascript src="jquery-ui.min.js"/>
+    <asset:javascript src="transition.js"/>
+    <asset:javascript src="collapse.js"/>
     <!-- Bootstrap 3.3.5 -->
     <asset:javascript src="bootstrap.min.js"/>
     <!-- AdminLTE App -->
@@ -49,8 +52,6 @@
     <![endif]-->
     <g:layoutHead/>
 </head>
-
-<body>
 <!--
   BODY TAG OPTIONS:
   =================
@@ -95,61 +96,67 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown messages-menu">
-                    <a class="glyphicon glyphicon-comment" style="color:white;font-size:30px; padding-top:14px;"
-                       href="#" data-toggle="modal" data-target="#createtopic"></a></li>
-                <!-- Notifications Menu -->
+                        <a class="glyphicon glyphicon-comment" style="color:white;font-size:30px; padding-top:14px;"
+                           href="#" data-toggle="modal" data-target="#createtopic"></a></li>
+                    <!-- Notifications Menu -->
                     <li class="dropdown notifications-menu">
                         <!-- Menu toggle button -->
-                    <a class="glyphicon glyphicon-envelope" style="color:white;font-size:30px; padding-top:14px;"
-                       href="#" data-toggle="modal" data-target="#sendinvite"></a></li>
+                        <a class="glyphicon glyphicon-envelope" style="color:white;font-size:30px; padding-top:14px;"
+                           href="#" data-toggle="modal" data-target="#sendinvite"></a></li>
                     <!-- Tasks Menu -->
                     <li class="dropdown tasks-menu">
-                    <a class="glyphicon glyphicon-link" style="color:white;font-size:30px; padding-top:14px;" href="#"
-                       data-toggle="modal" data-target="#sharelink"></a></li>
+                        <a class="glyphicon glyphicon-link" style="color:white;font-size:30px; padding-top:14px;"
+                           href="#"
+                           data-toggle="modal" data-target="#sharelink"></a></li>
                     <li class="dropdown tasks-menu">
-                        <a class="glyphicon glyphicon-file" style="color:white;font-size:30px; padding-top:14px;" href="#"
+                        <a class="glyphicon glyphicon-file" style="color:white;font-size:30px; padding-top:14px;"
+                           href="#"
                            data-toggle="modal" data-target="#sharedDocument"></a>
                     </li>
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!-- The user image in the navbar-->
-                    <g:if test="${session.user.imagePath}">
-                        <img src="/user/renderFromDirectory/${session.user.id}" class="img-circle" alt="User Image" style="float: left;
-                        width: 25px;
-                        height: 25px;
-                        border-radius: 50%;
-                        margin-right: 10px;
-                        margin-top: -2px;">
-                    </g:if>
-                    <g:else>
-                        <i class="glyphicon glyphicon-user"></i>
-                    </g:else>
-                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                        <!-- The user image in the navbar-->
+                            <g:if test="${session.user.imagePath}">
+                                <img src="/user/renderFromDirectory/${session.user.id}" class="img-circle"
+                                     alt="User Image" style="float: left;
+                                width: 25px;
+                                height: 25px;
+                                border-radius: 50%;
+                                margin-right: 10px;
+                                margin-top: -2px;">
+                            </g:if>
+                            <g:else>
+                                <i class="glyphicon glyphicon-user"></i>
+                            </g:else>
+                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">${session.user.fullName}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                            <g:if test="${session.user.imagePath}">
-                                <ls:userImage userId="${session.user.id}"/>
-                            </g:if>
-                            <g:else>
-                                <i class="glyphicon glyphicon-user" style="font-size:100px;color: white;"></i>
-                            </g:else>
+                                <g:if test="${session.user.imagePath}">
+                                    <ls:userImage userId="${session.user.id}"/>
+                                </g:if>
+                                <g:else>
+                                    <i class="glyphicon glyphicon-user" style="font-size:100px;color: white;"></i>
+                                </g:else>
                                 <p>
                                     ${session.user.fullName}
-                                    <small>Member since <g:formatDate date="${session.user.dateCreated}" format="MMM-yyyy"/></small>
+                                    <small>Member since <g:formatDate date="${session.user.dateCreated}"
+                                                                      format="MMM-yyyy"/></small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <g:link controller="user" action="userProfile" params="${[username:session.user.username]}" href="#" class="btn btn-default btn-flat">Profile</g:link>
                                 </div>
+
                                 <div class="pull-right">
-                                    <g:link controller="login" action="logout" class="btn btn-default btn-flat">Sign out</g:link>
+                                    <g:link controller="login" action="logout"
+                                            class="btn btn-default btn-flat">Sign out</g:link>
                                 </div>
                             </li>
                         </ul>
@@ -174,6 +181,7 @@
                         <i class="glyphicon glyphicon-user" style="font-size:20px;color: white;padding-left:5px;"></i>
                     </g:else>
                 </div>
+
                 <div class="pull-left info">
                     <p>${session.user.fullName}</p>
                     %{--<!-- Status -->--}%
@@ -181,30 +189,37 @@
                 </div>
             </div>
 
-            <!-- search form (Optional) -->
-            <form action="#" method="get" class="sidebar-form">
+
+
+        <!-- search form (Optional) -->
+            <g:form controller="resource" action="search" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <g:textField type="text" class="form-control" placeholder="Search..." name="q" id="srch-term"/>
                     <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                        <button type="submit" name="searchsubmit" id="search-btn" class="btn btn-flat"><i
+                                class="fa fa-search"></i></button>
                     </span>
                 </div>
-            </form>
-            <!-- /.search form -->
+            </g:form>
+        <!-- /.search form -->
 
-            <!-- Sidebar Menu -->
+        <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                 <li class="header">Menu</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                 <li><a href="#"><i class="fa fa-th"></i> <span>Top Posts</span></a></li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-user"></i> <span>Profile</span> <i class="fa fa-angle-left pull-right"></i></a>
+                    <a href="#"><i class="fa fa-user"></i> <span>Profile</span> <i
+                            class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i>My Profile</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Account Setting</a></li>
+                        <li><g:link controller="user" action="userProfile" params="${[username:session.user.username]}"><i class="fa fa-circle-o"></i>My Profile</g:link></li>
+                        <li><g:link controller="user" action="showProfile"><i class="fa fa-circle-o"></i>Account Setting</g:link></li>
                     </ul>
                 </li>
+                <g:if test="${session.user.admin}">
+                    <li class="active"><g:link controller="user" action="usershow"><i class="fa fa-laptop"></i> <span>Admin</span></g:link></li>
+                </g:if>
             </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -213,6 +228,6 @@
     <g:render template="/topic/email"/>
     <g:render template="/linkResource/create"/>
     <g:render template="/documentResource/create"/>
-<g:layoutBody/>
+    <g:layoutBody/>
 </body>
 </html>

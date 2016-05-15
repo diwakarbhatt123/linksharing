@@ -1,7 +1,7 @@
-<div class="panel panel-default">
-    <div class="panel-heading"><strong>Change Password</strong></div>
+<div class="box box-warning">
+    <div class="box-header with-border"><strong class="box-title">Change Password</strong></div>
 
-    <div class="panel-body">
+    <div class="box-body">
         <div class="alert alert-success" hidden="hidden" id="responseMessagePassword">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <span class="visibilityText"><strong>Success!</strong> Indicates a successful or positive action.</span>

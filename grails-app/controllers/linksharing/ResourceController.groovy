@@ -45,12 +45,14 @@ class ResourceController {
     def show(long id) {
         Resource resource = Resource.get(id)
         List trendingTopics = Topic.trendingTopic
+        ResourceRating resourceRating = ResourceRating.findByResourceAndUser(resource,session.user);
+        Float score = (resourceRating==null)?0:resourceRating.score;
         if (resource.topic.isPublic()) {
-            render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
+            render(view: "show", model: [resource: resource, trendingTopics: trendingTopics,rating:score])
         } else {
             if (resource.canViewedBy(session.user)) {
 
-                render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
+                render(view: "show", model: [resource: resource, trendingTopics: trendingTopics,rating:score])
             } else {
                 flash.error = "User Cannot view Topic"
             }

@@ -148,6 +148,14 @@ function loadCreatedTopics(callback) {
         }
     });
 }
+function loadCreatedPosts(id,callback){
+
+    $("#createdPostsSection").load("/user/loadCreatedPosts?id="+id, function (data) {
+        if (callback) {
+            callback();
+        }
+    });
+}
 function loadSubscription(callback) {
     console.log("This was called")
     $("#subscriptionPanel").load("/user/loadSubscription", function (data) {
