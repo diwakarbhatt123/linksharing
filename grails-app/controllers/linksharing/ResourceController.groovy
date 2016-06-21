@@ -8,15 +8,13 @@ class ResourceController {
     def index() {}
 
     def delete(long id) {
-
         User loggediInUser = session.user
         Resource resource = Resource.read(id)
         if (loggediInUser.canDeleteResource(resource)) {
             if (!resource.isLinkResource()) {
-
+                resource.delete()
+                flash.message = "Resource Deleted"
             }
-            resource.delete()
-            flash.message = "Resource Deleted"
         } else {
             flash.error = "Cannot found resource"
         }

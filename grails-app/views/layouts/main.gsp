@@ -14,9 +14,11 @@
     <!-- Bootstrap 3.3.5 -->
     <asset:stylesheet href="bootstrap.min.css"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    %{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">--}%
+    <asset:stylesheet href="font-awesome.min.css"/>
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    %{--<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--}%
+    <asset:stylesheet href="ionicons.min.css"/>
     <!-- Theme style -->
     <asset:stylesheet href="AdminLTE.min.css"/>
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -39,7 +41,8 @@
     <asset:javascript src="app.min.js"/>
     <asset:javascript src="application.js"/>
     <!-- jQuery Validation -->
-    <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.js"></script>
+    %{--<script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.js"></script>--}%
+    <asset:javascript src="jquery.validate.min.js"/>
     <!-- slim scroll -->
     <asset:javascript src="jquery.slimscroll.min.js"/>
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
@@ -72,7 +75,7 @@
   |               | sidebar-mini                            |
   |---------------------------------------------------------|
   -->
-<body class="hold-transition skin-blue layout-top-nav sidebar-mini">
+<body class="hold-transition skin-blue fixed sidebar-mini">
 <div class="wrapper">
 
     <!-- Main Header -->
@@ -208,7 +211,6 @@
                 <li class="header">Menu</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-                <li><a href="#"><i class="fa fa-th"></i> <span>Top Posts</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-user"></i> <span>Profile</span> <i
                             class="fa fa-angle-left pull-right"></i></a>
@@ -229,5 +231,13 @@
     <g:render template="/linkResource/create"/>
     <g:render template="/documentResource/create"/>
     <g:layoutBody/>
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            LinkSharing
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2016 <a target="_blank" href="http://www.tothenew.com/">ToTheNew Digital</a>.</strong> All rights reserved.
+    </footer>
 </body>
 </html>
